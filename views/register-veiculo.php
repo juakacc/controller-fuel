@@ -1,17 +1,23 @@
-<?php include_once ABSPATH . '/views/_includes/header.php' ?>
+<?php
+if (!defined('ABSPATH')) exit;
+
+$model->validar_form_adicionar();
+
+include_once ABSPATH . '/views/_includes/header.php';
+?>
 
 <h3>Cadastro de veículo</h3>
 <form class="form" method="post">
   <div class="form-group row">
     <label class="col-2" for="">Nome:</label>
     <div class="col-10">
-      <input type="text" name="" value="" class="form-control">
+      <input type="text" name="nome" value="" class="form-control">
     </div>
   </div>
   <div class="form-group row">
     <label class="col-2" for="">Placa:</label>
     <div class="col-10">
-      <input type="text" name="" value="" class="form-control">
+      <input type="text" name="placa" value="" class="form-control">
     </div>
   </div>
   <div class="row">

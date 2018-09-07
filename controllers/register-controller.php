@@ -1,6 +1,6 @@
 <?php
 
-class RegisterController {
+class RegisterController extends MainController {
 
   public function carro() {
 
@@ -10,6 +10,8 @@ class RegisterController {
   }
 
   public function competencia() {
+
+    $model = $this->load_model('competencia-model');
     require_once ABSPATH . '/views/register-competencia.php';
   }
 
