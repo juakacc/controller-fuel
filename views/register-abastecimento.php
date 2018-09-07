@@ -1,4 +1,4 @@
-<?php include '_includes/header.php'; ?>
+<?php include_once ABSPATH . '/views/_includes/header.php' ?>
 
 <div class="row">
   <div class="col">
@@ -18,9 +18,9 @@
         <label for="" class="label-form col-2">Combustível:</label>
         <div class="col-10">
           <select class="form-control" name="">
-            <option value="">Gasolina</option>
-            <option value="">Diesel</option>
-            <option value="">Álcool</option>
+            <option value="gasolina">Gasolina</option>
+            <option value="diesel">Diesel</option>
+            <option value="alcool">Álcool</option>
           </select>
         </div>
       </div>
@@ -49,4 +49,4 @@
   </div>
 </div>
 
-<?php include '_includes/footer.php'; ?>
+<?php include_once ABSPATH . '/views/_includes/footer.php' ?>
