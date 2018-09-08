@@ -2,7 +2,7 @@
 if (! defined('ABSPATH')) exit;
 
 $model->validar_form_adicionar();
-$veiculos = $model->get_veiculos();
+$veiculos = VeiculoDao::get_veiculos();
 
 include_once ABSPATH . '/views/_includes/header.php'
 ?>
@@ -25,7 +25,7 @@ include_once ABSPATH . '/views/_includes/header.php'
       <div class="form-group row">
         <label for="" class="label-form col-2">Referência:</label>
         <div class="col-10">
-          <input type="text" name="referencia" value="" class="form-control" placeholder="dd/mm/aaaa">
+          <input type="text" name="referencia" value="" class="form-control" placeholder="mm/aaaa">
         </div>
       </div>
       <div class="form-group row">

@@ -13,4 +13,24 @@ class VeiculoDao {
     }
     $mysqli->close();
   }
+
+  public static function get_veiculos() {
+    $mysqli = getConexao();
+    $veiculos = array();
+    $sql = "SELECT id, nome, placa FROM veiculo";
+
+    if ($stmt = $mysqli->prepare($sql)) {
+        $stmt->execute();
+        $stmt->bind_result($id, $nome, $placa);
+
+        while ($stmt->fetch()) {
+            $c = new Veiculo($nome, $placa);
+            $c->setId($id);
+            $veiculos[] = $c;
+        }
+        $stmt->close();
+    }
+    $mysqli->close();
+    return $veiculos;
+  }
 }

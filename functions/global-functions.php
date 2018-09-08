@@ -23,7 +23,7 @@ function check_array($array, $key) {
   return null;
 }
 
-**
+/**
  * Valida uma data no formato dd/mm/aaaa ou aaaa-mm-dd,
  * retornando um boolean de acordo
  * com o resultado
