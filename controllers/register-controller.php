@@ -2,7 +2,7 @@
 
 class RegisterController extends MainController {
 
-  public function carro() {
+  public function veiculo() {
 
     $model = $this->load_model('veiculo-model');
 
@@ -16,10 +16,12 @@ class RegisterController extends MainController {
   }
 
   public function abastecimento() {
+    $model = $this->load_model('abastecimento-model');
     require_once ABSPATH . '/views/register-abastecimento.php';
   }
 
   public function conserto() {
+    $model = $this->load_model('conserto-model');
     require_once ABSPATH . '/views/register-conserto.php';
   }
 }

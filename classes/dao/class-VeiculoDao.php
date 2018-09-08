@@ -14,7 +14,7 @@ class VeiculoDao {
     $mysqli->close();
   }
 
-  public static function get_veiculos() {
+  public static function getVeiculos() {
     $mysqli = getConexao();
     $veiculos = array();
     $sql = "SELECT id, nome, placa FROM veiculo";
@@ -32,5 +32,25 @@ class VeiculoDao {
     }
     $mysqli->close();
     return $veiculos;
+  }
+
+  public static function getPorId($id) {
+    $mysqli = getConexao();
+    $sql = "SELECT nome, placa FROM veiculo WHERE id = ?";
+    $veiculo = null;
+
+    if ($stmt = $mysqli->prepare($sql)) {
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+        $stmt->bind_result($nome, $placa);
+
+        while ($stmt->fetch()) {
+            $veiculo = new Veiculo($nome, $placa);
+            $veiculo->setId($id);
+        }
+        $stmt->close();
+    }
+    $mysqli->close();
+    return $veiculo;
   }
 }

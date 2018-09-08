@@ -31,30 +31,36 @@ function check_array($array, $key) {
  * @return bool
  */
 function validar_data($data) {
-    $padrao = "/^[0-9]{2}\/[0-9]{2}\/[0-9]{4}$/";
-    $padrao2 = "/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/";
+  $padrao = "/^[0-9]{2}\/[0-9]{2}\/[0-9]{4}$/";
+  $padrao2 = "/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/";
 
-    if (preg_match($padrao, $data)) {
-        $a = explode('/', $data);
-        return checkdate($a[1], $a[0], $a[2]);
-    } else if (preg_match($padrao2, $data)) {
-        $a = explode('-', $data);
-        return checkdate($a[1], $a[2], $a[0]);
-    } else {
-        return false;
-    }
+  if (preg_match($padrao, $data)) {
+      $a = explode('/', $data);
+      return checkdate($a[1], $a[0], $a[2]);
+  } else if (preg_match($padrao2, $data)) {
+      $a = explode('-', $data);
+      return checkdate($a[1], $a[2], $a[0]);
+  } else {
+      return false;
+  }
 }
 
 // recebe no formato aaaa-mm-dd
 // retorna no formato dd/mm/aaaa
-function mostrar_data($data) {
-    $a = explode('-', $data);
-    return $a[2] . '/' . $a[1] . '/' . $a[0];
+function data_para_mostrar($data) {
+  $padrao_mostrar = "/^[0-9]{2}\/[0-9]{2}\/[0-9]{4}$/";
+  if (preg_match($padrao_mostrar, $data)) return $data;
+
+  $a = explode('-', $data);
+  return $a[2] . '/' . $a[1] . '/' . $a[0];
 }
 
 // recebe no formato dd/mm/aaaa
 // retorna no formato aaaa-mm-dd
-function transformarParaBanco($data) {
-    $a = explode('/', $data);
-    return $a[2] . '-' . $a[1] . '-' . $a[0];
+function data_para_banco($data) {
+  $padrao_banco = "/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/";
+  if (preg_match($padrao_banco, $data)) return $data;
+
+  $a = explode('/', $data);
+  return $a[2] . '-' . $a[1] . '-' . $a[0];
 }

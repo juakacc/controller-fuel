@@ -9,12 +9,20 @@ class Competencia {
 
   public function __construct($id_veiculo, $referencia, $km_inicial) {
     $this->id_veiculo = $id_veiculo;
-    $this->referencia = transformarParaBanco($referencia);
+    $this->referencia = data_para_banco($referencia);
     $this->km_inicial = $km_inicial;
+  }
+
+  public function imprimir() {
+    echo 'dadosCOMP: ' . $this->id . ' ' . $this->id_veiculo . ' ' .$this->referencia . ' ' .$this->km_inicial . '<br />';
   }
 
   public function getId() {
     return $this->id;
+  }
+
+  public function setId($id) {
+    $this->id = $id;
   }
 
   public function getIdVeiculo() {
