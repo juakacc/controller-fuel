@@ -1,3 +1,5 @@
+  </div> <!-- col -->
+</div> <!-- row -->
 <footer class="footer">
   v0.1
 </footer>

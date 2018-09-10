@@ -21,13 +21,26 @@ class ConsertoModel extends MainModel {
       }
 
       if (empty($this->form_msg)) {
-        $veiculo = VeiculoDao::getPorId($this->form_data['veiculo']);
-        $comp = CompetenciaDao::getPorVeiculoData($veiculo, $this->form_data['data']);
+        $d = explode('/', $this->form_data['data']);
+        $comp = CompetenciaDao::getPorVeiculoData($this->form_data['veiculo'], $d[1], $d[2]);
 
         $conserto = new Conserto($this->form_data['servico'], $this->form_data['data'], $comp->getId());
         ConsertoDao::adicionarConserto($conserto);
-        echo 'Gravado com sucesso';
+        $_SESSION['messages'][] = 'Conserto cadastrado com sucesso';
+        header('Location: ' . HOME_URI . 'list/consertos');
+        exit;
       }
+    }
+  }
+
+  public function validar_form_remover() {
+    $this->form_data = array();
+
+    if ($_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_POST)) {
+      ConsertoDao::removerConserto($this->controller->parameters[0]);
+      $_SESSION['messages'][] = 'Conserto removido com sucesso';
+      header('Location: ' . HOME_URI . 'list/consertos');
+      exit;
     }
   }
 }

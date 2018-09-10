@@ -2,6 +2,12 @@
 
 class MainController {
 
+  public $parameters;
+
+  public function __construct($parameters = null) {
+    $this->parameters = $parameters;
+  }
+
   public function load_model($model_name = false) {
     if (! $model_name) return;
 

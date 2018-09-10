@@ -16,19 +16,33 @@ class AbastecimentoModel extends MainModel {
         $this->form_msg['data'] = 'Data inválida';
       }
 
-      if (!is_numeric($this->form_data['qtd'])) {
+      if (! is_numeric($this->form_data['qtd'])) {
+        $this->form_data['qtd'] = '';
         $this->form_msg['qtd'] = 'Quantidade inválida';
       }
 
       if (empty($this->form_msg)) {
-        $veiculo = VeiculoDao::getPorId($this->form_data['veiculo']);
-        $comp = CompetenciaDao::getPorVeiculoData($veiculo, $this->form_data['data']);
+        $d = explode('/', $this->form_data['data']);
+        $comp = CompetenciaDao::getPorVeiculoData($this->form_data['veiculo'], $d[1], $d[2]);
 
         $abastecimento = new Abastecimento($this->form_data['combustivel'], $this->form_data['qtd'],
           $this->form_data['data'], $comp->getId());
         AbastecimentoDao::adicionarAbastecimento($abastecimento);
-        echo 'Gravado com sucesso';
+        $_SESSION['messages'][] = 'Abastecimento cadastrado com sucesso';
+        header('Location: ' . HOME_URI . 'list/abastecimentos');
+        exit;
       }
+    }
+  }
+
+  public function validar_form_remover() {
+    $this->form_data = array();
+
+    if ($_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_POST)) {
+      AbastecimentoDao::removerAbastecimento($this->controller->parameters[0]);
+      $_SESSION['messages'][] = 'Abastecimento removido com sucesso';
+      header('Location: ' . HOME_URI . 'list/abastecimentos');
+      exit;
     }
   }
 }

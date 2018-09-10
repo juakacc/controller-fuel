@@ -14,6 +14,38 @@ class AbastecimentoDao {
     $mysqli->close();
   }
 
+  public static function removerAbastecimento($id) {
+    $mysqli = getConexao();
+    $sql = "DELETE FROM abastecimento WHERE id = ?";
+
+    if ($stmt = $mysqli->prepare($sql)) {
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+        $stmt->close();
+    }
+    $mysqli->close();
+  }
+
+  public static function getPorId($id) {
+    $mysqli = getConexao();
+    $sql = "SELECT combustivel, qtd, data, competencia_id FROM abastecimento WHERE id = ?";
+    $a = null;
+
+    if ($stmt = $mysqli->prepare($sql)) {
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+        $stmt->bind_result($combustivel, $qtd, $data, $competencia_id);
+
+        if ($stmt->fetch()) {
+          $a = new Abastecimento($combustivel, $qtd, $data, $competencia_id);
+          $a->setId($id);
+        }
+        $stmt->close();
+    }
+    $mysqli->close();
+    return $a;
+  }
+
   public static function getAbastecimentos() {
     $mysqli = getConexao();
     $abastecimentos = array();

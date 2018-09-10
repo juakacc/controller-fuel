@@ -14,6 +14,38 @@ class ConsertoDao {
     $mysqli->close();
   }
 
+  public static function removerConserto($id) {
+    $mysqli = getConexao();
+    $sql = "DELETE FROM conserto WHERE id = ?";
+
+    if ($stmt = $mysqli->prepare($sql)) {
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+        $stmt->close();
+    }
+    $mysqli->close();
+  }
+
+  public static function getPorId($id) {
+    $mysqli = getConexao();
+    $sql = "SELECT servico, data, competencia_id FROM conserto WHERE id = ?";
+    $s = null;
+
+    if ($stmt = $mysqli->prepare($sql)) {
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+        $stmt->bind_result($servico, $data, $competencia_id);
+
+        if ($stmt->fetch()) {
+          $s = new Conserto($servico, $data, $competencia_id);
+          $s->setId($id);
+        }
+        $stmt->close();
+    }
+    $mysqli->close();
+    return $s;
+  }
+
   public static function getConsertos() {
     $mysqli = getConexao();
     $consertos = array();

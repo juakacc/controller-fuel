@@ -4,10 +4,26 @@ class VeiculoDao {
 
   public static function adicionarVeiculo(Veiculo $v) {
     $mysqli = getConexao();
-    $sql = "INSERT INTO veiculo (nome, placa) VALUES (?,?)";
+
+    $sql = "INSERT INTO veiculo (nome, sem_placa, placa) VALUES (?,?,?)";
+    $sem_placa = $v->getPlaca() == "";
+    $nome = $v->getNome();
+    $placa = $v->getPlaca();
 
     if ($stmt = $mysqli->prepare($sql)) {
-        $stmt->bind_param("ss", $v->getNome(), $v->getPlaca());
+        $stmt->bind_param("sis", $nome, $sem_placa, $placa);
+        $stmt->execute();
+        $stmt->close();
+    }
+    $mysqli->close();
+  }
+
+  public static function removerVeiculo($id) {
+    $mysqli = getConexao();
+    $sql = "DELETE FROM veiculo WHERE id = ?";
+
+    if ($stmt = $mysqli->prepare($sql)) {
+        $stmt->bind_param("i", $id);
         $stmt->execute();
         $stmt->close();
     }
@@ -44,13 +60,17 @@ class VeiculoDao {
         $stmt->execute();
         $stmt->bind_result($nome, $placa);
 
-        while ($stmt->fetch()) {
-            $veiculo = new Veiculo($nome, $placa);
-            $veiculo->setId($id);
+        if ($stmt->fetch()) {
+          $veiculo = new Veiculo($nome, $placa);
+          $veiculo->setId($id);
         }
         $stmt->close();
     }
     $mysqli->close();
     return $veiculo;
+  }
+
+  public static function getPorPlaca($placa) {
+
   }
 }

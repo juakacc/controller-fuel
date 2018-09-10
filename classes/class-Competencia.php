@@ -4,17 +4,19 @@ class Competencia {
 
   private $id;
   private $id_veiculo;
-  private $referencia;
+  private $mes;
+  private $ano;
   private $km_inicial;
 
-  public function __construct($id_veiculo, $referencia, $km_inicial) {
+  public function __construct($id_veiculo, $mes, $ano, $km_inicial) {
     $this->id_veiculo = $id_veiculo;
-    $this->referencia = data_para_banco($referencia);
+    $this->mes = $mes;
+    $this->ano = $ano;
     $this->km_inicial = $km_inicial;
   }
 
   public function imprimir() {
-    echo 'dadosCOMP: ' . $this->id . ' ' . $this->id_veiculo . ' ' .$this->referencia . ' ' .$this->km_inicial . '<br />';
+    echo 'dadosCOMP: ' . $this->id . ' ' . $this->id_veiculo . ' ' .$this->mes . ' ' .$this->ano . '<br />';
   }
 
   public function getId() {
@@ -29,8 +31,16 @@ class Competencia {
     return $this->id_veiculo;
   }
 
+  public function getMes() {
+    return $this->mes;
+  }
+
+  public function getAno() {
+    return $this->ano;
+  }
+
   public function getReferencia() {
-    return $this->referencia;
+    return mostrar_mes($this->mes) . '/' . $this->ano;
   }
 
   public function getKmInicial() {
