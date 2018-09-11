@@ -11,6 +11,13 @@ class CompetenciaModel extends MainModel {
         $this->form_data[$key] = $value;
       }
 
+      if (CompetenciaDao::getPorVeiculoData($this->form_data['veiculo'],
+          $this->form_data['mes'], $this->form_data['ano'])) {
+        $this->form_msg['veiculo'] = 'Competência já registrada';
+      }
+
+      $this->form_data['km_inicial'] = str_replace('.', '', $this->form_data['km_inicial']);
+
       if (! is_numeric($this->form_data['km_inicial'])) {
         $this->form_data['km_inicial'] = '';
         $this->form_msg['km_inicial'] = 'Quilometragem inválida';

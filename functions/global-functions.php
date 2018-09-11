@@ -45,6 +45,11 @@ function validar_data($data) {
   }
 }
 
+function validar_placa($placa) {
+  $padrao = "/^[a-zA-Z]{3}-[0-9]{4}$/";
+  return preg_match($padrao, $placa);
+}
+
 function mostrar_mes($m) {
   switch ($m) {
     case 1:

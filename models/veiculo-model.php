@@ -16,12 +16,16 @@ class VeiculoModel extends MainModel {
       }
 
       if (! check_array($this->form_data, 'sem_placa')) {
-        if (strlen($this->form_data['placa']) == 0) {
+        if (! validar_placa($this->form_data['placa'])) {
           $this->form_msg['placa'] = 'Digite uma placa válida';
+        } else {
+          $this->form_data['placa'] = strtoupper($this->form_data['placa']);
+          // Verifica se a placa já está cadastrada
+          if (VeiculoDao::getPorPlaca($this->form_data['placa'])) {
+            $this->form_msg['placa'] = 'Placa já cadastrada';
+          }
         }
       }
-
-      // Verificar placa já existente
 
       if (empty($this->form_msg)) {
         $veiculo = new Veiculo($this->form_data['nome'], $this->form_data['placa']);

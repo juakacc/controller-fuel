@@ -5,3 +5,6 @@
     </option>
   <?php endforeach; ?>
 </select>
+<small class="form-text text-danger">
+  <?= check_array($model->form_msg, 'veiculo'); ?>
+</small>

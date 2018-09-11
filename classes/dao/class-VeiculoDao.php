@@ -71,6 +71,22 @@ class VeiculoDao {
   }
 
   public static function getPorPlaca($placa) {
+    $mysqli = getConexao();
+    $sql = "SELECT id, nome FROM veiculo WHERE placa = ?";
+    $veiculo = null;
 
+    if ($stmt = $mysqli->prepare($sql)) {
+        $stmt->bind_param("s", $placa);
+        $stmt->execute();
+        $stmt->bind_result($id, $nome);
+
+        if ($stmt->fetch()) {
+          $veiculo = new Veiculo($nome, $placa);
+          $veiculo->setId($id);
+        }
+        $stmt->close();
+    }
+    $mysqli->close();
+    return $veiculo;
   }
 }

@@ -23,6 +23,7 @@ class AbastecimentoModel extends MainModel {
 
       if (empty($this->form_msg)) {
         $d = explode('/', $this->form_data['data']);
+        // Verificar competência
         $comp = CompetenciaDao::getPorVeiculoData($this->form_data['veiculo'], $d[1], $d[2]);
 
         $abastecimento = new Abastecimento($this->form_data['combustivel'], $this->form_data['qtd'],

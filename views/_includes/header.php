@@ -17,7 +17,7 @@
           <li class="nav-item">
             <a class="nav-link" href="<?= HOME_URI ?>">Início</a>
           </li>
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <a class="nav-link" href="#">Link</a>
           </li>
           <li class="nav-item dropdown">
@@ -30,7 +30,7 @@
               <div class="dropdown-divider"></div>
               <a class="dropdown-item" href="#">Something else here</a>
             </div>
-          </li>
+          </li> -->
         </ul>
         <a href="#" class="btn btn-outline-primary">SAIR</a>
         <!-- <form class="form-inline my-2 my-lg-0">

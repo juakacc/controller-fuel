@@ -83,6 +83,11 @@ class CompetenciaDao {
       $stmt->close();
     }
     $mysqli->close();
-    return $comp;
+
+    if ($comp) {
+      return $comp;
+    } else {
+      // Crio a competência
+    }
   }
 }
