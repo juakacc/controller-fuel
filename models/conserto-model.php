@@ -14,6 +14,13 @@ class ConsertoModel extends MainModel {
 
       if (! validar_data($this->form_data['data'])) {
         $this->form_msg['data'] = 'Data inválida';
+      } else {
+        $d = explode('/', $this->form_data['data']);
+        // Verificar competência
+        $comp = CompetenciaDao::getPorVeiculoData($this->form_data['veiculo'], $d[1], $d[2]);
+        if (! $comp) {
+          $this->form_msg['data'] = 'Competência inexistente <a href=\'\'>teste</a>';
+        }
       }
 
       if (strlen($this->form_data['servico']) == 0) {
@@ -21,9 +28,6 @@ class ConsertoModel extends MainModel {
       }
 
       if (empty($this->form_msg)) {
-        $d = explode('/', $this->form_data['data']);
-        $comp = CompetenciaDao::getPorVeiculoData($this->form_data['veiculo'], $d[1], $d[2]);
-
         $conserto = new Conserto($this->form_data['servico'], $this->form_data['data'], $comp->getId());
         ConsertoDao::adicionarConserto($conserto);
         $_SESSION['messages'][] = 'Conserto cadastrado com sucesso';

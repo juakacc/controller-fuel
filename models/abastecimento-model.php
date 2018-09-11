@@ -14,7 +14,16 @@ class AbastecimentoModel extends MainModel {
 
       if (! validar_data($this->form_data['data'])) {
         $this->form_msg['data'] = 'Data inválida';
+      } else {
+        $d = explode('/', $this->form_data['data']);
+        // Verificar competência
+        $comp = CompetenciaDao::getPorVeiculoData($this->form_data['veiculo'], $d[1], $d[2]);
+        if (! $comp) {
+          $this->form_msg['data'] = 'Competência inexistente';
+        }
       }
+
+      $this->form_data['qtd'] = str_replace(',', '.', $this->form_data['qtd']);
 
       if (! is_numeric($this->form_data['qtd'])) {
         $this->form_data['qtd'] = '';
@@ -22,10 +31,6 @@ class AbastecimentoModel extends MainModel {
       }
 
       if (empty($this->form_msg)) {
-        $d = explode('/', $this->form_data['data']);
-        // Verificar competência
-        $comp = CompetenciaDao::getPorVeiculoData($this->form_data['veiculo'], $d[1], $d[2]);
-
         $abastecimento = new Abastecimento($this->form_data['combustivel'], $this->form_data['qtd'],
           $this->form_data['data'], $comp->getId());
         AbastecimentoDao::adicionarAbastecimento($abastecimento);

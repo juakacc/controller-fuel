@@ -9,8 +9,20 @@ $url_editar = HOME_URI . 'edita/competencia/';
 $url_remover = HOME_URI . 'remove/competencia/';
 ?>
 
-<h3>Listagem de competências</h3>
-<a href="<?= $_SERVER['HTTP_REFERER'] ?>" class="btn btn-secondary">Voltar</a>
+<div class="row">
+  <div class="col">
+    <h3>Listagem de competências</h3>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col">
+    <a href="<?= $_SERVER['HTTP_REFERER'] ?>" class="btn btn-secondary">Voltar</a>
+  </div>
+  <div class="col">
+    <a href="<?= HOME_URI ?>register/competencia" class="btn btn-dark">Adicionar competência</a>
+  </div>
+</div>
 
 <table class="table mt-2">
   <tr>
@@ -19,7 +31,7 @@ $url_remover = HOME_URI . 'remove/competencia/';
   <?php foreach ($competencias as $c): ?>
     <tr>
       <td>
-        <?= $c->getId(); ?>
+        #<?= $c->getId(); ?>
       </td>
       <td>
         <?php $veiculo = VeiculoDao::getPorId($c->getIdVeiculo()); ?>

@@ -1,4 +1,6 @@
 <?php
+if (!defined('ABSPATH')) exit;
+
 $model->validar_form_adicionar();
 $veiculos = VeiculoDao::getVeiculos();
 include_once ABSPATH . '/views/_includes/header.php';

@@ -46,6 +46,27 @@ class ConsertoDao {
     return $s;
   }
 
+  public static function getPorCompetencia($comp_id) {
+    $mysqli = getConexao();
+    $sql = "SELECT id, servico, data FROM conserto WHERE competencia_id = ?";
+    $servicos = array();
+
+    if ($stmt = $mysqli->prepare($sql)) {
+        $stmt->bind_param("i", $comp_id);
+        $stmt->execute();
+        $stmt->bind_result($id, $servico, $data);
+
+        while ($stmt->fetch()) {
+          $s = new Conserto($servico, $data, $comp_id);
+          $s->setId($id);
+          $servicos[] = $s;
+        }
+        $stmt->close();
+    }
+    $mysqli->close();
+    return $servicos;
+  }
+
   public static function getConsertos() {
     $mysqli = getConexao();
     $consertos = array();

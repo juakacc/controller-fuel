@@ -9,8 +9,20 @@ $url_remover = HOME_URI . 'remove/abastecimento/';
 $url_editar = HOME_URI . 'edita/abastecimento/';
 ?>
 
-<h3>Listagem de abastecimentos</h3>
-<a href="<?= $_SERVER['HTTP_REFERER'] ?>" class="btn btn-secondary">Voltar</a>
+<div class="row">
+  <div class="col">
+    <h3>Listagem de abastecimentos</h3>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col">
+    <a href="<?= $_SERVER['HTTP_REFERER'] ?>" class="btn btn-secondary">Voltar</a>
+  </div>
+  <div class="col">
+    <a href="<?= HOME_URI ?>register/abastecimento" class="btn btn-dark">Adicionar abastecimento</a>
+  </div>
+</div>
 
 <table class="table mt-2">
   <tr>
@@ -19,7 +31,7 @@ $url_editar = HOME_URI . 'edita/abastecimento/';
   <?php foreach ($abastecimentos as $a): ?>
     <tr>
       <td>
-        <?= $a->getId(); ?>
+        #<?= $a->getId(); ?>
       </td>
       <td>
         <?php
@@ -29,7 +41,7 @@ $url_editar = HOME_URI . 'edita/abastecimento/';
         <?= $veiculo->getNome(); ?>
       </td>
       <td>
-        <?= $a->getData(); ?>
+        <?= data_para_mostrar($a->getData()); ?>
       </td>
       <td>
         <?= $a->getCombustivel(); ?>

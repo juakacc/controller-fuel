@@ -66,6 +66,27 @@ class CompetenciaDao {
     return $comp;
   }
 
+  public static function getPorVeiculo($veiculo_id) {
+    $mysqli = getConexao();
+    $sql = "SELECT id, mes, ano, km FROM competencia WHERE veiculo_id = ?";
+    $competencias = array();
+
+    if ($stmt = $mysqli->prepare($sql)) {
+      $stmt->bind_param("i", $veiculo_id);
+      $stmt->execute();
+      $stmt->bind_result($id, $mes, $ano, $km);
+
+      while ($stmt->fetch()) {
+        $comp = new Competencia($veiculo_id, $mes, $ano, $km);
+        $comp->setId($id);
+        $competencias[] = $comp;
+      }
+      $stmt->close();
+    }
+    $mysqli->close();
+    return $competencias;
+  }
+
   public static function getPorVeiculoData($veiculo_id, $mes, $ano) {
     $mysqli = getConexao();
     $sql = "SELECT id, km FROM competencia WHERE veiculo_id = ? AND mes = ? AND ano = ?";

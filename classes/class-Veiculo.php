@@ -24,6 +24,8 @@ class Veiculo {
   }
 
   public function getPlaca() {
+    if ($this->placa == '')
+      return 'Sem placa';
     return $this->placa;
   }
 

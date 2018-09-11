@@ -46,6 +46,27 @@ class AbastecimentoDao {
     return $a;
   }
 
+  public static function getPorCompetencia($comp_id) {
+    $mysqli = getConexao();
+    $sql = "SELECT id, combustivel, qtd, data FROM abastecimento WHERE competencia_id = ?";
+    $abastecimentos = array();
+
+    if ($stmt = $mysqli->prepare($sql)) {
+        $stmt->bind_param("i", $comp_id);
+        $stmt->execute();
+        $stmt->bind_result($id, $combustivel, $qtd, $data);
+
+        while ($stmt->fetch()) {
+          $a = new Abastecimento($combustivel, $qtd, $data, $comp_id);
+          $a->setId($id);
+          $abastecimentos[] = $a;
+        }
+        $stmt->close();
+    }
+    $mysqli->close();
+    return $abastecimentos;
+  }
+
   public static function getAbastecimentos() {
     $mysqli = getConexao();
     $abastecimentos = array();

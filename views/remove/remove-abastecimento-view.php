@@ -3,7 +3,6 @@ if (!defined('ABSPATH')) exit;
 
 $model->validar_form_remover();
 
-$abastecimento = AbastecimentoDao::getPorId($this->parameters[0]);
 require_once ABSPATH . '/views/_includes/header.php';
 ?>
 

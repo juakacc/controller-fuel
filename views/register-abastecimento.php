@@ -1,4 +1,6 @@
 <?php
+if (!defined('ABSPATH')) exit;
+
 $model->validar_form_adicionar();
 $veiculos = VeiculoDao::getVeiculos();
 
@@ -19,13 +21,13 @@ include_once ABSPATH . '/views/_includes/header.php';
     <label for="combustivel" class="col-form-label col-2">Combustível:</label>
     <div class="col-10">
       <select class="form-control" name="combustivel" id="combustivel">
-        <option value="gasolina" <?php if (check_array($model->form_data, 'combustivel') == 'gasolina'):?>selected<?php endif; ?>>
+        <option value="Gasolina" <?php if (check_array($model->form_data, 'combustivel') == 'gasolina'):?>selected<?php endif; ?>>
           Gasolina
         </option>
-        <option value="diesel" <?php if (check_array($model->form_data, 'combustivel') == 'diesel'):?>selected<?php endif; ?>>
+        <option value="Diesel" <?php if (check_array($model->form_data, 'combustivel') == 'diesel'):?>selected<?php endif; ?>>
           Diesel
         </option>
-        <option value="alcool" <?php if (check_array($model->form_data, 'combustivel') == 'alcool'):?>selected<?php endif; ?>>
+        <option value="Álcool" <?php if (check_array($model->form_data, 'combustivel') == 'alcool'):?>selected<?php endif; ?>>
           Álcool
         </option>
       </select>

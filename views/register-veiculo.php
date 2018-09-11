@@ -21,7 +21,7 @@ include_once ABSPATH . '/views/_includes/header.php';
   <div class="row">
     <div class="col-5">
       <label class="col-form-label" for="placa">Veiculo sem placa?</label>
-      <small class="form-text text-muted">Selecione a caixa, caso não tenha placa.</small>
+      <small class="form-text text-success">Selecione a caixa, caso não tenha placa.</small>
     </div>
     <div class="col">
       <div class="input-group">
