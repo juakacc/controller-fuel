@@ -18,6 +18,16 @@ include_once ABSPATH . '/views/_includes/header.php';
     </div>
   </div>
 
+  <div class="form-group row">
+    <label class="col-form-label col-3" for="tipo_metrica">Tipo de métrica:</label>
+    <div class="col">
+      <select class="form-control" name="tipo_metrica" id="tipo_metrica">
+        <option value="km">Quilometragem</option>
+        <option value="hr">Horário</option>
+      </select>
+    </div>
+  </div>
+
   <div class="row">
     <div class="col-5">
       <label class="col-form-label" for="placa">Veiculo sem placa?</label>

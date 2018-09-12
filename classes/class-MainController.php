@@ -3,9 +3,11 @@
 class MainController {
 
   public $parameters;
+  public $breadcrumb;
 
   public function __construct($parameters = null) {
     $this->parameters = $parameters;
+    $this->breadcrumb = array();
   }
 
   public function load_model($model_name = false) {

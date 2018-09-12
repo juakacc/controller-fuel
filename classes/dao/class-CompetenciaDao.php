@@ -4,10 +4,14 @@ class CompetenciaDao {
 
   public static function adicionarComp(Competencia $c) {
     $mysqli = getConexao();
-    $sql = "INSERT INTO competencia (veiculo_id, mes, ano, km) VALUES (?,?,?,?)";
+    $sql = "INSERT INTO competencia (veiculo_id, mes, ano, metrica_inicial) VALUES (?,?,?,?)";
+    $veiculo_id = $c->getIdVeiculo();
+    $mes = $c->getMes();
+    $ano = $c->getAno();
+    $metrica_inicial = $c->getMetricaInicial();
 
     if ($stmt = $mysqli->prepare($sql)) {
-        $stmt->bind_param("iiid", $c->getIdVeiculo(), $c->getMes(), $c->getAno(), $c->getKmInicial());
+        $stmt->bind_param("iiid", $veiculo_id, $mes, $ano, $metrica_inicial);
         $stmt->execute();
         $stmt->close();
     }
@@ -29,14 +33,14 @@ class CompetenciaDao {
   public static function getCompetencias() {
     $mysqli = getConexao();
     $competencias = array();
-    $sql = "SELECT id, veiculo_id, mes, ano, km FROM competencia";
+    $sql = "SELECT id, veiculo_id, mes, ano, metrica_inicial FROM competencia";
 
     if ($stmt = $mysqli->prepare($sql)) {
         $stmt->execute();
-        $stmt->bind_result($id, $veiculo_id, $mes, $ano, $km);
+        $stmt->bind_result($id, $veiculo_id, $mes, $ano, $metrica_inicial);
 
         while ($stmt->fetch()) {
-            $c = new Competencia($veiculo_id, $mes, $ano, $km);
+            $c = new Competencia($veiculo_id, $mes, $ano, $metrica_inicial);
             $c->setId($id);
             $competencias[] = $c;
         }
@@ -48,16 +52,16 @@ class CompetenciaDao {
 
   public static function getPorId($id) {
     $mysqli = getConexao();
-    $sql = "SELECT mes, ano, veiculo_id, km FROM competencia WHERE id = ?";
+    $sql = "SELECT mes, ano, veiculo_id, metrica_inicial FROM competencia WHERE id = ?";
     $comp = null;
 
     if ($stmt = $mysqli->prepare($sql)) {
       $stmt->bind_param("i", $id);
       $stmt->execute();
-      $stmt->bind_result($mes, $ano, $veiculo_id, $km);
+      $stmt->bind_result($mes, $ano, $veiculo_id, $metrica_inicial);
 
       if ($stmt->fetch()) {
-        $comp = new Competencia($veiculo_id, $mes, $ano, $km);
+        $comp = new Competencia($veiculo_id, $mes, $ano, $metrica_inicial);
         $comp->setId($id);
       }
       $stmt->close();
@@ -68,16 +72,16 @@ class CompetenciaDao {
 
   public static function getPorVeiculo($veiculo_id) {
     $mysqli = getConexao();
-    $sql = "SELECT id, mes, ano, km FROM competencia WHERE veiculo_id = ?";
+    $sql = "SELECT id, mes, ano, metrica_inicial FROM competencia WHERE veiculo_id = ?";
     $competencias = array();
 
     if ($stmt = $mysqli->prepare($sql)) {
       $stmt->bind_param("i", $veiculo_id);
       $stmt->execute();
-      $stmt->bind_result($id, $mes, $ano, $km);
+      $stmt->bind_result($id, $mes, $ano, $metrica_inicial);
 
       while ($stmt->fetch()) {
-        $comp = new Competencia($veiculo_id, $mes, $ano, $km);
+        $comp = new Competencia($veiculo_id, $mes, $ano, $metrica_inicial);
         $comp->setId($id);
         $competencias[] = $comp;
       }
@@ -89,16 +93,16 @@ class CompetenciaDao {
 
   public static function getPorVeiculoData($veiculo_id, $mes, $ano) {
     $mysqli = getConexao();
-    $sql = "SELECT id, km FROM competencia WHERE veiculo_id = ? AND mes = ? AND ano = ?";
+    $sql = "SELECT id, metrica_inicial FROM competencia WHERE veiculo_id = ? AND mes = ? AND ano = ?";
     $comp = null;
 
     if ($stmt = $mysqli->prepare($sql)) {
       $stmt->bind_param("iii", $veiculo_id, $mes, $ano);
       $stmt->execute();
-      $stmt->bind_result($id, $km);
+      $stmt->bind_result($id, $metrica_inicial);
 
       if ($stmt->fetch()) {
-        $comp = new Competencia($veiculo_id, $mes, $ano, $km);
+        $comp = new Competencia($veiculo_id, $mes, $ano, $metrica_inicial);
         $comp->setId($id);
       }
       $stmt->close();
@@ -109,6 +113,7 @@ class CompetenciaDao {
       return $comp;
     } else {
       // Crio a competência
+      return null;
     }
   }
 }

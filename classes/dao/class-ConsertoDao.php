@@ -5,9 +5,12 @@ class ConsertoDao {
   public static function adicionarConserto(Conserto $c) {
     $mysqli = getConexao();
     $sql = "INSERT INTO conserto (servico, data, competencia_id) VALUES (?,?,?)";
+    $servico = $c->getServico();
+    $data = $c->getData();
+    $comp_id = $c->getCompId();
 
     if ($stmt = $mysqli->prepare($sql)) {
-        $stmt->bind_param("ssi", $c->getServico(), $c->getData(), $c->getCompId());
+        $stmt->bind_param("ssi", $servico, $data, $comp_id);
         $stmt->execute();
         $stmt->close();
     }

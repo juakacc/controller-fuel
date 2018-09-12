@@ -37,7 +37,7 @@ include_once ABSPATH . '/views/_includes/header.php'
     </div>
     <div class="col-5">
       <select class="form-control" name="ano">
-        <option value="2017" <?php if (check_array($model->form_data, 'ano') == 2017): ?>selected<?php endif; ?>>2017</option>
+        <!-- <option value="2017" <?php if (check_array($model->form_data, 'ano') == 2017): ?>selected<?php endif; ?>>2017</option> -->
         <option value="2018" <?php if (check_array($model->form_data, 'ano') == 2018): ?>selected<?php endif; ?>>2018</option>
         <option value="2019" <?php if (check_array($model->form_data, 'ano') == 2019): ?>selected<?php endif; ?>>2019</option>
         <option value="2020" <?php if (check_array($model->form_data, 'ano') == 2020): ?>selected<?php endif; ?>>2020</option>
@@ -47,11 +47,11 @@ include_once ABSPATH . '/views/_includes/header.php'
   </div>
 
   <div class="form-group row">
-    <label for="km_inicial" class="col-form-label col-2">KM inicial:</label>
-    <div class="col-10">
-      <input type="text" name="km_inicial" value="<?= check_array($model->form_data, 'km_inicial'); ?>" class="form-control" id="km_inicial" placeholder="KM">
+    <label for="km_inicial" class="col-form-label col-3">Km/Hr inicial:</label>
+    <div class="col">
+      <input type="text" name="metrica_inicial" value="<?= check_array($model->form_data, 'metrica_inicial'); ?>" class="form-control" id="metrica_inicial" required placeholder="km / hr">
       <small class="form-text text-danger">
-        <?= check_array($model->form_msg, 'km_inicial'); ?>
+        <?= check_array($model->form_msg, 'metrica_inicial'); ?>
       </small>
     </div>
   </div>

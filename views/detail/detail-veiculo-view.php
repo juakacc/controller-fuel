@@ -36,6 +36,10 @@ require_once ABSPATH . '/views/_includes/header.php';
 </div>
 
 <div class="row">
+  <div class="col">
+    <a href="<?= HOME_URI . 'list/veiculos'  ?>" class="btn btn-secondary">Voltar</a>
+  </div>
+
   <div class="col" align="right">
     <div class="dropdown">Selecione uma
       <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

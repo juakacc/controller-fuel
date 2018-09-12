@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Sep 11, 2018 at 11:36 AM
+-- Generation Time: Sep 11, 2018 at 03:54 PM
 -- Server version: 5.7.23
 -- PHP Version: 7.0.30-0+deb9u1
 
@@ -59,7 +59,7 @@ CREATE TABLE `competencia` (
   `veiculo_id` int(11) NOT NULL,
   `mes` int(11) NOT NULL,
   `ano` int(11) NOT NULL,
-  `km` double NOT NULL
+  `metrica_inicial` double NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -98,7 +98,8 @@ CREATE TABLE `veiculo` (
   `id` int(11) NOT NULL,
   `nome` varchar(45) NOT NULL,
   `sem_placa` tinyint(1) NOT NULL,
-  `placa` varchar(45) DEFAULT NULL
+  `placa` varchar(45) DEFAULT NULL,
+  `tipo_metrica` char(2) NOT NULL DEFAULT 'km'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --

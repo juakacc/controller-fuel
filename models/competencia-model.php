@@ -16,16 +16,17 @@ class CompetenciaModel extends MainModel {
         $this->form_msg['veiculo'] = 'Competência já registrada';
       }
 
-      $this->form_data['km_inicial'] = str_replace('.', '', $this->form_data['km_inicial']);
+      $this->form_data['metrica_inicial'] = str_replace('.', '', $this->form_data['metrica_inicial']);
+      $this->form_data['metrica_inicial'] = str_replace(':', '', $this->form_data['metrica_inicial']);
 
-      if (! is_numeric($this->form_data['km_inicial'])) {
-        $this->form_data['km_inicial'] = '';
-        $this->form_msg['km_inicial'] = 'Quilometragem inválida';
+      if (! is_numeric($this->form_data['metrica_inicial'])) {
+        $this->form_data['metrica_inicial'] = '';
+        $this->form_msg['metrica_inicial'] = 'Quilometragem/Horário inválido';
       }
 
       if (empty($this->form_msg)) {
         $comp = new Competencia($this->form_data['veiculo'], $this->form_data['mes'],
-          $this->form_data['ano'], $this->form_data['km_inicial']);
+          $this->form_data['ano'], $this->form_data['metrica_inicial']);
         CompetenciaDao::adicionarComp($comp);
         $_SESSION['messages'][] = 'Competência cadastrada com sucesso';
         header('Location: ' . HOME_URI . 'list/competencias');

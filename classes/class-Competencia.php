@@ -6,13 +6,13 @@ class Competencia {
   private $id_veiculo;
   private $mes;
   private $ano;
-  private $km_inicial;
+  private $metrica_inicial;
 
-  public function __construct($id_veiculo, $mes, $ano, $km_inicial) {
+  public function __construct($id_veiculo, $mes, $ano, $metrica_inicial) {
     $this->id_veiculo = $id_veiculo;
     $this->mes = $mes;
     $this->ano = $ano;
-    $this->km_inicial = $km_inicial;
+    $this->metrica_inicial = $metrica_inicial;
   }
 
   public function imprimir() {
@@ -43,7 +43,7 @@ class Competencia {
     return mostrar_mes($this->mes) . '/' . $this->ano;
   }
 
-  public function getKmInicial() {
-    return $this->km_inicial;
+  public function getMetricaInicial() {
+    return $this->metrica_inicial;
   }
 }

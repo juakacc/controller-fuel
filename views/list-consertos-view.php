@@ -17,7 +17,7 @@ $url_remover = HOME_URI . 'remove/conserto/';
 
 <div class="row">
   <div class="col">
-    <a href="<?= $_SERVER['HTTP_REFERER']; ?>" class="btn btn-secondary">Voltar</a>
+    <a href="<?= HOME_URI ?>" class="btn btn-secondary">Voltar</a>
   </div>
   <div class="col">
     <a href="<?= HOME_URI ?>register/conserto" class="btn btn-dark">Adicionar conserto</a>

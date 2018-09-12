@@ -47,6 +47,16 @@
       </div>
     </div>
 
+    <!-- <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="<?= HOME_URI ?>">Início</a></li>
+        <?php foreach ($this->breadcrumb as $key => $value): ?>
+          <li class="breadcrumb-item active" aria-current="page"><a href="<?= $value ?>"><?= $key ?></a></li>
+        <?php endforeach; ?>
+      </ol>
+    </nav> -->
+
+
     <div class="row justify-content-center">
       <div class="col-8">
         <div> <!-- mensagens -->

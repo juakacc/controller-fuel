@@ -2,6 +2,12 @@
 
 class ListController extends MainController {
 
+  // public function __construct() {
+    // $this->breadcrumb = array(
+    //   'Listagem' => HOME_URI
+    // );
+  // }
+
   public function veiculos() {
 
     require_once ABSPATH . '/views/list-veiculos-view.php';

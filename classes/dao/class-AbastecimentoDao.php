@@ -5,9 +5,13 @@ class AbastecimentoDao {
   public static function adicionarAbastecimento(Abastecimento $a) {
     $mysqli = getConexao();
     $sql = "INSERT INTO abastecimento (combustivel, qtd, data, competencia_id) VALUES (?,?,?,?)";
+    $combustivel = $a->getCombustivel();
+    $qtd = $a->getQtd();
+    $data = $a->getData();
+    $comp_id = $a->getCompId();
 
     if ($stmt = $mysqli->prepare($sql)) {
-        $stmt->bind_param("sdsi", $a->getCombustivel(), $a->getQtd(), $a->getData(), $a->getCompId());
+        $stmt->bind_param("sdsi", $combustivel, $qtd, $data, $comp_id);
         $stmt->execute();
         $stmt->close();
     }

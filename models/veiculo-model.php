@@ -28,7 +28,7 @@ class VeiculoModel extends MainModel {
       }
 
       if (empty($this->form_msg)) {
-        $veiculo = new Veiculo($this->form_data['nome'], $this->form_data['placa']);
+        $veiculo = new Veiculo($this->form_data['nome'], $this->form_data['placa'], $this->form_data['tipo_metrica']);
         VeiculoDao::adicionarVeiculo($veiculo);
         $_SESSION['messages'][] = 'Veículo adicionado com sucesso';
         header('Location: ' . HOME_URI . 'list/veiculos');
