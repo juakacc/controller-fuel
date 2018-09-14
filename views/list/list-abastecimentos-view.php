@@ -17,10 +17,10 @@ $url_editar = HOME_URI . 'edita/abastecimento/';
 
 <div class="row">
   <div class="col">
-    <a href="<?= HOME_URI ?>" class="btn btn-secondary">Voltar</a>
+    <a href="<?= HOME_URI ?>" class="btn btn-secondary"><i class="fas fa-reply"></i> Voltar</a>
   </div>
   <div class="col">
-    <a href="<?= HOME_URI ?>register/abastecimento" class="btn btn-dark">Adicionar abastecimento</a>
+    <a href="<?= HOME_URI ?>register/abastecimento" class="btn btn-dark"><i class="fas fa-plus"></i> Abastecimento</a>
   </div>
 </div>
 
@@ -50,7 +50,7 @@ $url_editar = HOME_URI . 'edita/abastecimento/';
         <?= $a->getQtd(); ?>
       </td>
       <td>
-        <a href="<?= $url_remover . $a->getId(); ?>">Excluir</a><br>
+        <a href="<?= $url_remover . $a->getId(); ?>"><i class="fas fa-minus-circle"></i> Excluir</a><br>
         <a href="<?= $url_editar . $a->getId(); ?>">Editar</a>
       </td>
     </tr>

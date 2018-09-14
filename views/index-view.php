@@ -16,9 +16,9 @@ include_once ABSPATH . '/views/_includes/header.php'
     <div class="btn-group-vertical">
       <a href="<?= HOME_URI . 'register/veiculo'; ?>" class="btn btn-secondary"><i class="fas fa-shuttle-van"></i> Veículo</a>
       <a href="<?= HOME_URI . 'register/competencia'; ?>" class="btn btn-secondary"><i class="fas fa-calendar-check"></i> Competência</a>
-      <a href="<?= HOME_URI . 'register/abastecimento'; ?>" class="btn btn-secondary"><i class="fas fa-oil-can"></i> Abastecimento</a>
+      <!-- <a href="<?= HOME_URI . 'register/abastecimento'; ?>" class="btn btn-secondary"><i class="fas fa-oil-can"></i> Abastecimento</a>
       <a href="<?= HOME_URI . 'register/conserto'; ?>" class="btn btn-secondary"><i class="fas fa-wrench"></i> Conserto</a>
-      <a href="<?= HOME_URI . 'register/aquisicao'; ?>" class="btn btn-secondary">Aquisição</a>
+      <a href="<?= HOME_URI . 'register/aquisicao'; ?>" class="btn btn-secondary"><i class="fas fa-cog"></i> Aquisição</a> -->
     </div>
   </div>
   <div class="col">
@@ -28,6 +28,7 @@ include_once ABSPATH . '/views/_includes/header.php'
       <a href="<?= HOME_URI . 'list/competencias'; ?>" class="btn btn-primary"><i class="fas fa-calendar-check"></i> Competências</a>
       <a href="<?= HOME_URI . 'list/abastecimentos'; ?>" class="btn btn-primary"><i class="fas fa-oil-can"></i> Abastecimentos</a>
       <a href="<?= HOME_URI . 'list/consertos'; ?>" class="btn btn-primary"><i class="fas fa-wrench"></i> Consertos</a>
+      <a href="<?= HOME_URI . 'list/aquisicoes'; ?>" class="btn btn-primary"><i class="fas fa-cog"></i> Aquisições</a>
     </div>
   </div>
 </div>

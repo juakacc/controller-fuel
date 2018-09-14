@@ -4,7 +4,8 @@
     <meta charset="utf-8">
     <link rel="stylesheet" href="<?= HOME_URI ?>views/_css/bootstrap.min.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
-    <title>Controle de carros</title>
+    <link rel="icon" type="imagem/png" href="<?= HOME_URI ?>/views/_includes/car.svg" />
+    <title>Controle de veículos - PMO</title>
   </head>
   <body class="container">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -16,7 +17,7 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item">
-            <a class="nav-link" href="<?= HOME_URI ?>">Início</a>
+            <a class="nav-link" href="<?= HOME_URI ?>"><i class="fas fa-home"></i> Início</a>
           </li>
           <!-- <li class="nav-item">
             <a class="nav-link" href="#">Link</a>
@@ -33,7 +34,7 @@
             </div>
           </li> -->
         </ul>
-        <a href="#" class="btn btn-outline-primary">SAIR</a>
+        <a href="#" class="btn btn-outline-primary"><i class="fas fa-sign-in-alt"></i> Área restrita</a>
         <!-- <form class="form-inline my-2 my-lg-0">
           <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
           <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>

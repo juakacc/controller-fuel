@@ -73,4 +73,21 @@ class RemoveController extends MainController {
     }
     require_once ABSPATH . '/views/remove/remove-conserto-view.php';
   }
+
+  public function aquisicao() {
+    $model = $this->load_model('aquisicao-model');
+
+    $id = check_array($this->parameters, 0);
+    if(! is_numeric($id)) {
+      header('Location: ' . HOME_URI . 'list/aquisicoes');
+      exit;
+    }
+
+    $aquisicao = AquisicaoDao::getPorId($this->parameters[0]);
+    if(! $aquisicao) {
+      header('Location: ' . HOME_URI . 'list/aquisicoes');
+      exit;
+    }
+    require_once ABSPATH . '/views/remove/remove-aquisicao-view.php';
+  }
 }

@@ -3,24 +3,15 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Sep 11, 2018 at 03:54 PM
+-- Generation Time: Sep 12, 2018 at 09:25 PM
 -- Server version: 5.7.23
 -- PHP Version: 7.0.30-0+deb9u1
-
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET time_zone = "+00:00";
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
 
 --
 -- Database: `gveiculos`
 --
-CREATE DATABASE IF NOT EXISTS `gveiculos` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
-USE `gveiculos`;
+-- CREATE DATABASE IF NOT EXISTS `gveiculos` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+-- USE `gveiculos`;
 
 -- --------------------------------------------------------
 
@@ -45,7 +36,8 @@ CREATE TABLE `abastecimento` (
 CREATE TABLE `aquisicao` (
   `id` int(11) NOT NULL,
   `peca` varchar(45) NOT NULL,
-  `conserto_id` int(11) NOT NULL
+  `data` date NOT NULL,
+  `competencia_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -118,7 +110,8 @@ ALTER TABLE `abastecimento`
 --
 ALTER TABLE `aquisicao`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `fk_aquisicao_conserto1_idx` (`conserto_id`);
+  ADD KEY `fk_aquisicao_conserto1_idx` (`competencia_id`),
+  ADD KEY `conserto_id` (`competencia_id`);
 
 --
 -- Indexes for table `competencia`
@@ -191,7 +184,7 @@ ALTER TABLE `abastecimento`
 -- Constraints for table `aquisicao`
 --
 ALTER TABLE `aquisicao`
-  ADD CONSTRAINT `fk_aquisicao_conserto1` FOREIGN KEY (`conserto_id`) REFERENCES `conserto` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `fk_aquisicao_conserto1` FOREIGN KEY (`competencia_id`) REFERENCES `competencia` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `competencia`
@@ -204,7 +197,3 @@ ALTER TABLE `competencia`
 --
 ALTER TABLE `conserto`
   ADD CONSTRAINT `fk_conserto_competencia1` FOREIGN KEY (`competencia_id`) REFERENCES `competencia` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

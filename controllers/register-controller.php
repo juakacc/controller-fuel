@@ -24,4 +24,9 @@ class RegisterController extends MainController {
     $model = $this->load_model('conserto-model');
     require_once ABSPATH . '/views/register-conserto.php';
   }
+
+  public function aquisicao() {
+    $model = $this->load_model('aquisicao-model');
+    require_once ABSPATH . '/views/register-aquisicao.php';
+  }
 }

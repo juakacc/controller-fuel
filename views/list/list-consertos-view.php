@@ -17,10 +17,10 @@ $url_remover = HOME_URI . 'remove/conserto/';
 
 <div class="row">
   <div class="col">
-    <a href="<?= HOME_URI ?>" class="btn btn-secondary">Voltar</a>
+    <a href="<?= HOME_URI ?>" class="btn btn-secondary"><i class="fas fa-reply"></i> Voltar</a>
   </div>
   <div class="col">
-    <a href="<?= HOME_URI ?>register/conserto" class="btn btn-dark">Adicionar conserto</a>
+    <a href="<?= HOME_URI ?>register/conserto" class="btn btn-dark"><i class="fas fa-plus"></i> Conserto</a>
   </div>
 </div>
 
@@ -46,7 +46,7 @@ $url_remover = HOME_URI . 'remove/conserto/';
         <?= $c->getServico(); ?>
       </td>
       <td>
-        <a href="<?= $url_remover . $c->getId(); ?>">Excluir</a><br>
+        <a href="<?= $url_remover . $c->getId(); ?>"><i class="fas fa-minus-circle"></i> Excluir</a><br>
         <a href="<?= $url_editar . $c->getId(); ?>">Editar</a>
       </td>
     </tr>

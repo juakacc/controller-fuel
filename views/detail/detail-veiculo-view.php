@@ -37,7 +37,7 @@ require_once ABSPATH . '/views/_includes/header.php';
 
 <div class="row">
   <div class="col">
-    <a href="<?= HOME_URI . 'list/veiculos'  ?>" class="btn btn-secondary">Voltar</a>
+    <a href="<?= HOME_URI . 'list/veiculos'  ?>" class="btn btn-secondary"><i class="fas fa-reply"></i> Voltar</a>
   </div>
 
   <div class="col" align="right">
