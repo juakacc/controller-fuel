@@ -1,13 +1,19 @@
 <?php
 
-class MainController {
+class MainController extends UserLogin {
 
-  public $parameters;
+  public $parameters = array();
+  public $phpass;
+  private $login_required = false;
+
   public $breadcrumb;
 
   public function __construct($parameters = null) {
     $this->parameters = $parameters;
+    $this->phpass = new PasswordHash(8, false);
     $this->breadcrumb = array();
+
+    $this->check_userLogin();
   }
 
   public function load_model($model_name = false) {

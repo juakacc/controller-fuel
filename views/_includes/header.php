@@ -34,7 +34,11 @@
             </div>
           </li> -->
         </ul>
-        <a href="#" class="btn btn-outline-primary"><i class="fas fa-sign-in-alt"></i> Área restrita</a>
+        <?php if (isset($_SESSION['userdata']['id'])): ?>
+            <a href="<?= HOME_URI . 'login/sair'; ?>" class="btn btn-outline-danger"><i class="fas fa-sign-in-alt"></i> Sair</a>
+          <?php else: ?>
+            <a href="<?= HOME_URI . 'login'; ?>" class="btn btn-outline-primary"><i class="fas fa-sign-in-alt"></i> Área restrita</a>
+        <?php endif; ?>
         <!-- <form class="form-inline my-2 my-lg-0">
           <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
           <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
