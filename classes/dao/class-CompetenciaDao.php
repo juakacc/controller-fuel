@@ -116,4 +116,20 @@ class CompetenciaDao {
       return null;
     }
   }
+
+  public static function getComFiltro($id_filtro, $valor) {
+    // switch ($id_filtro) {
+    //   case 1: // veículo
+    //     $sql = "SELECT id, veiculo_id, mes, ano, metrica_inicial FROM competencia";
+    //     break;
+    //   case 2: // competencia
+    //
+    //     break;
+    //   case 3; // metrica
+    //
+    //     break;
+    // }
+    return CompetenciaDao::getCompetencias();
+
+  }
 }

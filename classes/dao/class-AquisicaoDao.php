@@ -67,4 +67,25 @@ class AquisicaoDao {
     $mysqli->close();
     return $aquisicoes;
   }
+
+  public static function getPorCompetencia($comp_id) {
+    $mysqli = getConexao();
+    $sql = "SELECT id, peca, data FROM aquisicao WHERE competencia_id = ?";
+    $aquisicoes = array();
+
+    if ($stmt = $mysqli->prepare($sql)) {
+        $stmt->bind_param("i", $comp_id);
+        $stmt->execute();
+        $stmt->bind_result($id, $peca, $data);
+
+        while ($stmt->fetch()) {
+          $a = new Aquisicao($peca, $data, $comp_id);
+          $a->setId($id);
+          $aquisicoes[] = $a;
+        }
+        $stmt->close();
+    }
+    $mysqli->close();
+    return $aquisicoes;
+  }
 }

@@ -11,5 +11,4 @@ class LoginController extends MainController {
     header('Location: ' . HOME_URI);
     exit;
   }
-
 }
