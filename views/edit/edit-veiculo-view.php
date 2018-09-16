@@ -1,13 +1,15 @@
 <?php
 if (!defined('ABSPATH')) exit;
 
-$model->validar_form_adicionar();
+$model->validar_form_editar();
 include_once ABSPATH . '/views/_includes/header.php';
 ?>
 
-<h3>Cadastro de veículo</h3>
+<h3>Edição de veículo</h3>
 
 <form class="form" method="post">
+  <input type="hidden" name="id" value="<?= check_array($model->form_data, 'id'); ?>">
+
   <div class="form-group row">
     <label class="col-form-label col-2" for="nome">Nome:</label>
     <div class="col-10">
@@ -15,16 +17,6 @@ include_once ABSPATH . '/views/_includes/header.php';
       <small class="form-text text-danger">
         <?= check_array($model->form_msg, 'nome'); ?>
       </small>
-    </div>
-  </div>
-
-  <div class="form-group row">
-    <label class="col-form-label col-4" for="tipo_metrica">Tipo de métrica:</label>
-    <div class="col">
-      <select class="custom-select" name="tipo_metrica" id="tipo_metrica">
-        <option value="km">Quilometragem</option>
-        <option value="hr">Horário</option>
-      </select>
     </div>
   </div>
 
@@ -62,9 +54,7 @@ include_once ABSPATH . '/views/_includes/header.php';
       </div>
     </div>
   </div>
-
   <?php include_once ABSPATH . '/views/_includes/btn_forms.php'; ?>
 </form>
-
 <?php include_once ABSPATH . '/views/_includes/footer.php' ?>
 <script type="text/javascript" src="<?= HOME_URI ?>views/_js/forms/verifica-placa.js"></script>

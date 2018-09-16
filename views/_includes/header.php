@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <link rel="stylesheet" href="<?= HOME_URI ?>views/_css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <!-- <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous"> -->
     <link rel="icon" type="imagem/png" href="<?= HOME_URI ?>/views/_includes/car.svg" />
     <title>Controle de veículos - PMO</title>
   </head>
@@ -19,9 +19,7 @@
           <li class="nav-item">
             <a class="nav-link" href="<?= HOME_URI ?>"><i class="fas fa-home"></i> Início</a>
           </li>
-          <!-- <li class="nav-item">
-            <a class="nav-link" href="#">Link</a>
-          </li>
+          <!--
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               Dropdown
@@ -34,9 +32,15 @@
             </div>
           </li> -->
         </ul>
+
+        <?php if ($this->logged_in): ?>
+          <span class="navbar-text mr-2">Bem-vindo, <?= $this->userdata['name']; ?></span>
+        <?php endif; ?>
+
         <?php if (isset($_SESSION['userdata']['id'])): ?>
             <a href="<?= HOME_URI . 'login/sair'; ?>" class="btn btn-outline-danger"><i class="fas fa-sign-in-alt"></i> Sair</a>
           <?php else: ?>
+            <?php $_SESSION['goto_url'] = HOME_URI; ?>
             <a href="<?= HOME_URI . 'login'; ?>" class="btn btn-outline-primary"><i class="fas fa-sign-in-alt"></i> Área restrita</a>
         <?php endif; ?>
       </div>
@@ -56,7 +60,6 @@
         <?php endforeach; ?>
       </ol>
     </nav> -->
-
 
     <div class="row justify-content-center">
       <div class="col-8">

@@ -8,14 +8,9 @@
 <script type="text/javascript" src="<?= HOME_URI ?>views/_js/bootstrap.min.js"></script>
 <script type="text/javascript" src="<?= HOME_URI ?>views/_js/jquery.mask.min.js"></script>
 
+<script type="text/javascript" src="<?= HOME_URI ?>views/_js/global-functions.js"></script>
+
 <!-- Aplica máscaras a formulários padrões -->
 <script type="text/javascript" src="<?= HOME_URI ?>views/_js/mask-fields.js"></script>
-
-<!-- Fazer requisições ajax para auxiliar o preenchimento de formulários -->
-<script type="text/javascript" src="<?= HOME_URI ?>views/_js/auxiliar-forms.js"></script>
-
-<!-- mostrar e esconder divs na listagem de competencias -->
-<script type="text/javascript" src="<?= HOME_URI ?>views/_js/list-competencias.js"></script>
-<!-- VERIFICAR UM MELHOR LUGAR PARA ISSO -->
 </body>
 </html>

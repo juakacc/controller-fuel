@@ -45,7 +45,7 @@ class UsuarioDao {
     $sql = "UPDATE usuario SET user_session_id = ? WHERE id = ?";
 
     if ($stmt = $mysqli->prepare($sql)) {
-      $stmt->bind_param("ii", $session_id, $id);
+      $stmt->bind_param("si", $session_id, $id);
       $stmt->execute();
       $stmt->close();
     }

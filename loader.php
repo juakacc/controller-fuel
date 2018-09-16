@@ -9,9 +9,8 @@ if ( ! defined('DEBUG') || DEBUG === false ) {
 	error_reporting(E_ALL);
 	ini_set("display_errors", 1);
 }
-
-session_start();
+// ini_set('session.gc_maxlifetime', 30*60);
 
 require_once ABSPATH . '/functions/global-functions.php';
-
 new Manager();
+?>

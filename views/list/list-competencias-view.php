@@ -1,16 +1,14 @@
 <?php
 if (!defined('ABSPATH')) exit;
 
-require_once ABSPATH . '/views/_includes/header.php';
-
 $q = check_array($_GET, 'q');
-
 if ($q) {
-  // $competencias = CompetenciaDao::getComFiltro(check_array($_GET, 'tipo_filtro'), $q);
-  $competencias = array();
+  $competencias = CompetenciaDao::getComFiltro(check_array($_GET, 'tipo_filtro'), $q);
 } else { // Não filtrou
   $competencias = CompetenciaDao::getCompetencias();
 }
+
+require_once ABSPATH . '/views/_includes/header.php';
 
 $url_adicionar = HOME_URI . 'register/competencia';
 $url_editar = HOME_URI . 'edita/competencia/';
@@ -36,13 +34,14 @@ $url_remover = HOME_URI . 'remove/competencia/';
   <div class="col">
     <form class="form-inline">
       <label class="my-1 mr-2" for="tipo-filtro">Filtrar por</label>
-      <select class="custom-select my-1 mr-sm-2" id="tipo-filtro" name="tipo_filtro">
-        <option value="1">Veículo</option>
-        <option value="2">Competência</option>
-        <option value="3">Métrica</option>
+      <select class="custom-select my-1 mr-sm-2" id="tipo-filtro" name="tipo_filtro" onchange="alterarFiltro()">
+        <option value="1" <?php if (check_array($_GET, 'tipo_filtro') == 1): ?>selected<?php endif; ?>>Veículo</option>
+        <option value="2" <?php if (check_array($_GET, 'tipo_filtro') == 2): ?>selected<?php endif; ?>>Competência</option>
+        <option value="3" <?php if (check_array($_GET, 'tipo_filtro') == 3): ?>selected<?php endif; ?>>Métrica</option>
       </select>
-      <input type="text" name="q" placeholder="" class="form-control my-1 mr-sm-2" value="<?= check_array($_GET, 'q') ?>">
+      <input type="text" name="q" id="q" placeholder="" class="form-control my-1 mr-sm-2" value="<?= check_array($_GET, 'q') ?>">
       <button type="submit" class="btn btn-primary my-1"><i class="fas fa-search"></i></button>
+      <a href="<?= HOME_URI ?>list/competencias" class="btn btn-primary ml-2">Mostrar tudo</a>
     </form>
   </div>
 </div>
@@ -91,7 +90,7 @@ $url_remover = HOME_URI . 'remove/competencia/';
                 </ul>
               </td>
               <td>
-                <a href="<?= HOME_URI ?>register/abastecimento" class="btn btn-dark"><i class="fas fa-plus"></i> Abastecimento</a>
+                <a href="<?= HOME_URI . 'register/abastecimento?veiculo=' . $c->getIdVeiculo(); ?>" class="btn btn-dark"><i class="fas fa-plus"></i> Abastecimento</a>
               </td>
             </tr>
             <tr> <!-- Serviços -->
@@ -128,3 +127,4 @@ $url_remover = HOME_URI . 'remove/competencia/';
 </table>
 
 <?php require_once ABSPATH . '/views/_includes/footer.php'; ?>
+<script type="text/javascript" src="<?= HOME_URI ?>views/_js/list-competencias.js"></script>

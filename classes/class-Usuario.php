@@ -18,10 +18,10 @@ class Usuario {
 
   public function getArray() {
     return array(
-      'id' => $this->id,
-      'username' => $this->username,
-      'password' => $this->password,
-      'name' => $this->name,
+      'id'              => $this->id,
+      'username'        => $this->username,
+      'password'        => $this->password,
+      'name'            => $this->name,
       'email'           => $this->email,
       'user_session_id' => $this->user_session_id
     );
@@ -51,8 +51,8 @@ class Usuario {
     return $this->email;
   }
 
-  public function setUserSessionId($user_session_id) {
-    $this->user_session_id = $user_session_id;
+  public function setUserSessionId($id) {
+    $this->user_session_id = $id;
   }
 
   public function getUserSessionId() {

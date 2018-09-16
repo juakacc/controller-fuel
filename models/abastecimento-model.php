@@ -7,7 +7,6 @@ class AbastecimentoModel extends MainModel {
     $this->form_msg =  array();
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_POST)) {
-
       foreach ($_POST as $key => $value) {
         $this->form_data[$key] = $value;
       }
@@ -37,6 +36,10 @@ class AbastecimentoModel extends MainModel {
         $_SESSION['messages'][] = 'Abastecimento cadastrado com sucesso';
         header('Location: ' . HOME_URI . 'list/abastecimentos');
         exit;
+      }
+    } else { // GET - caso já venha com o veículo definido
+      if (is_numeric(check_array($_GET, 'veiculo'))) {
+        $this->form_data['veiculo'] = check_array($_GET, 'veiculo');
       }
     }
   }

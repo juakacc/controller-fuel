@@ -4,13 +4,11 @@ if (! defined('ABSPATH')) exit;
 $model->validar_form_adicionar();
 $veiculos = VeiculoDao::getVeiculos();
 
-if (! check_array($model->form_data, 'mes')) {
+if (! check_array($model->form_data, 'mes'))
   $model->form_data['mes'] = date('m');
-}
 
-if (! check_array($model->form_data, 'ano')) {
+if (! check_array($model->form_data, 'ano'))
   $model->form_data['ano'] = date('Y');
-}
 
 include_once ABSPATH . '/views/_includes/header.php'
 ?>
@@ -54,7 +52,7 @@ include_once ABSPATH . '/views/_includes/header.php'
   </div>
 
   <div class="form-group row">
-    <label for="km_inicial" class="col-form-label col-3">Km/Hr inicial:</label>
+    <label for="km_inicial" class="col-form-label col-3">Métrica inicial:</label>
     <div class="col">
       <input type="text" name="metrica_inicial" value="<?= check_array($model->form_data, 'metrica_inicial'); ?>" class="form-control" id="metrica_inicial" required placeholder="km / hr">
       <small class="form-text text-danger">
@@ -66,3 +64,4 @@ include_once ABSPATH . '/views/_includes/header.php'
 </form>
 
 <?php include_once ABSPATH . '/views/_includes/footer.php' ?>
+<script type="text/javascript" src="<?= HOME_URI ?>views/_js/forms/verifica-metrica.js"></script>

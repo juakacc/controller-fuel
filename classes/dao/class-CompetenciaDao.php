@@ -118,18 +118,49 @@ class CompetenciaDao {
   }
 
   public static function getComFiltro($id_filtro, $valor) {
-    // switch ($id_filtro) {
-    //   case 1: // veículo
-    //     $sql = "SELECT id, veiculo_id, mes, ano, metrica_inicial FROM competencia";
-    //     break;
-    //   case 2: // competencia
-    //
-    //     break;
-    //   case 3; // metrica
-    //
-    //     break;
-    // }
-    return CompetenciaDao::getCompetencias();
+    $competencias = array();
 
+    switch ($id_filtro) {
+      case 1: // veículo
+        $sql = "SELECT id AS i, veiculo_id, mes, ano, metrica_inicial FROM competencia
+            WHERE veiculo_id IN (SELECT id FROM veiculo WHERE nome LIKE CONCAT('%',?,'%'))";
+        break;
+      case 2: // competencia
+        $a = explode('/', $valor);
+        if ((count($a) != 2) || ! is_numeric($a[0]) || ! is_numeric($a[1])) {
+          return $competencias;
+        }
+        $sql = "SELECT id AS i, veiculo_id, mes, ano, metrica_inicial FROM competencia
+            WHERE mes = ? AND ano = ?";
+        break;
+      case 3; // metrica
+        $valor = strtolower($valor);
+        if ($valor != 'km' && $valor != 'hr') {
+          return $competencias;
+        }
+        $sql = "SELECT id AS i, veiculo_id, mes, ano, metrica_inicial FROM competencia
+            WHERE veiculo_id IN (SELECT id FROM veiculo WHERE tipo_metrica LIKE CONCAT('%',?,'%'))";
+        break;
+    }
+    $mysqli = getConexao();
+
+    if ($stmt = $mysqli->prepare($sql)) {
+      if ($id_filtro == 2) {
+        $stmt->bind_param("ii", $a[0], $a[1]);
+      } else {
+        $stmt->bind_param("s", $valor);
+      }
+      $stmt->execute();
+      $stmt->bind_result($id, $veiculo_id, $mes, $ano, $metrica_inicial);
+
+      while ($stmt->fetch()) {
+          $c = new Competencia($veiculo_id, $mes, $ano, $metrica_inicial);
+          $c->setId($id);
+          $competencias[] = $c;
+      }
+      $stmt->close();
+    }
+    $mysqli->close();
+    return $competencias;
   }
 }

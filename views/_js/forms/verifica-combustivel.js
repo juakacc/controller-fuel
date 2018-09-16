@@ -1,10 +1,18 @@
+$(document).ready(function() {
+  setarCombustivel();
+});
+
 $('#veiculo').change(function() {
+  setarCombustivel();
+});
+
+function setarCombustivel() {
   var veiculo = $('#veiculo');
   var combustivel = $('#combustivel');
 
-  $.post('http://127.0.0.1/controle-veiculos/ajax/verificar-combustivel',
+  var home = get_home_uri();
+  $.post(home+'ajax/verificar-combustivel',
       {'id_veiculo': veiculo.val()}, function(result) {
-    // alert(result);
     combustivel.val(result);
   });
-});
+}

@@ -1,6 +1,23 @@
 $(document).ready(function() {
   esconderTudo();
+  alterarFiltro();
 });
+
+function alterarFiltro() {
+  var tipo = $("#tipo-filtro").val();
+  $('#q').unmask();
+  $('#q').attr('placeholder', '');
+  $("#q").val('');
+
+  if (tipo == 1) {
+    $('#q').attr('placeholder', 'Nome/parte do nome do veículo...');
+  } else if (tipo == 2) {
+    $('#q').mask('00/0000', {clearIfNotMatch: true});
+    $('#q').attr('placeholder', 'mm/aaaa');
+  } else {
+    $('#q').attr('placeholder', 'km ou hr');
+  }
+}
 
 function esconderTudo() {
   $(".sub").hide();

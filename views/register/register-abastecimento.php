@@ -45,3 +45,4 @@ include_once ABSPATH . '/views/_includes/header.php';
 </form>
 
 <?php include_once ABSPATH . '/views/_includes/footer.php' ?>
+<script type="text/javascript" src="<?= HOME_URI ?>views/_js/forms/verifica-combustivel.js"></script>

@@ -2,7 +2,9 @@
 
 class UserLogin {
 
+  public $logged_in;
   public $login_error;
+  public $userdata;
 
   public function check_userLogin() {
 
@@ -10,7 +12,6 @@ class UserLogin {
       ! empty($_SESSION['userdata']) &&
       is_array($_SESSION['userdata']) &&
       ! isset($_POST['userdata'])) {
-
         $userdata = $_SESSION['userdata'];
         $userdata['post'] = false;
     }
@@ -18,7 +19,6 @@ class UserLogin {
     if (isset($_POST['userdata']) &&
       ! empty($_POST['userdata']) &&
       is_array($_POST['userdata'])) {
-
         $userdata = $_POST['userdata'];
         $userdata['post'] = true;
     }
@@ -49,7 +49,6 @@ class UserLogin {
       $this->logout();
       return;
     }
-
     $user_bd = UsuarioDao::getPorUserName($username);
 
     if (! $user_bd) {
@@ -78,7 +77,6 @@ class UserLogin {
 
         UsuarioDao::updateSessionId($user_bd->getId(), $session_id);
       }
-
       $this->logged_in = true;
       $this->userdata = $_SESSION['userdata'];
 
@@ -90,7 +88,7 @@ class UserLogin {
       }
     } else {
       $this->logged_in = false;
-      $this->login_error = 'Senha incorreto';
+      $this->login_error = 'Senha incorreta';
       $this->logout();
       return;
     }
@@ -100,7 +98,6 @@ class UserLogin {
   protected function logout($redirect = false) {
     $_SESSION['userdata'] = array();
     unset($_SESSION['userdata']);
-    session_regenerate_id();
 
     if ($redirect === true) {
       $this->goto_login();

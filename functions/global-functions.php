@@ -79,6 +79,12 @@ function mostrar_mes($m) {
   }
 }
 
+function mostrar_placa($p) {
+  if ($p == '')
+    return 'Sem placa';
+  return $p;
+}
+
 // recebe no formato aaaa-mm-dd
 // retorna no formato dd/mm/aaaa
 function data_para_mostrar($data) {
