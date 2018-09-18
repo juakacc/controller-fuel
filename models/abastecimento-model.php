@@ -18,7 +18,8 @@ class AbastecimentoModel extends MainModel {
         // Verificar competência
         $comp = CompetenciaDao::getPorVeiculoData($this->form_data['veiculo'], $d[1], $d[2]);
         if (! $comp) {
-          $this->form_msg['data'] = 'Competência inexistente';
+          $url_register = HOME_URI . 'register/competencia/' . $d[1] . '/' . $d[2] . '/' . $this->form_data['veiculo'];
+          $this->form_msg['data'] = 'Competência inexistente. <a href=\''. $url_register . '\'>Cadastrar</a>';
         }
       }
 

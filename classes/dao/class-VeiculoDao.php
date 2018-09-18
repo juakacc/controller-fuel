@@ -4,16 +4,18 @@ class VeiculoDao {
 
   public static function adicionarVeiculo(Veiculo $v) {
     $mysqli = getConexao();
-    $sql = "INSERT INTO veiculo (nome, sem_placa, placa, combustivel_padrao, tipo_metrica) VALUES (?,?,?,?,?)";
+    $sql = "INSERT INTO veiculo (nome, chassi, sem_placa, placa, uf_placa, combustivel_padrao, tipo_metrica) VALUES (?,?,?,?,?,?,?)";
 
     $sem_placa = $v->getPlaca() == "";
     $nome = $v->getNome();
+    $chassi = $v->getChassi();
     $placa = $v->getPlaca();
+    $uf_placa = $v->getUFPlaca();
     $combustivel_padrao = $v->getCombustivelPadrao();
     $tipo_metrica = $v->getTipoMetrica();
 
     if ($stmt = $mysqli->prepare($sql)) {
-        $stmt->bind_param("sisss", $nome, $sem_placa, $placa, $combustivel_padrao, $tipo_metrica);
+        $stmt->bind_param("ssissss", $nome, $chassi, $sem_placa, $placa, $uf_placa, $combustivel_padrao, $tipo_metrica);
         $stmt->execute();
         $stmt->close();
     }
@@ -53,16 +55,14 @@ class VeiculoDao {
   public static function getVeiculos() {
     $mysqli = getConexao();
     $veiculos = array();
-    $sql = "SELECT id, nome, placa, combustivel_padrao, tipo_metrica FROM veiculo";
+    $sql = "SELECT id FROM veiculo";
 
     if ($stmt = $mysqli->prepare($sql)) {
         $stmt->execute();
-        $stmt->bind_result($id, $nome, $placa, $combustivel_padrao, $tipo_metrica);
+        $stmt->bind_result($id);
 
         while ($stmt->fetch()) {
-            $c = new Veiculo($nome, $placa, $tipo_metrica, $combustivel_padrao);
-            $c->setId($id);
-            $veiculos[] = $c;
+            $veiculos[] = VeiculoDao::getPorId($id);
         }
         $stmt->close();
     }
@@ -72,16 +72,16 @@ class VeiculoDao {
 
   public static function getPorId($id) {
     $mysqli = getConexao();
-    $sql = "SELECT nome, placa, combustivel_padrao, tipo_metrica FROM veiculo WHERE id = ?";
+    $sql = "SELECT nome, chassi, placa, uf_placa, combustivel_padrao, tipo_metrica FROM veiculo WHERE id = ?";
     $veiculo = null;
 
     if ($stmt = $mysqli->prepare($sql)) {
         $stmt->bind_param("i", $id);
         $stmt->execute();
-        $stmt->bind_result($nome, $placa, $combustivel_padrao, $tipo_metrica);
+        $stmt->bind_result($nome, $chassi, $placa, $uf_placa, $combustivel_padrao, $tipo_metrica);
 
         if ($stmt->fetch()) {
-          $veiculo = new Veiculo($nome, $placa, $tipo_metrica, $combustivel_padrao);
+          $veiculo = new Veiculo($nome, $chassi, $placa, $uf_placa, $tipo_metrica, $combustivel_padrao);
           $veiculo->setId($id);
         }
         $stmt->close();
@@ -92,17 +92,35 @@ class VeiculoDao {
 
   public static function getPorPlaca($placa) {
     $mysqli = getConexao();
-    $sql = "SELECT id, nome, combustivel_padrao, tipo_metrica FROM veiculo WHERE placa LIKE CONCAT('%',?,'%')";
+    $sql = "SELECT id FROM veiculo WHERE placa LIKE CONCAT('%',?,'%')";
     $veiculo = null;
 
     if ($stmt = $mysqli->prepare($sql)) {
         $stmt->bind_param("s", $placa);
         $stmt->execute();
-        $stmt->bind_result($id, $nome, $combustivel_padrao, $tipo_metrica);
+        $stmt->bind_result($id);
 
         if ($stmt->fetch()) {
-          $veiculo = new Veiculo($nome, $placa, $tipo_metrica, $combustivel_padrao);
-          $veiculo->setId($id);
+          $veiculo = VeiculoDao::getPorId($id);
+        }
+        $stmt->close();
+    }
+    $mysqli->close();
+    return $veiculo;
+  }
+
+  public static function getPorNome($nome) {
+    $mysqli = getConexao();
+    $sql = "SELECT id FROM veiculo WHERE nome LIKE CONCAT('%',?,'%')";
+    $veiculo = null;
+
+    if ($stmt = $mysqli->prepare($sql)) {
+        $stmt->bind_param("s", $nome);
+        $stmt->execute();
+        $stmt->bind_result($id);
+
+        if ($stmt->fetch()) {
+          $veiculo = VeiculoDao::getPorId($id);
         }
         $stmt->close();
     }

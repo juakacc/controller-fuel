@@ -7,7 +7,6 @@ class ConsertoModel extends MainModel {
     $this->form_msg =  array();
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_POST)) {
-
       foreach ($_POST as $key => $value) {
         $this->form_data[$key] = $value;
       }
@@ -16,10 +15,10 @@ class ConsertoModel extends MainModel {
         $this->form_msg['data'] = 'Data inválida';
       } else {
         $d = explode('/', $this->form_data['data']);
-        // Verificar competência
         $comp = CompetenciaDao::getPorVeiculoData($this->form_data['veiculo'], $d[1], $d[2]);
-        if (! $comp) {
-          $this->form_msg['data'] = 'Competência inexistente <a href=\'\'>teste</a>';
+        if (! $comp) { // competência inexistente
+          $url_register = HOME_URI . 'register/competencia/' . $d[1] . '/' . $d[2] . '/' . $this->form_data['veiculo'];
+          $this->form_msg['data'] = 'Competência inexistente. <a href=\''. $url_register . '\'>Cadastrar</a>';
         }
       }
 
@@ -34,6 +33,10 @@ class ConsertoModel extends MainModel {
         header('Location: ' . HOME_URI . 'list/consertos');
         exit;
       }
+    } else { // GET - caso já venha com o veículo definido
+      if (is_numeric(check_array($_GET, 'veiculo'))) {
+        $this->form_data['veiculo'] = check_array($_GET, 'veiculo');
+      }
     }
   }
 
@@ -47,4 +50,5 @@ class ConsertoModel extends MainModel {
       exit;
     }
   }
+
 }

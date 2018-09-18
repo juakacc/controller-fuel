@@ -44,7 +44,11 @@ require_once ABSPATH . '/views/_includes/header.php';
         <?= data_para_mostrar($c->getData()) ?>
       </td>
       <td>
-        <?= $c->getPeca(); ?>
+        <ul>
+          <?php foreach ($c->getItens() as $item): ?>
+            <li><?= $item->getPeca(); ?> : <?= $item->getQtd(); ?></li>
+          <?php endforeach; ?>
+        </ul>
       </td>
       <td>
         <a href="<?= $url_remover . $c->getId(); ?>"><i class="fas fa-minus-circle"></i> Excluir</a><br>

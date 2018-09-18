@@ -32,6 +32,14 @@ class CompetenciaModel extends MainModel {
         header('Location: ' . HOME_URI . 'list/competencias');
         exit;
       }
+    } else {
+
+      if (is_numeric($this->controller->parameters[0]) && is_numeric($this->controller->parameters[1])
+        && is_numeric($this->controller->parameters[2])) {
+        $this->form_data['mes'] = $this->controller->parameters[0];
+        $this->form_data['ano'] = $this->controller->parameters[1];
+        $this->form_data['veiculo'] = $this->controller->parameters[2];
+      }
     }
   }
 

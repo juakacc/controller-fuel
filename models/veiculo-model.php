@@ -13,6 +13,10 @@ class VeiculoModel extends MainModel {
 
       if (strlen($this->form_data['nome']) == 0) {
         $this->form_msg['nome'] = 'Digite um nome para o veículo';
+      } else {
+        if (VeiculoDao::getPorNome($this->form_data['nome'])) {
+          $this->form_msg['nome'] = 'Nome para veículo já cadastrado';
+        }
       }
 
       if (! check_array($this->form_data, 'sem_placa')) {
@@ -28,8 +32,11 @@ class VeiculoModel extends MainModel {
       }
 
       if (empty($this->form_msg)) {
-        $veiculo = new Veiculo($this->form_data['nome'], $this->form_data['placa'],
-          $this->form_data['tipo_metrica'], $this->form_data['combustivel']);
+        $uf_placa = check_array($this->form_data, 'uf-placa') ? $this->form_data['uf-placa'] : '';
+
+        $veiculo = new Veiculo($this->form_data['nome'], $this->form_data['chassi'],
+          $this->form_data['placa'], $uf_placa, $this->form_data['tipo_metrica'],
+          $this->form_data['combustivel']);
         VeiculoDao::adicionarVeiculo($veiculo);
         $_SESSION['messages'][] = 'Veículo adicionado com sucesso';
         header('Location: ' . HOME_URI . 'list/veiculos');

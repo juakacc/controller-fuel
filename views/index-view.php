@@ -11,7 +11,7 @@ include_once ABSPATH . '/views/_includes/header.php'
 </div>
 
 <div class="row">
-  <div class="col">
+  <div class="col-7">
     <div class="p-2" style="background-color: #e3f2fd;">
       <h4><i class="fas fa-plus"></i> Registrar</h4>
       <div class="">

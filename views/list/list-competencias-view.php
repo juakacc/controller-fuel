@@ -13,6 +13,10 @@ require_once ABSPATH . '/views/_includes/header.php';
 $url_adicionar = HOME_URI . 'register/competencia';
 $url_editar = HOME_URI . 'edita/competencia/';
 $url_remover = HOME_URI . 'remove/competencia/';
+
+$url_registerAbastecimento = HOME_URI . 'register/abastecimento?veiculo=';
+$url_registerConserto = HOME_URI . 'register/conserto?veiculo=';
+$url_registerAquisicao = HOME_URI . 'register/aquisicao?veiculo=';
 ?>
 
 <div class="row">
@@ -85,12 +89,12 @@ $url_remover = HOME_URI . 'remove/competencia/';
               <td>
                 <ul>
                   <?php foreach ($abastecimentos as $x): ?>
-                    <li><?= $x->getQtd() . ' L'; ?></li>
+                    <li><a href="<?= HOME_URI . 'detail/abastecimento/' . $x->getId(); ?>"><?= $x->getQtd() . ' L'; ?></a></li>
                   <?php endforeach; ?>
                 </ul>
               </td>
               <td>
-                <a href="<?= HOME_URI . 'register/abastecimento?veiculo=' . $c->getIdVeiculo(); ?>" class="btn btn-dark"><i class="fas fa-plus"></i> Abastecimento</a>
+                <a href="<?= $url_registerAbastecimento . $c->getIdVeiculo(); ?>" class="btn btn-dark"><i class="fas fa-plus"></i> Abastecimento</a>
               </td>
             </tr>
             <tr> <!-- Serviços -->
@@ -98,12 +102,12 @@ $url_remover = HOME_URI . 'remove/competencia/';
               <td>
                 <ul>
                   <?php foreach ($consertos as $x): ?>
-                    <li><?= $x->getServico(); ?></li>
+                    <li><a href=""><?= $x->getServico(); ?></a></li>
                   <?php endforeach; ?>
                 </ul>
               </td>
               <td>
-                <a href="<?= HOME_URI ?>register/conserto" class="btn btn-dark"><i class="fas fa-plus"></i> Conserto</a>
+                <a href="<?= $url_registerConserto . $c->getIdVeiculo(); ?>" class="btn btn-dark"><i class="fas fa-plus"></i> Conserto</a>
               </td>
             </tr>
             <tr> <!-- Aquisiçoes -->
@@ -111,12 +115,14 @@ $url_remover = HOME_URI . 'remove/competencia/';
               <td>
                 <ul>
                   <?php foreach ($aquisicoes as $x): ?>
-                    <li><?= $x->getPeca(); ?></li>
+                    <?php foreach ($x->getItens() as $_): ?>
+                      <li><?= $_->getPeca(); ?> : <?= $_->getQtd(); ?></li>
+                    <?php endforeach; ?>
                   <?php endforeach; ?>
                 </ul>
               </td>
               <td>
-                <a href="<?= HOME_URI ?>register/aquisicao" class="btn btn-dark"><i class="fas fa-plus"></i> Aquisição</a>
+                <a href="<?= $url_registerAquisicao . $c->getIdVeiculo(); ?>" class="btn btn-dark"><i class="fas fa-plus"></i> Aquisição</a>
               </td>
             </tr>
           </table>

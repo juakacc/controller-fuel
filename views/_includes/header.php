@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <link rel="stylesheet" href="<?= HOME_URI ?>views/_css/bootstrap.min.css">
-    <!-- <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous"> -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
     <link rel="icon" type="imagem/png" href="<?= HOME_URI ?>/views/_includes/car.svg" />
     <title>Controle de veículos - PMO</title>
   </head>
@@ -33,7 +33,7 @@
           </li> -->
         </ul>
 
-        <?php if ($this->logged_in): ?>
+        <?php if (isset($this->logged_in) && $this->logged_in): ?>
           <span class="navbar-text mr-2">Bem-vindo, <?= $this->userdata['name']; ?></span>
         <?php endif; ?>
 

@@ -19,4 +19,15 @@ class DetailController extends MainController {
     }
     require_once ABSPATH . '/views/detail/detail-veiculo-view.php';
   }
+
+  public function abastecimento() {
+
+    $id_abastecimento = check_array($this->parameters, 0);
+
+    if (!is_numeric($id_abastecimento)) {
+      header('Location: ' . HOME_URI . 'page-not-found');
+      exit;
+    }
+    echo 'renderizando abastecimento';
+  }
 }

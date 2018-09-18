@@ -4,17 +4,37 @@ class AquisicaoDao {
 
   public static function adicionarAquisicao(Aquisicao $a) {
     $mysqli = getConexao();
-    $sql = "INSERT INTO aquisicao (peca, data, competencia_id) VALUES (?,?,?)";
-    $peca = $a->getPeca();
+    $sql = "INSERT INTO aquisicao (data, competencia_id) VALUES (?,?)";
     $data = $a->getData();
     $comp_id = $a->getCompId();
+    $itens = $a->getItens();
 
     if ($stmt = $mysqli->prepare($sql)) {
-        $stmt->bind_param("ssi", $peca, $data, $comp_id);
-        $stmt->execute();
+        $stmt->bind_param("si", $data, $comp_id);
+
+        if ($stmt->execute()){
+          $id = AquisicaoDao::getUltimoId();
+          ItemDao::adicionarItens($itens, $id);
+        }
         $stmt->close();
     }
     $mysqli->close();
+  }
+
+  public static function getUltimoId() {
+    $sql = "SELECT id FROM aquisicao ORDER BY id DESC LIMIT 1";
+    $mysqli = getConexao();
+    $id = 0;
+
+    if ($stmt = $mysqli->prepare($sql)) {
+        $stmt->execute();
+        $stmt->bind_result($i);
+
+        if ($stmt->fetch()) $id = $i;
+        $stmt->close();
+    }
+    $mysqli->close();
+    return $id;
   }
 
   public static function removerAquisicao($id) {
@@ -31,16 +51,17 @@ class AquisicaoDao {
 
   public static function getPorId($id) {
     $mysqli = getConexao();
-    $sql = "SELECT peca, data, competencia_id FROM aquisicao WHERE id = ?";
+    $sql = "SELECT data, competencia_id FROM aquisicao WHERE id = ?";
     $aquisicao = null;
 
     if ($stmt = $mysqli->prepare($sql)) {
       $stmt->bind_param("i", $id);
       $stmt->execute();
-      $stmt->bind_result($peca, $data, $competencia_id);
+      $stmt->bind_result($data, $competencia_id);
 
       if ($stmt->fetch()) {
-        $aquisicao = new Aquisicao($peca, $data, $competencia_id);
+        $itens = ItemDao::getPorAquisicaoId($id);
+        $aquisicao = new Aquisicao($itens, $data, $competencia_id);
         $aquisicao->setId($id);
       }
     }
@@ -50,16 +71,15 @@ class AquisicaoDao {
 
   public static function getAquisicoes() {
     $mysqli = getConexao();
-    $sql = "SELECT id, peca, data, competencia_id FROM aquisicao";
+    $sql = "SELECT id FROM aquisicao";
     $aquisicoes = array();
 
     if ($stmt = $mysqli->prepare($sql)) {
       $stmt->execute();
-      $stmt->bind_result($id, $peca, $data, $competencia_id);
+      $stmt->bind_result($id);
 
       while ($stmt->fetch()) {
-        $a = new Aquisicao($peca, $data, $competencia_id);
-        $a->setId($id);
+        $a = AquisicaoDao::getPorId($id);
         $aquisicoes[] = $a;
       }
       $stmt->close();
@@ -70,17 +90,16 @@ class AquisicaoDao {
 
   public static function getPorCompetencia($comp_id) {
     $mysqli = getConexao();
-    $sql = "SELECT id, peca, data FROM aquisicao WHERE competencia_id = ?";
+    $sql = "SELECT id FROM aquisicao WHERE competencia_id = ?";
     $aquisicoes = array();
 
     if ($stmt = $mysqli->prepare($sql)) {
         $stmt->bind_param("i", $comp_id);
         $stmt->execute();
-        $stmt->bind_result($id, $peca, $data);
+        $stmt->bind_result($id);
 
         while ($stmt->fetch()) {
-          $a = new Aquisicao($peca, $data, $comp_id);
-          $a->setId($id);
+          $a = AquisicaoDao::getPorId($id);
           $aquisicoes[] = $a;
         }
         $stmt->close();

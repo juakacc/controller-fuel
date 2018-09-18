@@ -3,12 +3,12 @@
 class Aquisicao {
 
   private $id;
-  private $peca;
+  private $itens;
   private $data;
   private $competencia_id;
 
-  public function __construct($peca, $data, $competencia_id) {
-    $this->peca = $peca;
+  public function __construct($itens = array(), $data, $competencia_id) {
+    $this->itens = $itens;
     $this->data = data_para_banco($data);
     $this->competencia_id = $competencia_id;
   }
@@ -21,8 +21,8 @@ class Aquisicao {
     $this->id = $id;
   }
 
-  public function getPeca() {
-    return $this->peca;
+  public function getItens() {
+    return $this->itens;
   }
 
   public function getData() {
