@@ -36,6 +36,10 @@ class Veiculo {
   }
 
   public function getPlaca() {
+    return $this->placa;
+  }
+
+  public function getPlacaMostrar() {
     if ($this->tem_placa())
       return $this->placa . '/' . $this->uf_placa;
     else

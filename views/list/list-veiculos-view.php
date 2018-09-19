@@ -32,7 +32,7 @@ $url_remover = HOME_URI . 'remove/veiculo/';
     <tr>
       <td>#<?= $v->getId(); ?></td>
       <td><a href="<?php echo HOME_URI . 'detail/veiculo/' . $v->getId(); ?>"><?= $v->getNome(); ?></a></td>
-      <td><?= mostrar_placa($v->getPlaca()); ?></td>
+      <td><?= mostrar_placa($v->getPlacaMostrar()); ?></td>
       <td><?= $v->getChassi(); ?></td>
       <td>
         <a href="<?= $url_remover . $v->getId(); ?>" class="btn btn-outline-danger"><i class="fas fa-minus-circle"></i> Excluir</a>

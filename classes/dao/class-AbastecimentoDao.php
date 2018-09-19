@@ -4,14 +4,14 @@ class AbastecimentoDao {
 
   public static function adicionarAbastecimento(Abastecimento $a) {
     $mysqli = getConexao();
-    $sql = "INSERT INTO abastecimento (combustivel, qtd, data, competencia_id) VALUES (?,?,?,?)";
+    $sql = "INSERT INTO abastecimento (combustivel, qtd, data, evento_id) VALUES (?,?,?,?)";
     $combustivel = $a->getCombustivel();
     $qtd = $a->getQtd();
     $data = $a->getData();
-    $comp_id = $a->getCompId();
+    $evento_id = $a->getEventoId();
 
     if ($stmt = $mysqli->prepare($sql)) {
-        $stmt->bind_param("sdsi", $combustivel, $qtd, $data, $comp_id);
+        $stmt->bind_param("sdsi", $combustivel, $qtd, $data, $evento_id);
         $stmt->execute();
         $stmt->close();
     }
@@ -32,16 +32,16 @@ class AbastecimentoDao {
 
   public static function getPorId($id) {
     $mysqli = getConexao();
-    $sql = "SELECT combustivel, qtd, data, competencia_id FROM abastecimento WHERE id = ?";
+    $sql = "SELECT combustivel, qtd, data, evento_id FROM abastecimento WHERE id = ?";
     $a = null;
 
     if ($stmt = $mysqli->prepare($sql)) {
         $stmt->bind_param("i", $id);
         $stmt->execute();
-        $stmt->bind_result($combustivel, $qtd, $data, $competencia_id);
+        $stmt->bind_result($combustivel, $qtd, $data, $evento_id);
 
         if ($stmt->fetch()) {
-          $a = new Abastecimento($combustivel, $qtd, $data, $competencia_id);
+          $a = new Abastecimento($combustivel, $qtd, $data, $evento_id);
           $a->setId($id);
         }
         $stmt->close();

@@ -13,15 +13,16 @@ class AbastecimentoModel extends MainModel {
 
       if (! validar_data($this->form_data['data'])) {
         $this->form_msg['data'] = 'Data inválida';
-      } else {
-        $d = explode('/', $this->form_data['data']);
-        // Verificar competência
-        $comp = CompetenciaDao::getPorVeiculoData($this->form_data['veiculo'], $d[1], $d[2]);
-        if (! $comp) {
-          $url_register = HOME_URI . 'register/competencia/' . $d[1] . '/' . $d[2] . '/' . $this->form_data['veiculo'];
-          $this->form_msg['data'] = 'Competência inexistente. <a href=\''. $url_register . '\'>Cadastrar</a>';
-        }
       }
+      // else {
+      //   $d = explode('/', $this->form_data['data']);
+      //   // Verificar competência
+      //   $comp = CompetenciaDao::getPorVeiculoData($this->form_data['veiculo'], $d[1], $d[2]);
+      //   if (! $comp) {
+      //     $url_register = HOME_URI . 'register/competencia/' . $d[1] . '/' . $d[2] . '/' . $this->form_data['veiculo'];
+      //     $this->form_msg['data'] = 'Competência inexistente. <a href=\''. $url_register . '\'>Cadastrar</a>';
+      //   }
+      // }
 
       $this->form_data['qtd'] = str_replace(',', '.', $this->form_data['qtd']);
 
@@ -32,7 +33,8 @@ class AbastecimentoModel extends MainModel {
 
       if (empty($this->form_msg)) {
         $abastecimento = new Abastecimento($this->form_data['combustivel'], $this->form_data['qtd'],
-          $this->form_data['data'], $comp->getId());
+          $this->form_data['data'], $this->form_data['evento']);
+
         AbastecimentoDao::adicionarAbastecimento($abastecimento);
         $_SESSION['messages'][] = 'Abastecimento cadastrado com sucesso';
         header('Location: ' . HOME_URI . 'list/abastecimentos');
