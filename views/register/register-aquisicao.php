@@ -17,6 +17,15 @@ include_once ABSPATH . '/views/_includes/header.php';
   </div>
 
   <div class="form-group row">
+    <label for="veiculo" class="col-form-label col-2">Evento:</label>
+    <div class="col-10">
+      <select class="custom-select" name="evento" id="select-event">
+
+      </select>
+    </div>
+  </div>
+
+  <div class="form-group row">
     <label for="data" class="col-form-label col-2">Data:</label>
     <div class="col-10">
       <?php include_once ABSPATH . '/views/_includes/input_data.php'; ?>
@@ -26,8 +35,6 @@ include_once ABSPATH . '/views/_includes/header.php';
   <small class="form-text text-danger">
     <?= check_array($model->form_msg, 'peca'); ?>
   </small>
-
-
 
   <div class="div-pecas">
     <?php if (isset($model->form_data['peca']) && count($model->form_data['peca']) >= 1): ?>
@@ -67,7 +74,7 @@ include_once ABSPATH . '/views/_includes/header.php';
           </div>
           <label for="qtd[1]" class="col-form-label col-1">QTD:</label>
           <div class="col-2">
-            <input type="number" name="qtd[]" class="form-control" value="" min="1">
+            <input type="number" name="qtd[]" class="form-control" value="1" min="1">
           </div>
           <div class="col-2">
             <a href="#" class="btn btn-primary" id="btn-add"><i class="fas fa-plus-circle"></i></a>
@@ -81,3 +88,4 @@ include_once ABSPATH . '/views/_includes/header.php';
 
 <?php include_once ABSPATH . '/views/_includes/footer.php' ?>
 <script type="text/javascript" src="<?= HOME_URI ?>views/_js/forms/form_pecas.js"></script>
+<script type="text/javascript" src="<?= HOME_URI ?>views/_js/forms/verifica-evento.js"></script>

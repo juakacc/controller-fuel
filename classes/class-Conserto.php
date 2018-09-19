@@ -5,12 +5,12 @@ class Conserto {
   private $id;
   private $servicos;
   private $data;
-  private $id_competencia;
+  private $id_evento;
 
-  public function __construct($servico, $data, $id_competencia) {
+  public function __construct($servico, $data, $id_evento) {
     $this->servicos = $servico;
     $this->data = data_para_banco($data);
-    $this->id_competencia = $id_competencia;
+    $this->id_evento = $id_evento;
   }
 
   public function getId() {
@@ -29,7 +29,7 @@ class Conserto {
     return $this->data;
   }
 
-  public function getCompId() {
-    return $this->id_competencia;
+  public function getEventoId() {
+    return $this->id_evento;
   }
 }

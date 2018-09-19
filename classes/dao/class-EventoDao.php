@@ -90,31 +90,25 @@ class EventoDao {
     return $eventos;
   }
 
-  // public static function getPorVeiculoData($veiculo_id, $mes, $ano) {
-  //   $mysqli = getConexao();
-  //   $sql = "SELECT id, metrica_inicial FROM competencia WHERE veiculo_id = ? AND mes = ? AND ano = ?";
-  //   $comp = null;
-  //
-  //   if ($stmt = $mysqli->prepare($sql)) {
-  //     $stmt->bind_param("iii", $veiculo_id, $mes, $ano);
-  //     $stmt->execute();
-  //     $stmt->bind_result($id, $metrica_inicial);
-  //
-  //     if ($stmt->fetch()) {
-  //       $comp = new Competencia($veiculo_id, $mes, $ano, $metrica_inicial);
-  //       $comp->setId($id);
-  //     }
-  //     $stmt->close();
-  //   }
-  //   $mysqli->close();
-  //
-  //   if ($comp) {
-  //     return $comp;
-  //   } else {
-  //     // Crio a competência
-  //     return null;
-  //   }
-  // }
+  public static function getPorVeiculoMetrica($veiculo_id, $metrica) {
+    $mysqli = getConexao();
+    $sql = "SELECT id FROM evento WHERE veiculo_id = ? AND metrica_inicial = ?";
+    $eventos = array();
+
+    if ($stmt = $mysqli->prepare($sql)) {
+      $stmt->bind_param("id", $veiculo_id, $metrica);
+      $stmt->execute();
+      $stmt->bind_result($id);
+
+      while($stmt->fetch()) {
+        $e = EventoDao::getPorId($id);
+        $eventos[] = $e;
+      }
+      $stmt->close();
+     }
+     $mysqli->close();
+     return $eventos;
+  }
 
   public static function getComFiltro($id_filtro, $valor) {
     $competencias = array();

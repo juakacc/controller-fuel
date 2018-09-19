@@ -15,9 +15,9 @@ $url_adicionar = HOME_URI . 'register/evento';
 $url_editar = HOME_URI . 'edita/evento/';
 $url_remover = HOME_URI . 'remove/evento/';
 
-$url_registerAbastecimento = HOME_URI . 'register/abastecimento?veiculo=';
-$url_registerConserto = HOME_URI . 'register/conserto?veiculo=';
-$url_registerAquisicao = HOME_URI . 'register/aquisicao?veiculo=';
+$url_registerAbastecimento = HOME_URI . 'register/abastecimento/';
+$url_registerConserto = HOME_URI . 'register/conserto/';
+$url_registerAquisicao = HOME_URI . 'register/aquisicao/';
 ?>
 
 <div class="row">
@@ -31,7 +31,7 @@ $url_registerAquisicao = HOME_URI . 'register/aquisicao?veiculo=';
     <a href="<?= HOME_URI ?>" class="btn btn-secondary"><i class="fas fa-reply"></i> Voltar</a>
   </div>
   <div class="col">
-    <a href="<?= HOME_URI ?>register/competencia" class="btn btn-dark"><i class="fas fa-plus"></i> Evento</a>
+    <a href="<?= HOME_URI ?>register/evento" class="btn btn-dark"><i class="fas fa-plus"></i> Evento</a>
   </div>
 </div>
 
@@ -53,14 +53,18 @@ $url_registerAquisicao = HOME_URI . 'register/aquisicao?veiculo=';
 
 <table class="table mt-2">
   <tr>
-    <th></th><th>Veículo</th><th>Data</th><th>Métrica inicial</th><th>Opções</th>
+    <th></th><th>Nome</th><th>Veículo</th><th>Data</th><th>Métrica inicial</th><th>Opções</th>
   </tr>
   <?php foreach ($eventos as $e): ?>
     <tr> <!-- Dados da competencia -->
       <td> <!-- btn para mostrar/ocultar -->
-        <a href="javascript:;" id="bt<?= $e->getId(); ?>" onclick="mostrar(<?= $e->getId(); ?>)" class="btn btn-outline-info">
+        <a href="javascript:;" id="bt<?= $e->getId(); ?>" onclick="mostrar(<?= $e->getId(); ?>)" class="btn btn-outline-info" title="Expandir">
           <i id="ic<?= $e->getId(); ?>" class="fas fa-plus"></i>
         </a>
+      </td>
+
+      <td>
+        <?= $e->getNome(); ?>
       </td>
 
       <td> <!-- veículo para detalhes -->
@@ -77,8 +81,8 @@ $url_registerAquisicao = HOME_URI . 'register/aquisicao?veiculo=';
       </td>
 
       <td>
-        <a href="<?= $url_remover . $e->getId(); ?>" class="btn btn-outline-danger"><i class="fas fa-minus-circle"></i> Excluir</a>
-        <a href="<?= $url_editar . $e->getId(); ?>" class="btn btn-outline-warning"><i class="fas fa-pencil-alt"></i> Editar</a>
+        <a href="<?= $url_remover . $e->getId(); ?>" class="btn btn-outline-danger" title="Excluir"><i class="fas fa-minus-circle"></i></a>
+        <a href="<?= $url_editar . $e->getId(); ?>" class="btn btn-outline-warning" title="Editar"><i class="fas fa-pencil-alt"></i></a>
       </td>
     </tr>
 
@@ -87,47 +91,50 @@ $url_registerAquisicao = HOME_URI . 'register/aquisicao?veiculo=';
         <?php $abastecimentos = AbastecimentoDao::getPorEvento($e->getId()); ?>
         <?php $consertos = ConsertoDao::getPorEvento($e->getId()); ?>
         <?php $aquisicoes = AquisicaoDao::getPorEvento($e->getId()); ?>
+        <td></td>
         <td colspan="5">
           <table class="table table-bordered">
             <tr> <!-- Combustíveis -->
               <td>Combustível</td>
               <td>
-                <ul>
+                <ul class="list-unstyled">
                   <?php foreach ($abastecimentos as $x): ?>
                     <li><a href="<?= HOME_URI . 'detail/abastecimento/' . $x->getId(); ?>"><?= $x->getQtd() . ' L'; ?></a></li>
                   <?php endforeach; ?>
                 </ul>
               </td>
               <td>
-                <a href="<?= $url_registerAbastecimento . $e->getIdVeiculo(); ?>" class="btn btn-dark"><i class="fas fa-plus"></i> Abastecimento</a>
+                <a href="<?= $url_registerAbastecimento . $e->getId(); ?>" class="btn btn-dark"><i class="fas fa-plus"></i> Abastecimento</a>
               </td>
             </tr>
+
             <tr> <!-- Serviços -->
               <td>Serviços</td>
               <td>
-                <ul>
+                <ul class="list-unstyled">
                   <?php foreach ($consertos as $x): ?>
                     <li><a href=""><?= $x->getServico(); ?></a></li>
                   <?php endforeach; ?>
                 </ul>
               </td>
               <td>
-                <a href="<?= $url_registerConserto . $e->getIdVeiculo(); ?>" class="btn btn-dark"><i class="fas fa-plus"></i> Conserto</a>
+                <a href="<?= $url_registerConserto . $e->getId(); ?>" class="btn btn-dark"><i class="fas fa-plus"></i> Conserto</a>
               </td>
             </tr>
+
             <tr> <!-- Aquisiçoes -->
               <td>Aquisições</td>
               <td>
-                <ul>
+                <ul class="list-unstyled">
                   <?php foreach ($aquisicoes as $x): ?>
                     <?php foreach ($x->getItens() as $_): ?>
-                      <li><?= $_->getPeca(); ?> : <?= $_->getQtd(); ?></li>
+                      <li><?= $_->getPeca(); ?> :: <?= $_->getQtd(); ?></li>
                     <?php endforeach; ?>
                   <?php endforeach; ?>
                 </ul>
               </td>
               <td>
-                <a href="<?= $url_registerAquisicao . $e->getIdVeiculo(); ?>" class="btn btn-dark"><i class="fas fa-plus"></i> Aquisição</a>
+                <a href="<?= $url_registerAquisicao . $e->getId(); ?>" class="btn btn-dark"><i class="fas fa-plus"></i> Aquisição</a>
               </td>
             </tr>
           </table>

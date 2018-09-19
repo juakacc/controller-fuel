@@ -13,7 +13,7 @@ $(document).ready(function() {
       </div>\
       <div class="col-1"></div>\
       <div class="col-2">\
-        <input type="number" name="qtd[]" class="form-control" value="" min="1">\
+        <input type="number" name="qtd[]" class="form-control" value="1" min="1">\
       </div>\
       <div class="col"><a href="#" class="btn btn-danger remove_field"><i class="fas fa-minus-circle"></i></a></div>\
     </div>'

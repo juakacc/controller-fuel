@@ -34,8 +34,8 @@ $url_remover = HOME_URI . 'remove/conserto/';
 
       <td>
         <?php
-          $comp = CompetenciaDao::getPorId($c->getCompId());
-          $veiculo = VeiculoDao::getPorId($comp->getIdVeiculo());
+          $evento = EventoDao::getPorId($c->getEventoId());
+          $veiculo = VeiculoDao::getPorId($evento->getIdVeiculo());
         ?>
         <?= $veiculo->getNome(); ?>
       </td>
@@ -46,8 +46,8 @@ $url_remover = HOME_URI . 'remove/conserto/';
         <?= $c->getServico(); ?>
       </td>
       <td>
-        <a href="<?= $url_remover . $c->getId(); ?>"><i class="fas fa-minus-circle"></i> Excluir</a><br>
-        <a href="<?= $url_editar . $c->getId(); ?>">Editar</a>
+        <a href="<?= $url_remover . $c->getId(); ?>" class="btn btn-outline-danger" title="Excluir"><i class="fas fa-minus-circle"></i></a>
+        <a href="<?= $url_editar . $c->getId(); ?>" class="btn btn-outline-warning" title="Editar"><i class="fas fa-pencil-alt"></i></a>
       </td>
     </tr>
   <?php endforeach; ?>

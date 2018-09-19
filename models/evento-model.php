@@ -11,10 +11,13 @@ class EventoModel extends MainModel {
         $this->form_data[$key] = $value;
       }
 
-      // if (CompetenciaDao::getPorVeiculoData($this->form_data['veiculo'],
-      //     $this->form_data['mes'], $this->form_data['ano'])) {
-      //   $this->form_msg['veiculo'] = 'Competência já registrada';
-      // }
+      if (strlen(check_array($this->form_data, 'nome')) == 0) {
+        $this->form_msg['nome'] = 'Informe um nome válido';
+      }
+
+      if (! validar_data($this->form_data['data'])) {
+        $this->form_msg['data'] = 'Data inválida';
+      }
 
       $this->form_data['metrica_inicial'] = str_replace('.', '', $this->form_data['metrica_inicial']);
       $this->form_data['metrica_inicial'] = str_replace(':', '', $this->form_data['metrica_inicial']);
@@ -22,6 +25,11 @@ class EventoModel extends MainModel {
       if (! is_numeric($this->form_data['metrica_inicial'])) {
         $this->form_data['metrica_inicial'] = '';
         $this->form_msg['metrica_inicial'] = 'Quilometragem/Horário inválido';
+      } else {
+        $e = EventoDao::getPorVeiculoMetrica($this->form_data['veiculo'], $this->form_data['metrica_inicial']);
+        if (count($e) > 0) { // Essa métrica já foi cadastrada pra esse veículo
+          $this->form_msg['metrica_inicial'] = 'Métrica já registrada para esse veículo';
+        }
       }
 
       if (empty($this->form_msg)) {
@@ -31,14 +39,6 @@ class EventoModel extends MainModel {
         $_SESSION['messages'][] = 'Evento cadastrado com sucesso';
         header('Location: ' . HOME_URI . 'list/eventos');
         exit;
-      }
-    } else {
-
-      if (is_numeric($this->controller->parameters[0]) && is_numeric($this->controller->parameters[1])
-        && is_numeric($this->controller->parameters[2])) {
-        $this->form_data['mes'] = $this->controller->parameters[0];
-        $this->form_data['ano'] = $this->controller->parameters[1];
-        $this->form_data['veiculo'] = $this->controller->parameters[2];
       }
     }
   }

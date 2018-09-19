@@ -4,13 +4,13 @@ class AquisicaoDao {
 
   public static function adicionarAquisicao(Aquisicao $a) {
     $mysqli = getConexao();
-    $sql = "INSERT INTO aquisicao (data, competencia_id) VALUES (?,?)";
+    $sql = "INSERT INTO aquisicao (data, evento_id) VALUES (?,?)";
     $data = $a->getData();
-    $comp_id = $a->getCompId();
+    $evento_id = $a->getEventoId();
     $itens = $a->getItens();
 
     if ($stmt = $mysqli->prepare($sql)) {
-        $stmt->bind_param("si", $data, $comp_id);
+        $stmt->bind_param("si", $data, $evento_id);
 
         if ($stmt->execute()){
           $id = AquisicaoDao::getUltimoId();
@@ -51,17 +51,17 @@ class AquisicaoDao {
 
   public static function getPorId($id) {
     $mysqli = getConexao();
-    $sql = "SELECT data, competencia_id FROM aquisicao WHERE id = ?";
+    $sql = "SELECT data, evento_id FROM aquisicao WHERE id = ?";
     $aquisicao = null;
 
     if ($stmt = $mysqli->prepare($sql)) {
       $stmt->bind_param("i", $id);
       $stmt->execute();
-      $stmt->bind_result($data, $competencia_id);
+      $stmt->bind_result($data, $evento_id);
 
       if ($stmt->fetch()) {
         $itens = ItemDao::getPorAquisicaoId($id);
-        $aquisicao = new Aquisicao($itens, $data, $competencia_id);
+        $aquisicao = new Aquisicao($itens, $data, $evento_id);
         $aquisicao->setId($id);
       }
     }

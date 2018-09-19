@@ -3,7 +3,6 @@
 class RemoveController extends MainController {
 
   public function veiculo() {
-
     $model = $this->load_model('veiculo-model');
 
     $id = check_array($this->parameters, 0);
@@ -21,7 +20,6 @@ class RemoveController extends MainController {
   }
 
   public function evento() {
-
     $model = $this->load_model('evento-model');
 
     $id = check_array($this->parameters, 0);
@@ -39,7 +37,6 @@ class RemoveController extends MainController {
   }
 
   public function abastecimento() {
-
     $model = $this->load_model('abastecimento-model');
 
     $id = check_array($this->parameters, 0);
@@ -57,7 +54,6 @@ class RemoveController extends MainController {
   }
 
   public function conserto() {
-
     $model = $this->load_model('conserto-model');
 
     $id = check_array($this->parameters, 0);

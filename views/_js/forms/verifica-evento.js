@@ -20,5 +20,10 @@ function carregarEventos() {
       options += '<option value="'+ obj.id+'">'+obj.nome+'</option>';
     });
     select.html(options);
+
+    var id_event = location.href.substring(location.href.lastIndexOf('/') + 1);
+    if ($.isNumeric(id_event)) {
+      select.val(id_event);
+    }
   });
 }

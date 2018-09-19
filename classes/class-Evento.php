@@ -38,11 +38,7 @@ class Evento {
   public function getNome() {
     return $this->nome;
   }
-
-  // public function getReferencia() {
-  //   return mostrar_data($this->data) . '/' . $this->nome;
-  // }
-
+  
   public function getMetricaInicial() {
     return $this->metrica_inicial;
   }
