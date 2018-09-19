@@ -18,6 +18,15 @@ include_once ABSPATH . '/views/_includes/header.php';
   </div>
 
   <div class="form-group row">
+    <label for="veiculo" class="col-form-label col-2">Evento:</label>
+    <div class="col-10">
+      <select class="custom-select" name="" id="select-event">
+        
+      </select>
+    </div>
+  </div>
+
+  <div class="form-group row">
     <label for="combustivel" class="col-form-label col-2">Combustível:</label>
     <div class="col-10">
       <?php include_once ABSPATH . '/views/_includes/select_combustivel.php' ?>
@@ -46,3 +55,4 @@ include_once ABSPATH . '/views/_includes/header.php';
 
 <?php include_once ABSPATH . '/views/_includes/footer.php' ?>
 <script type="text/javascript" src="<?= HOME_URI ?>views/_js/forms/verifica-combustivel.js"></script>
+<script type="text/javascript" src="<?= HOME_URI ?>views/_js/forms/verifica-evento.js"></script>

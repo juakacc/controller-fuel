@@ -84,8 +84,8 @@ class VeiculoModel extends MainModel {
       }
 
       if (empty($this->form_msg)) {
-        $veiculo = new Veiculo($this->form_data['nome'], $this->form_data['placa'],
-          '', $this->form_data['combustivel']);
+        $veiculo = new Veiculo($this->form_data['nome'], $this->form_data['chassi'],
+          $this->form_data['placa'], $this->form_data['uf-placa'], '', $this->form_data['combustivel']);
         $veiculo->setId($this->form_data['id']);
 
         VeiculoDao::editarVeiculo($veiculo);
@@ -98,10 +98,12 @@ class VeiculoModel extends MainModel {
       $this->form_data = array(
         'id'           => $veiculo->getId(),
         'nome'         => $veiculo->getNome(),
+        'chassi'       => $veiculo->getChassi(),
         'tipo_metrica' => $veiculo->getTipoMetrica(),
         'combustivel'  => $veiculo->getCombustivelPadrao(),
         'sem_placa'    => ! $veiculo->tem_placa(),
-        'placa'        => $veiculo->getPlaca()
+        'placa'        => $veiculo->getPlaca(),
+        'uf-placa'     => $veiculo->getUFplaca()
       );
     }
   }

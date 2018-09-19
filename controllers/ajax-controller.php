@@ -1,7 +1,7 @@
 <?php
 
 /**
-* Class para responder requisições ajax
+* Class apenas para responder requisições ajax
 */
 class AjaxController {
 
@@ -57,4 +57,30 @@ class AjaxController {
     }
   }
 
+  public function recuperarEventos() {
+    $veiculo_id = check_array($_POST, 'id_veiculo');
+    $eventos = array();
+
+    if ($veiculo_id) {
+      $mysqli = getConexao();
+      $sql = "SELECT id, nome FROM evento WHERE veiculo_id = ?";
+
+      if ($stmt = $mysqli->prepare($sql)) {
+        $stmt->bind_param("i", $veiculo_id);
+        $stmt->execute();
+        $stmt->bind_result($id, $nome);
+
+        while ($stmt->fetch()) {
+          $eventos[] = array(
+            'id' => $id,
+            'nome' => $nome
+          );
+        }
+        $stmt->close();
+      }
+      $mysqli->close();
+    }
+    header('Content-type: application/json');
+    echo json_encode($eventos);
+  }
 }

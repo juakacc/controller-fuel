@@ -9,10 +9,10 @@ class RegisterController extends MainController {
     require_once ABSPATH . '/views/register/register-veiculo.php';
   }
 
-  public function competencia() {
+  public function evento() {
 
-    $model = $this->load_model('competencia-model');
-    require_once ABSPATH . '/views/register/register-competencia.php';
+    $model = $this->load_model('evento-model');
+    require_once ABSPATH . '/views/register/evento-register-view.php';
   }
 
   public function abastecimento() {

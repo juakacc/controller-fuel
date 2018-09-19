@@ -3,16 +3,17 @@ if (!defined('ABSPATH')) exit;
 
 $q = check_array($_GET, 'q');
 if ($q) {
-  $competencias = CompetenciaDao::getComFiltro(check_array($_GET, 'tipo_filtro'), $q);
+  // $eompetencias = CompetenciaDao::getComFiltro(check_array($_GET, 'tipo_filtro'), $q);
 } else { // Não filtrou
-  $competencias = CompetenciaDao::getCompetencias();
+
 }
+$eventos = EventoDao::getEventos();
 
 require_once ABSPATH . '/views/_includes/header.php';
 
-$url_adicionar = HOME_URI . 'register/competencia';
-$url_editar = HOME_URI . 'edita/competencia/';
-$url_remover = HOME_URI . 'remove/competencia/';
+$url_adicionar = HOME_URI . 'register/evento';
+$url_editar = HOME_URI . 'edita/evento/';
+$url_remover = HOME_URI . 'remove/evento/';
 
 $url_registerAbastecimento = HOME_URI . 'register/abastecimento?veiculo=';
 $url_registerConserto = HOME_URI . 'register/conserto?veiculo=';
@@ -21,7 +22,7 @@ $url_registerAquisicao = HOME_URI . 'register/aquisicao?veiculo=';
 
 <div class="row">
   <div class="col">
-    <h3>Listagem de competências</h3>
+    <h3>Listagem de Eventos</h3>
   </div>
 </div>
 
@@ -30,7 +31,7 @@ $url_registerAquisicao = HOME_URI . 'register/aquisicao?veiculo=';
     <a href="<?= HOME_URI ?>" class="btn btn-secondary"><i class="fas fa-reply"></i> Voltar</a>
   </div>
   <div class="col">
-    <a href="<?= HOME_URI ?>register/competencia" class="btn btn-dark"><i class="fas fa-plus"></i> Competência</a>
+    <a href="<?= HOME_URI ?>register/competencia" class="btn btn-dark"><i class="fas fa-plus"></i> Evento</a>
   </div>
 </div>
 
@@ -52,36 +53,40 @@ $url_registerAquisicao = HOME_URI . 'register/aquisicao?veiculo=';
 
 <table class="table mt-2">
   <tr>
-    <th></th><th>Veículo</th><th>Referência</th><th>Métrica inicial</th><th>Opções</th>
+    <th></th><th>Veículo</th><th>Data</th><th>Métrica inicial</th><th>Opções</th>
   </tr>
-  <?php foreach ($competencias as $c): ?>
+  <?php foreach ($eventos as $e): ?>
     <tr> <!-- Dados da competencia -->
-      <td>
-        <a href="javascript:;" id="bt<?= $c->getId(); ?>" onclick="mostrar(<?= $c->getId(); ?>)" class="btn btn-outline-info">
-          <i id="ic<?= $c->getId(); ?>" class="fas fa-plus"></i>
+      <td> <!-- btn para mostrar/ocultar -->
+        <a href="javascript:;" id="bt<?= $e->getId(); ?>" onclick="mostrar(<?= $e->getId(); ?>)" class="btn btn-outline-info">
+          <i id="ic<?= $e->getId(); ?>" class="fas fa-plus"></i>
         </a>
       </td>
-      <td>
-        <?php $veiculo = VeiculoDao::getPorId($c->getIdVeiculo()); ?>
+
+      <td> <!-- veículo para detalhes -->
+        <?php $veiculo = VeiculoDao::getPorId($e->getIdVeiculo()); ?>
         <a href="<?php echo HOME_URI . 'detail/veiculo/' . $veiculo->getId(); ?>"><?= $veiculo->getNome(); ?></a>
       </td>
+
       <td>
-        <?= $c->getReferencia(); ?>
+        <?= data_para_mostrar($e->getData()); ?>
       </td>
+
       <td>
-        <?= $c->getMetricaInicial() . ' ' . $veiculo->getTipoMetrica() ?>
+        <?= $e->getMetricaInicial() . ' ' . $veiculo->getTipoMetrica() ?>
       </td>
+
       <td>
-        <a href="<?= $url_remover . $c->getId(); ?>" class="btn btn-outline-danger"><i class="fas fa-minus-circle"></i> Excluir</a>
-        <a href="<?= $url_editar . $c->getId(); ?>" class="btn btn-outline-warning"><i class="fas fa-pencil-alt"></i> Editar</a>
+        <a href="<?= $url_remover . $e->getId(); ?>" class="btn btn-outline-danger"><i class="fas fa-minus-circle"></i> Excluir</a>
+        <a href="<?= $url_editar . $e->getId(); ?>" class="btn btn-outline-warning"><i class="fas fa-pencil-alt"></i> Editar</a>
       </td>
     </tr>
 
     <div>
-      <tr class="sub" id="div<?= $c->getId(); ?>"> <!-- Abastecimentos, consertos e aquisições da competencia -->
-        <?php $abastecimentos = AbastecimentoDao::getPorCompetencia($c->getId()); ?>
-        <?php $consertos = ConsertoDao::getPorCompetencia($c->getId()); ?>
-        <?php $aquisicoes = AquisicaoDao::getPorCompetencia($c->getId()); ?>
+      <tr class="sub" id="div<?= $e->getId(); ?>"> <!-- Abastecimentos, consertos e aquisições da competencia -->
+        <?php $abastecimentos = AbastecimentoDao::getPorEvento($e->getId()); ?>
+        <?php $consertos = ConsertoDao::getPorEvento($e->getId()); ?>
+        <?php $aquisicoes = AquisicaoDao::getPorEvento($e->getId()); ?>
         <td colspan="5">
           <table class="table table-bordered">
             <tr> <!-- Combustíveis -->
@@ -94,7 +99,7 @@ $url_registerAquisicao = HOME_URI . 'register/aquisicao?veiculo=';
                 </ul>
               </td>
               <td>
-                <a href="<?= $url_registerAbastecimento . $c->getIdVeiculo(); ?>" class="btn btn-dark"><i class="fas fa-plus"></i> Abastecimento</a>
+                <a href="<?= $url_registerAbastecimento . $e->getIdVeiculo(); ?>" class="btn btn-dark"><i class="fas fa-plus"></i> Abastecimento</a>
               </td>
             </tr>
             <tr> <!-- Serviços -->
@@ -107,7 +112,7 @@ $url_registerAquisicao = HOME_URI . 'register/aquisicao?veiculo=';
                 </ul>
               </td>
               <td>
-                <a href="<?= $url_registerConserto . $c->getIdVeiculo(); ?>" class="btn btn-dark"><i class="fas fa-plus"></i> Conserto</a>
+                <a href="<?= $url_registerConserto . $e->getIdVeiculo(); ?>" class="btn btn-dark"><i class="fas fa-plus"></i> Conserto</a>
               </td>
             </tr>
             <tr> <!-- Aquisiçoes -->
@@ -122,7 +127,7 @@ $url_registerAquisicao = HOME_URI . 'register/aquisicao?veiculo=';
                 </ul>
               </td>
               <td>
-                <a href="<?= $url_registerAquisicao . $c->getIdVeiculo(); ?>" class="btn btn-dark"><i class="fas fa-plus"></i> Aquisição</a>
+                <a href="<?= $url_registerAquisicao . $e->getIdVeiculo(); ?>" class="btn btn-dark"><i class="fas fa-plus"></i> Aquisição</a>
               </td>
             </tr>
           </table>

@@ -1,6 +1,6 @@
 <?php
 
-class CompetenciaModel extends MainModel {
+class EventoModel extends MainModel {
 
   public function validar_form_adicionar() {
     $this->form_data = array();
@@ -11,10 +11,10 @@ class CompetenciaModel extends MainModel {
         $this->form_data[$key] = $value;
       }
 
-      if (CompetenciaDao::getPorVeiculoData($this->form_data['veiculo'],
-          $this->form_data['mes'], $this->form_data['ano'])) {
-        $this->form_msg['veiculo'] = 'Competência já registrada';
-      }
+      // if (CompetenciaDao::getPorVeiculoData($this->form_data['veiculo'],
+      //     $this->form_data['mes'], $this->form_data['ano'])) {
+      //   $this->form_msg['veiculo'] = 'Competência já registrada';
+      // }
 
       $this->form_data['metrica_inicial'] = str_replace('.', '', $this->form_data['metrica_inicial']);
       $this->form_data['metrica_inicial'] = str_replace(':', '', $this->form_data['metrica_inicial']);
@@ -25,11 +25,11 @@ class CompetenciaModel extends MainModel {
       }
 
       if (empty($this->form_msg)) {
-        $comp = new Competencia($this->form_data['veiculo'], $this->form_data['mes'],
-          $this->form_data['ano'], $this->form_data['metrica_inicial']);
-        CompetenciaDao::adicionarComp($comp);
-        $_SESSION['messages'][] = 'Competência cadastrada com sucesso';
-        header('Location: ' . HOME_URI . 'list/competencias');
+        $evento = new Evento($this->form_data['veiculo'], $this->form_data['nome'],
+          $this->form_data['data'], $this->form_data['metrica_inicial']);
+        EventoDao::adicionarEvento($evento);
+        $_SESSION['messages'][] = 'Evento cadastrado com sucesso';
+        header('Location: ' . HOME_URI . 'list/eventos');
         exit;
       }
     } else {
@@ -47,9 +47,9 @@ class CompetenciaModel extends MainModel {
     $this->form_data = array();
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_POST)) {
-      CompetenciaDao::removerComp($this->controller->parameters[0]);
-      $_SESSION['messages'][] = 'Competência removida com sucesso';
-      header('Location: ' . HOME_URI . 'list/competencias');
+      EventoDao::removerEvento($this->controller->parameters[0]);
+      $_SESSION['messages'][] = 'Evento removido com sucesso';
+      header('Location: ' . HOME_URI . 'list/eventos');
       exit;
     }
   }

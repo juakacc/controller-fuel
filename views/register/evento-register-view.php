@@ -13,9 +13,16 @@ if (! check_array($model->form_data, 'ano'))
 include_once ABSPATH . '/views/_includes/header.php'
 ?>
 
-<h3>Registro de competência</h3>
+<h3>Registro de evento</h3>
 
 <form class="form" method="post">
+  <div class="form-group row">
+    <label for="nome" class="col-form-label col-2">Nome:</label>
+    <div class="col">
+      <input type="text" name="nome" value="<?= check_array($model->form_data, 'nome'); ?>" required class="form-control">
+    </div>
+  </div>
+
   <div class="form-group row">
     <label for="veiculo" class="col-form-label col-2">Veículo:</label>
     <div class="col-10">
@@ -24,6 +31,13 @@ include_once ABSPATH . '/views/_includes/header.php'
   </div>
 
   <div class="form-group row">
+    <label for="data" class="col-form-label col-2">Data:</label>
+    <div class="col">
+      <?php include_once ABSPATH . '/views/_includes/input_data.php'; ?>
+    </div>
+  </div>
+
+  <!-- <div class="form-group row">
     <label for="mes" class="col-form-label col-2">Referência:</label>
     <div class="col-5">
       <select class="custom-select" name="mes" id="mes">
@@ -49,7 +63,7 @@ include_once ABSPATH . '/views/_includes/header.php'
         <option value="2021" <?php if (check_array($model->form_data, 'ano') == 2021): ?>selected<?php endif; ?>>2021</option>
       </select>
     </div>
-  </div>
+  </div> -->
 
   <div class="form-group row">
     <label for="km_inicial" class="col-form-label col-3">Métrica inicial:</label>

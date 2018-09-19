@@ -50,19 +50,18 @@ class AbastecimentoDao {
     return $a;
   }
 
-  public static function getPorCompetencia($comp_id) {
+  public static function getPorEvento($evento_id) {
     $mysqli = getConexao();
-    $sql = "SELECT id, combustivel, qtd, data FROM abastecimento WHERE competencia_id = ?";
+    $sql = "SELECT id FROM abastecimento WHERE evento_id = ?";
     $abastecimentos = array();
 
     if ($stmt = $mysqli->prepare($sql)) {
-        $stmt->bind_param("i", $comp_id);
+        $stmt->bind_param("i", $evento_id);
         $stmt->execute();
-        $stmt->bind_result($id, $combustivel, $qtd, $data);
+        $stmt->bind_result($id);
 
         while ($stmt->fetch()) {
-          $a = new Abastecimento($combustivel, $qtd, $data, $comp_id);
-          $a->setId($id);
+          $a = AbastecimentoDao::getPorId($id);
           $abastecimentos[] = $a;
         }
         $stmt->close();
@@ -74,15 +73,14 @@ class AbastecimentoDao {
   public static function getAbastecimentos() {
     $mysqli = getConexao();
     $abastecimentos = array();
-    $sql = "SELECT id, combustivel, qtd, data, competencia_id FROM abastecimento";
+    $sql = "SELECT id FROM abastecimento";
 
     if ($stmt = $mysqli->prepare($sql)) {
         $stmt->execute();
-        $stmt->bind_result($id, $combustivel, $qtd, $data, $competencia_id);
+        $stmt->bind_result($id);
 
         while ($stmt->fetch()) {
-          $a = new Abastecimento($combustivel, $qtd, $data, $competencia_id);
-          $a->setId($id);
+          $a = AbastecimentoDao::getPorId($id);
           $abastecimentos[] = $a;
         }
         $stmt->close();

@@ -36,16 +36,18 @@ class VeiculoDao {
 
   public static function editarVeiculo(Veiculo $v) {
     $mysqli = getConexao();
-    $sql = "UPDATE veiculo SET nome=?, sem_placa=?, placa=?, combustivel_padrao=? WHERE id = ?";
+    $sql = "UPDATE veiculo SET nome=?, chassi=?, sem_placa=?, placa=?, uf_placa=?, combustivel_padrao=? WHERE id = ?";
 
     $sem_placa = $v->getPlaca() == "";
     $nome = $v->getNome();
+    $chassi = $v->getChassi();
     $placa = $v->getPlaca();
+    $uf_placa = $v->getUFplaca();
     $combustivel_padrao = $v->getCombustivelPadrao();
     $id = $v->getId();
 
     if ($stmt = $mysqli->prepare($sql)) {
-        $stmt->bind_param("sissi", $nome, $sem_placa, $placa, $combustivel_padrao, $id);
+        $stmt->bind_param("ssisssi", $nome, $chassi, $sem_placa, $placa, $uf_placa, $combustivel_padrao, $id);
         $stmt->execute();
         $stmt->close();
     }

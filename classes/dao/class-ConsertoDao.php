@@ -49,19 +49,18 @@ class ConsertoDao {
     return $s;
   }
 
-  public static function getPorCompetencia($comp_id) {
+  public static function getPorEvento($evento_id) {
     $mysqli = getConexao();
-    $sql = "SELECT id, servico, data FROM conserto WHERE competencia_id = ?";
+    $sql = "SELECT id FROM conserto WHERE evento_id = ?";
     $servicos = array();
 
     if ($stmt = $mysqli->prepare($sql)) {
-        $stmt->bind_param("i", $comp_id);
+        $stmt->bind_param("i", $evento_id);
         $stmt->execute();
-        $stmt->bind_result($id, $servico, $data);
+        $stmt->bind_result($id);
 
         while ($stmt->fetch()) {
-          $s = new Conserto($servico, $data, $comp_id);
-          $s->setId($id);
+          $s = ConsertoDao::getPorId($id);
           $servicos[] = $s;
         }
         $stmt->close();
