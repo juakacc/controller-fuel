@@ -9,6 +9,7 @@ include_once ABSPATH . '/views/_includes/header.php';
 <h3>Registro de serviço</h3>
 
 <form class="form" method="post">
+  <input type="hidden" name="" id="type" value="conserto">
   <div class="form-group row">
     <label for="veiculo" class="col-form-label col-2">Veículo:</label>
     <div class="col-10">

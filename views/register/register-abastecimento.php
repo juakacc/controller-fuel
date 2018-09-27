@@ -10,6 +10,7 @@ include_once ABSPATH . '/views/_includes/header.php';
 <h3>Registro de abastecimento</h3>
 
 <form class="form" method="post">
+  <input type="hidden" name="" id="type" value="abastecimento">
   <div class="form-group row">
     <label for="veiculo" class="col-form-label col-2">Veículo:</label>
     <div class="col-10">

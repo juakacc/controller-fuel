@@ -59,21 +59,26 @@ class AjaxController {
 
   public function recuperarEventos() {
     $veiculo_id = check_array($_POST, 'id_veiculo');
+    $type = check_array($_POST, 'type');
     $eventos = array();
 
     if ($veiculo_id) {
       $mysqli = getConexao();
-      $sql = "SELECT id, nome FROM evento WHERE veiculo_id = ?";
+      // $sql = "SELECT id, nome FROM evento WHERE veiculo_id = ?";
+      $sql = "SELECT id, nome, data, metrica_inicial FROM evento e WHERE veiculo_id = ? AND NOT EXISTS (SELECT * FROM $type WHERE evento_id = e.id)";
 
       if ($stmt = $mysqli->prepare($sql)) {
         $stmt->bind_param("i", $veiculo_id);
         $stmt->execute();
-        $stmt->bind_result($id, $nome);
+        // echo $stmt->error;
+        $stmt->bind_result($id, $nome, $data, $metrica_inicial);
 
         while ($stmt->fetch()) {
           $eventos[] = array(
             'id' => $id,
-            'nome' => $nome
+            'nome' => $nome,
+            'data' => data_para_mostrar($data),
+            'metrica' => $metrica_inicial
           );
         }
         $stmt->close();

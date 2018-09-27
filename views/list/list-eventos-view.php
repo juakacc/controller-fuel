@@ -81,8 +81,10 @@ $url_registerAquisicao = HOME_URI . 'register/aquisicao/';
       </td>
 
       <td>
-        <a href="<?= $url_remover . $e->getId(); ?>" class="btn btn-outline-danger" title="Excluir"><i class="fas fa-minus-circle"></i></a>
-        <a href="<?= $url_editar . $e->getId(); ?>" class="btn btn-outline-warning" title="Editar"><i class="fas fa-pencil-alt"></i></a>
+        <div>
+          <a href="<?= $url_remover . $e->getId(); ?>" class="btn btn-outline-danger" title="Excluir"><i class="fas fa-minus-circle"></i></a>
+          <a href="<?= $url_editar . $e->getId(); ?>" class="btn btn-outline-warning" title="Editar"><i class="fas fa-pencil-alt"></i></a>
+        </div>
       </td>
     </tr>
 
@@ -104,7 +106,9 @@ $url_registerAquisicao = HOME_URI . 'register/aquisicao/';
                 </ul>
               </td>
               <td>
-                <a href="<?= $url_registerAbastecimento . $e->getId(); ?>" class="btn btn-dark"><i class="fas fa-plus"></i> Abastecimento</a>
+                <?php if (empty($abastecimentos)): ?>
+                  <a href="<?= $url_registerAbastecimento . $e->getId(); ?>" class="btn btn-dark"><i class="fas fa-plus"></i> Abastecimento</a>
+                <?php endif; ?>
               </td>
             </tr>
 
@@ -118,7 +122,9 @@ $url_registerAquisicao = HOME_URI . 'register/aquisicao/';
                 </ul>
               </td>
               <td>
-                <a href="<?= $url_registerConserto . $e->getId(); ?>" class="btn btn-dark"><i class="fas fa-plus"></i> Conserto</a>
+                <?php if (empty($consertos)): ?>
+                  <a href="<?= $url_registerConserto . $e->getId(); ?>" class="btn btn-dark"><i class="fas fa-plus"></i> Conserto</a>
+                <?php endif; ?>
               </td>
             </tr>
 
@@ -134,7 +140,9 @@ $url_registerAquisicao = HOME_URI . 'register/aquisicao/';
                 </ul>
               </td>
               <td>
-                <a href="<?= $url_registerAquisicao . $e->getId(); ?>" class="btn btn-dark"><i class="fas fa-plus"></i> Aquisição</a>
+                <?php if (empty($aquisicoes)): ?>
+                  <a href="<?= $url_registerAquisicao . $e->getId(); ?>" class="btn btn-dark"><i class="fas fa-plus"></i> Aquisição</a>
+                <?php endif; ?>
               </td>
             </tr>
           </table>

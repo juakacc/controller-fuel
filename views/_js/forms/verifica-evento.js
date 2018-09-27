@@ -10,20 +10,25 @@ $("#veiculo").change(function() {
 function carregarEventos() {
   var veiculo = $('#veiculo');
   var select = $('#select-event');
+  var type = $("#type");
   var options = '';
 
   var home = get_home_uri();
   $.post(home+'ajax/recuperar-eventos',
-      {'id_veiculo': veiculo.val()}, function(result) {
+    {
+      'id_veiculo': veiculo.val(),
+      'type': type.val()
+    }, function(result) {
+      $.each(result, function(i, obj) {
+        options += '<option value="'+ obj.id+'">'
+          +obj.nome+ ' :: ' + obj.data + ' :: ' + obj.metrica +
+          '</option>';
+      });
+      select.html(options);
 
-    $.each(result, function(i, obj) {
-      options += '<option value="'+ obj.id+'">'+obj.nome+'</option>';
-    });
-    select.html(options);
-
-    var id_event = location.href.substring(location.href.lastIndexOf('/') + 1);
-    if ($.isNumeric(id_event)) {
-      select.val(id_event);
-    }
+      var id_event = location.href.substring(location.href.lastIndexOf('/') + 1);
+      if ($.isNumeric(id_event)) {
+        select.val(id_event);
+      }
   });
 }
