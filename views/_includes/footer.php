@@ -1,7 +1,7 @@
   </div> <!-- col -->
 </div> <!-- row -->
 <footer class="footer mt-5" align="center">
-  <p align="center">v0.1 - Copyright © 2018 | Soluções - <a href="mailto:portalolivedossuporte@gmail.com">Contato</a></p>
+  <p align="center">v0.5 - Copyright © 2018 | Soluções - <a href="mailto:portalolivedossuporte@gmail.com">Contato</a></p>
 </footer>
 <script type="text/javascript" src="<?= HOME_URI ?>views/_js/jquery.min.js"></script>
 <script type="text/javascript" src="https://unpkg.com/popper.js@1.14.4/dist/umd/popper.min.js"></script>

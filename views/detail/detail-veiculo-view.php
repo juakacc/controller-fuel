@@ -1,7 +1,7 @@
 <?php
 if (! defined('ABSPATH')) exit;
 
-$competencias = CompetenciaDao::getPorVeiculo($veiculo->getId());
+$eventos = EventoDao::getPorVeiculo($veiculo->getId());
 $url_filtrar = HOME_URI . 'detail/veiculo/' . $veiculo->getId() . '/';
 
 $comp_id = check_array($this->parameters, 1);
@@ -40,7 +40,7 @@ require_once ABSPATH . '/views/_includes/header.php';
     <a href="<?= HOME_URI . 'list/veiculos'  ?>" class="btn btn-secondary"><i class="fas fa-reply"></i> Voltar</a>
   </div>
 
-  <div class="col" align="right">
+  <!-- <div class="col" align="right">
     <div class="dropdown">Selecione uma
       <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         Competência
@@ -51,7 +51,7 @@ require_once ABSPATH . '/views/_includes/header.php';
         <?php endforeach; ?>
       </div>
     </div>
-  </div>
+  </div>-->
 </div>
 
 <div class="row">

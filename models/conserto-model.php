@@ -11,15 +11,16 @@ class ConsertoModel extends MainModel {
         $this->form_data[$key] = $value;
       }
 
+      if (! isset($this->form_data['evento'])) {
+        $this->form_msg['evento'] = 'Nenhum evento selecionado';
+      } else {
+        if (ConsertoDao::eventoTem($this->form_data['evento'])) {
+          $this->form_msg['evento'] = 'Esse evento já tem um conserto cadastrado';
+        }
+      }
+
       if (! validar_data($this->form_data['data'])) {
         $this->form_msg['data'] = 'Data inválida';
-      } else {
-        $d = explode('/', $this->form_data['data']);
-        $comp = CompetenciaDao::getPorVeiculoData($this->form_data['veiculo'], $d[1], $d[2]);
-        if (! $comp) { // competência inexistente
-          $url_register = HOME_URI . 'register/competencia/' . $d[1] . '/' . $d[2] . '/' . $this->form_data['veiculo'];
-          $this->form_msg['data'] = 'Competência inexistente. <a href=\''. $url_register . '\'>Cadastrar</a>';
-        }
       }
 
       if (strlen($this->form_data['servico']) == 0) {
@@ -27,15 +28,19 @@ class ConsertoModel extends MainModel {
       }
 
       if (empty($this->form_msg)) {
-        $conserto = new Conserto($this->form_data['servico'], $this->form_data['data'], $comp->getId());
+        $conserto = new Conserto($this->form_data['servico'],
+          $this->form_data['data'], $this->form_data['evento']);
         ConsertoDao::adicionarConserto($conserto);
         $_SESSION['messages'][] = 'Conserto cadastrado com sucesso';
-        header('Location: ' . HOME_URI . 'list/consertos');
-        exit;
+        // header('Location: ' . HOME_URI . 'list/consertos');
+        // exit;
       }
-    } else { // GET - caso já venha com o veículo definido
-      if (is_numeric(check_array($_GET, 'veiculo'))) {
-        $this->form_data['veiculo'] = check_array($_GET, 'veiculo');
+    } else { // GET - caso já venha com o evento definido
+      $id = check_array($this->controller->parameters, 0);
+      if (is_numeric($id)) {
+        $this->form_data['evento'] = $id;
+        $evento = EventoDao::getPorId($id);
+        $this->form_data['veiculo'] = $evento->getIdVeiculo();
       }
     }
   }

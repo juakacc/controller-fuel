@@ -26,14 +26,14 @@ $url_remover = HOME_URI . 'remove/veiculo/';
 
 <table class="table mt-2">
   <tr>
-    <th>ID</th><th>Nome</th><th>Placa</th><th>Chassis</th><th>Opções</th>
+    <th>ID</th><th>Nome</th><th>Placa</th><th>Chassi</th><th>Opções</th>
   </tr>
   <?php foreach ($veiculos as $v): ?>
     <tr>
       <td>#<?= $v->getId(); ?></td>
       <td><a href="<?php echo HOME_URI . 'detail/veiculo/' . $v->getId(); ?>"><?= $v->getNome(); ?></a></td>
-      <td><?= mostrar_placa($v->getPlaca()); ?></td>
-      <td></td>
+      <td><?= mostrar_placa($v->getPlacaMostrar()); ?></td>
+      <td><?= $v->getChassi(); ?></td>
       <td>
         <a href="<?= $url_remover . $v->getId(); ?>" class="btn btn-outline-danger"><i class="fas fa-minus-circle"></i> Excluir</a>
         <a href="<?= $url_editar . $v->getId(); ?>" class="btn btn-outline-warning"><i class="fas fa-pencil-alt"></i> Editar</a>

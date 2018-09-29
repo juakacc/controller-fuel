@@ -31,6 +31,7 @@ function mostrar(id) {
   $("#ic"+id).addClass('fa-minus');
   // altera ação do botão
   $("#bt"+id).attr('onclick', 'esconder('+id+')');
+  $("#bt"+id).attr('title', 'Esconder');
 }
 
 function esconder(id) {
@@ -40,4 +41,5 @@ function esconder(id) {
   $("#ic"+id).addClass('fa-plus');
   // altera ação do botão
   $("#bt"+id).attr('onclick', 'mostrar('+id+')');
+  $("#bt"+id).attr('title', 'Expandir');
 }

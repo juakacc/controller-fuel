@@ -21,6 +21,16 @@ include_once ABSPATH . '/views/_includes/header.php';
   </div>
 
   <div class="form-group row">
+    <label class="col-form-label col-2" for="chassi">Chassi:</label>
+    <div class="col-10">
+      <input type="text" name="chassi" value="<?= check_array($model->form_data, 'chassi'); ?>" id="chassi" class="form-control" placeholder="(opcional)" >
+      <small class="form-text text-danger">
+        <?= check_array($model->form_msg, 'chassi'); ?>
+      </small>
+    </div>
+  </div>
+
+  <div class="form-group row">
     <label for="combustivel" class="col-form-label col-4">Combustível padrão:</label>
     <div class="col">
       <?php include_once ABSPATH . '/views/_includes/select_combustivel.php' ?>
@@ -46,7 +56,11 @@ include_once ABSPATH . '/views/_includes/header.php';
             <?= check_array($model->form_msg, 'placa'); ?>
           </small>
         </div>
+        <div class="col">
+          <?php include_once ABSPATH . '/views/_includes/select_ufPlaca.php'; ?>
+        </div>
       </div>
+
       <div class="row mb-2"> <!-- Linha da ajuda -->
         <div class="col">
           <small class="form-text text-success">Selecione a caixa, caso não tenha placa.</small>

@@ -27,7 +27,7 @@ require_once ABSPATH . '/views/_includes/header.php';
 
 <table class="table mt-2">
   <tr>
-    <th>ID</th><th>Veículo</th><th>Data</th><th>Peça</th><th>Opções</th>
+    <th>ID</th><th>Veículo</th><th>Data</th><th>Peça :: QTD</th><th>Opções</th>
   </tr>
   <?php foreach ($aquisicoes as $c): ?>
     <tr>
@@ -35,8 +35,8 @@ require_once ABSPATH . '/views/_includes/header.php';
 
       <td>
         <?php
-          $comp = CompetenciaDao::getPorId($c->getCompId());
-          $veiculo = VeiculoDao::getPorId($comp->getIdVeiculo());
+          $evento = EventoDao::getPorId($c->getEventoId());
+          $veiculo = VeiculoDao::getPorId($evento->getIdVeiculo());
         ?>
         <?= $veiculo->getNome(); ?>
       </td>
@@ -44,15 +44,15 @@ require_once ABSPATH . '/views/_includes/header.php';
         <?= data_para_mostrar($c->getData()) ?>
       </td>
       <td>
-        <ul>
+        <ul class="list-group">
           <?php foreach ($c->getItens() as $item): ?>
-            <li><?= $item->getPeca(); ?> : <?= $item->getQtd(); ?></li>
+            <li class="list-group-item"><?= $item->getPeca(); ?> :: <?= $item->getQtd(); ?></li>
           <?php endforeach; ?>
         </ul>
       </td>
       <td>
-        <a href="<?= $url_remover . $c->getId(); ?>"><i class="fas fa-minus-circle"></i> Excluir</a><br>
-        <a href="<?= $url_editar . $c->getId(); ?>">Editar</a>
+        <a href="<?= $url_remover . $c->getId(); ?>" class="btn btn-outline-danger" title="Excluir"><i class="fas fa-minus-circle"></i></a>
+        <a href="<?= $url_editar . $c->getId(); ?>" class="btn btn-outline-warning" title="Editar"><i class="fas fa-pencil-alt"></i></a>
       </td>
     </tr>
   <?php endforeach; ?>

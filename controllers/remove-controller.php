@@ -3,7 +3,6 @@
 class RemoveController extends MainController {
 
   public function veiculo() {
-
     $model = $this->load_model('veiculo-model');
 
     $id = check_array($this->parameters, 0);
@@ -20,26 +19,24 @@ class RemoveController extends MainController {
     require_once ABSPATH . '/views/remove/remove-veiculo-view.php';
   }
 
-  public function competencia() {
-
-    $model = $this->load_model('competencia-model');
+  public function evento() {
+    $model = $this->load_model('evento-model');
 
     $id = check_array($this->parameters, 0);
     if(! is_numeric($id)) {
-      header('Location: ' . HOME_URI . 'list/competencias');
+      header('Location: ' . HOME_URI . 'list/eventos');
       exit;
     }
 
-    $competencia = CompetenciaDao::getPorId($id);
-    if (! $competencia) {
-      header('Location: ' . HOME_URI . 'list/competencias');
+    $evento = EventoDao::getPorId($id);
+    if (! $evento) {
+      header('Location: ' . HOME_URI . 'list/eventos');
       exit;
     }
-    require_once ABSPATH . '/views/remove/remove-competencia-view.php';
+    require_once ABSPATH . '/views/remove/remove-evento-view.php';
   }
 
   public function abastecimento() {
-
     $model = $this->load_model('abastecimento-model');
 
     $id = check_array($this->parameters, 0);
@@ -57,7 +54,6 @@ class RemoveController extends MainController {
   }
 
   public function conserto() {
-
     $model = $this->load_model('conserto-model');
 
     $id = check_array($this->parameters, 0);

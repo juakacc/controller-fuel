@@ -5,18 +5,18 @@ class Abastecimento {
   private $combustivel;
   private $qtd;
   private $data;
-  private $id_competencia;
+  private $id_evento;
 
-  public function __construct($combustivel, $qtd, $data, $id_competencia) {
+  public function __construct($combustivel, $qtd, $data, $id_evento) {
     $this->combustivel = $combustivel;
     $this->qtd = $qtd;
     $this->data = data_para_banco($data);
-    $this->id_competencia = $id_competencia;
+    $this->id_evento = $id_evento;
   }
 
-  public function imprimir() {
-    echo 'dadosABAS: ' . $this->id . ' ' . $this->combustivel . ' ' .$this->qtd . ' ' .$this->data . ' ' .$this->id_competencia . '<br />';
-  }
+  // public function imprimir() {
+  //   echo 'dadosABAS: ' . $this->id . ' ' . $this->combustivel . ' ' .$this->qtd . ' ' .$this->data . ' ' .$this->id_evento . '<br />';
+  // }
 
   public function getId() {
     return $this->id;
@@ -38,7 +38,7 @@ class Abastecimento {
     return $this->data;
   }
 
-  public function getCompId() {
-    return $this->id_competencia;
+  public function getEventoId() {
+    return $this->id_evento;
   }
 }

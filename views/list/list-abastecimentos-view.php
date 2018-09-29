@@ -26,7 +26,7 @@ $url_editar = HOME_URI . 'edita/abastecimento/';
 
 <table class="table mt-2">
   <tr>
-    <th>ID</th><th>Carro</th><th>Data</th><th>Combustível</th><th>Quantidade (litros)</th><th>Opções</th>
+    <th>ID</th><th>Carro</th><th>Data</th><th>Combustível</th><th>Quantidade</th><th>Opções</th>
   </tr>
   <?php foreach ($abastecimentos as $a): ?>
     <tr>
@@ -35,8 +35,8 @@ $url_editar = HOME_URI . 'edita/abastecimento/';
       </td>
       <td>
         <?php
-          $comp = CompetenciaDao::getPorId($a->getCompId());
-          $veiculo = VeiculoDao::getPorId($comp->getIdVeiculo());
+          $evento = EventoDao::getPorId($a->getEventoId());
+          $veiculo = VeiculoDao::getPorId($evento->getIdVeiculo());
         ?>
         <?= $veiculo->getNome(); ?>
       </td>
@@ -47,11 +47,11 @@ $url_editar = HOME_URI . 'edita/abastecimento/';
         <?= $a->getCombustivel(); ?>
       </td>
       <td>
-        <?= $a->getQtd(); ?>
+        <?= $a->getQtd() . ' L'; ?>
       </td>
       <td>
-        <a href="<?= $url_remover . $a->getId(); ?>"><i class="fas fa-minus-circle"></i> Excluir</a><br>
-        <a href="<?= $url_editar . $a->getId(); ?>">Editar</a>
+        <a href="<?= $url_remover . $a->getId(); ?>" class="btn btn-outline-danger" title="Excluir"><i class="fas fa-minus-circle"></i></a>
+        <a href="<?= $url_editar . $a->getId(); ?>" class="btn btn-outline-warning" title="Editar"><i class="fas fa-pencil-alt"></i></a>
       </td>
     </tr>
   <?php endforeach; ?>

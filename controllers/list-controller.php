@@ -13,8 +13,8 @@ class ListController extends MainController {
     require_once ABSPATH . '/views/list/list-veiculos-view.php';
   }
 
-  public function competencias() {
-    require_once ABSPATH . '/views/list/list-competencias-view.php';
+  public function eventos() {
+    require_once ABSPATH . '/views/list/list-eventos-view.php';
   }
 
   public function abastecimentos() {

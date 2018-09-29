@@ -5,12 +5,12 @@ class Aquisicao {
   private $id;
   private $itens;
   private $data;
-  private $competencia_id;
+  private $evento_id;
 
-  public function __construct($itens = array(), $data, $competencia_id) {
+  public function __construct($itens = array(), $data, $evento_id) {
     $this->itens = $itens;
     $this->data = data_para_banco($data);
-    $this->competencia_id = $competencia_id;
+    $this->evento_id = $evento_id;
   }
 
   public function getId() {
@@ -29,7 +29,7 @@ class Aquisicao {
     return $this->data;
   }
 
-  public function getCompId() {
-    return $this->competencia_id;
+  public function getEventoId() {
+    return $this->evento_id;
   }
 }

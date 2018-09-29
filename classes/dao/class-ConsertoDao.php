@@ -4,13 +4,13 @@ class ConsertoDao {
 
   public static function adicionarConserto(Conserto $c) {
     $mysqli = getConexao();
-    $sql = "INSERT INTO conserto (servico, data, competencia_id) VALUES (?,?,?)";
+    $sql = "INSERT INTO conserto (servico, data, evento_id) VALUES (?,?,?)";
     $servico = $c->getServico();
     $data = $c->getData();
-    $comp_id = $c->getCompId();
+    $evento_id = $c->getEventoId();
 
     if ($stmt = $mysqli->prepare($sql)) {
-        $stmt->bind_param("ssi", $servico, $data, $comp_id);
+        $stmt->bind_param("ssi", $servico, $data, $evento_id);
         $stmt->execute();
         $stmt->close();
     }
@@ -31,16 +31,16 @@ class ConsertoDao {
 
   public static function getPorId($id) {
     $mysqli = getConexao();
-    $sql = "SELECT servico, data, competencia_id FROM conserto WHERE id = ?";
+    $sql = "SELECT servico, data, evento_id FROM conserto WHERE id = ?";
     $s = null;
 
     if ($stmt = $mysqli->prepare($sql)) {
         $stmt->bind_param("i", $id);
         $stmt->execute();
-        $stmt->bind_result($servico, $data, $competencia_id);
+        $stmt->bind_result($servico, $data, $evento_id);
 
         if ($stmt->fetch()) {
-          $s = new Conserto($servico, $data, $competencia_id);
+          $s = new Conserto($servico, $data, $evento_id);
           $s->setId($id);
         }
         $stmt->close();
@@ -49,19 +49,18 @@ class ConsertoDao {
     return $s;
   }
 
-  public static function getPorCompetencia($comp_id) {
+  public static function getPorEvento($evento_id) {
     $mysqli = getConexao();
-    $sql = "SELECT id, servico, data FROM conserto WHERE competencia_id = ?";
+    $sql = "SELECT id FROM conserto WHERE evento_id = ?";
     $servicos = array();
 
     if ($stmt = $mysqli->prepare($sql)) {
-        $stmt->bind_param("i", $comp_id);
+        $stmt->bind_param("i", $evento_id);
         $stmt->execute();
-        $stmt->bind_result($id, $servico, $data);
+        $stmt->bind_result($id);
 
         while ($stmt->fetch()) {
-          $s = new Conserto($servico, $data, $comp_id);
-          $s->setId($id);
+          $s = ConsertoDao::getPorId($id);
           $servicos[] = $s;
         }
         $stmt->close();
@@ -73,20 +72,37 @@ class ConsertoDao {
   public static function getConsertos() {
     $mysqli = getConexao();
     $consertos = array();
-    $sql = "SELECT id, servico, data, competencia_id FROM conserto";
+    $sql = "SELECT id FROM conserto";
 
     if ($stmt = $mysqli->prepare($sql)) {
         $stmt->execute();
-        $stmt->bind_result($id, $servico, $data, $competencia_id);
+        $stmt->bind_result($id);
 
         while ($stmt->fetch()) {
-          $s = new Conserto($servico, $data, $competencia_id);
-          $s->setId($id);
+          $s = ConsertoDao::getPorId($id);
           $consertos[] = $s;
         }
         $stmt->close();
     }
     $mysqli->close();
     return $consertos;
+  }
+
+  public static function eventoTem($evento_id) {
+    $mysqli = getConexao();
+    $tem = false;
+    $sql = "SELECT id FROM conserto WHERE evento_id = ?";
+
+    if ($stmt = $mysqli->prepare($sql)) {
+        $stmt->bind_param("i", $evento_id);
+        $stmt->execute();
+        $stmt->bind_result($id);
+
+        if ($stmt->fetch())
+          $tem = true;
+        $stmt->close();
+    }
+    $mysqli->close();
+    return $tem;
   }
 }
