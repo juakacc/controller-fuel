@@ -63,7 +63,7 @@ class EventoDao {
       if ($stmt->fetch()) {
         if ($qtd_total > 0 ) {
           $mysqli2 = getConexao();
-          $sql2 = "SELECT id FROM evento LIMIT ?, ?";
+          $sql2 = "SELECT id FROM evento ORDER BY data DESC LIMIT ?, ?";
           $inicio = ($pagina - 1) * $qtd_por_pagina;
           /* Pega os eventos que serão exibidos na paginação */
           if ($stmt2 = $mysqli2->prepare($sql2)) {

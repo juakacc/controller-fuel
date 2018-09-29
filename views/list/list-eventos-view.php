@@ -54,7 +54,7 @@ $url_registerAquisicao = HOME_URI . 'register/aquisicao/';
     </form>
   </div>
 </div> -->
-
+<!-- <div class="table-responsive"> -->
 <table class="table mt-2">
   <tr>
     <th></th><th>Nome</th><th>Veículo</th><th>Data</th><th>Métrica inicial</th><th>Opções</th>
@@ -85,10 +85,8 @@ $url_registerAquisicao = HOME_URI . 'register/aquisicao/';
       </td>
 
       <td>
-        <div>
-          <a href="<?= $url_remover . $e->getId(); ?>" class="btn btn-outline-danger" title="Excluir"><i class="fas fa-minus-circle"></i></a>
-          <a href="<?= $url_editar . $e->getId(); ?>" class="btn btn-outline-warning" title="Editar"><i class="fas fa-pencil-alt"></i></a>
-        </div>
+        <a href="<?= $url_remover . $e->getId(); ?>" class="btn btn-outline-danger btn-sm" title="Excluir"><i class="fas fa-minus-circle"></i></a>
+        <a href="<?= $url_editar . $e->getId(); ?>" class="btn btn-outline-warning btn-sm" title="Editar"><i class="fas fa-pencil-alt"></i></a>
       </td>
     </tr>
 
@@ -112,6 +110,8 @@ $url_registerAquisicao = HOME_URI . 'register/aquisicao/';
               <td>
                 <?php if (empty($abastecimentos)): ?>
                   <a href="<?= $url_registerAbastecimento . $e->getId(); ?>" class="btn btn-dark"><i class="fas fa-plus"></i> Abastecimento</a>
+                <?php else: ?>
+                  <a href="" class="btn btn-dark"><i class="fas fa-pencil-alt"></i> Abastecimento</a>
                 <?php endif; ?>
               </td>
             </tr>
@@ -155,7 +155,7 @@ $url_registerAquisicao = HOME_URI . 'register/aquisicao/';
     </div>
   <?php endforeach; ?>
 </table>
-
+<!-- </div> -->
 <?php include_once ABSPATH . '/views/_includes/list_paginate.php'; ?>
 
 <?php require_once ABSPATH . '/views/_includes/footer.php'; ?>
