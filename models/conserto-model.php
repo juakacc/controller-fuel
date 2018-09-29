@@ -11,6 +11,14 @@ class ConsertoModel extends MainModel {
         $this->form_data[$key] = $value;
       }
 
+      if (! isset($this->form_data['evento'])) {
+        $this->form_msg['evento'] = 'Nenhum evento selecionado';
+      } else {
+        if (ConsertoDao::eventoTem($this->form_data['evento'])) {
+          $this->form_msg['evento'] = 'Esse evento já tem um conserto cadastrado';
+        }
+      }
+
       if (! validar_data($this->form_data['data'])) {
         $this->form_msg['data'] = 'Data inválida';
       }
@@ -24,8 +32,8 @@ class ConsertoModel extends MainModel {
           $this->form_data['data'], $this->form_data['evento']);
         ConsertoDao::adicionarConserto($conserto);
         $_SESSION['messages'][] = 'Conserto cadastrado com sucesso';
-        header('Location: ' . HOME_URI . 'list/consertos');
-        exit;
+        // header('Location: ' . HOME_URI . 'list/consertos');
+        // exit;
       }
     } else { // GET - caso já venha com o evento definido
       $id = check_array($this->controller->parameters, 0);

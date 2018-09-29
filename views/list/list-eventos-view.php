@@ -1,13 +1,17 @@
 <?php
 if (!defined('ABSPATH')) exit;
 
+$page = isset($_GET['page']) ? $_GET['page'] : 1;
+$r = EventoDao::getEventosPaginate($page);
+$eventos = $r['eventos'];
+$total_de_pages = $r['total_de_paginas'];
+
 $q = check_array($_GET, 'q');
 if ($q) {
   // $eompetencias = CompetenciaDao::getComFiltro(check_array($_GET, 'tipo_filtro'), $q);
 } else { // Não filtrou
 
 }
-$eventos = EventoDao::getEventos();
 
 require_once ABSPATH . '/views/_includes/header.php';
 
@@ -35,7 +39,7 @@ $url_registerAquisicao = HOME_URI . 'register/aquisicao/';
   </div>
 </div>
 
-<div class="row mt-2">
+<!-- <div class="row mt-2">
   <div class="col">
     <form class="form-inline">
       <label class="my-1 mr-2" for="tipo-filtro">Filtrar por</label>
@@ -49,7 +53,7 @@ $url_registerAquisicao = HOME_URI . 'register/aquisicao/';
       <a href="<?= HOME_URI ?>list/competencias" class="btn btn-primary ml-2">Mostrar tudo</a>
     </form>
   </div>
-</div>
+</div> -->
 
 <table class="table mt-2">
   <tr>
@@ -151,6 +155,8 @@ $url_registerAquisicao = HOME_URI . 'register/aquisicao/';
     </div>
   <?php endforeach; ?>
 </table>
+
+<?php include_once ABSPATH . '/views/_includes/list_paginate.php'; ?>
 
 <?php require_once ABSPATH . '/views/_includes/footer.php'; ?>
 <script type="text/javascript" src="<?= HOME_URI ?>views/_js/list-competencias.js"></script>

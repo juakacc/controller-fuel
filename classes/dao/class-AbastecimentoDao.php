@@ -88,4 +88,22 @@ class AbastecimentoDao {
     $mysqli->close();
     return $abastecimentos;
   }
+
+  public static function eventoTem($evento_id) {
+    $mysqli = getConexao();
+    $tem = false;
+    $sql = "SELECT id FROM abastecimento WHERE evento_id = ?";
+
+    if ($stmt = $mysqli->prepare($sql)) {
+        $stmt->bind_param("i", $evento_id);
+        $stmt->execute();
+        $stmt->bind_result($id);
+
+        if ($stmt->fetch())
+          $tem = true;
+        $stmt->close();
+    }
+    $mysqli->close();
+    return $tem;
+  }
 }

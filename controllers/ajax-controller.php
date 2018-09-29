@@ -64,13 +64,12 @@ class AjaxController {
 
     if ($veiculo_id) {
       $mysqli = getConexao();
-      // $sql = "SELECT id, nome FROM evento WHERE veiculo_id = ?";
+      // $sql = "SELECT id, nome, data, metrica_inicial FROM evento WHERE veiculo_id = ?";
       $sql = "SELECT id, nome, data, metrica_inicial FROM evento e WHERE veiculo_id = ? AND NOT EXISTS (SELECT * FROM $type WHERE evento_id = e.id)";
 
       if ($stmt = $mysqli->prepare($sql)) {
         $stmt->bind_param("i", $veiculo_id);
         $stmt->execute();
-        // echo $stmt->error;
         $stmt->bind_result($id, $nome, $data, $metrica_inicial);
 
         while ($stmt->fetch()) {

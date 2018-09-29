@@ -11,6 +11,14 @@ class AquisicaoModel extends MainModel {
         $this->form_data[$key] = $value;
       }
 
+      if (! isset($this->form_data['evento'])) {
+        $this->form_msg['evento'] = 'Nenhum evento selecionado';
+      } else {
+        if (AquisicaoDao::eventoTem($this->form_data['evento'])) {
+          $this->form_msg['evento'] = 'Esse evento já tem uma aquisição cadastrada';
+        }
+      }
+
       if (! validar_data($this->form_data['data'])) {
         $this->form_msg['data'] = 'Data inválida';
       }

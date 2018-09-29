@@ -18,14 +18,7 @@ include_once ABSPATH . '/views/_includes/header.php';
     </div>
   </div>
 
-  <div class="form-group row">
-    <label for="veiculo" class="col-form-label col-2">Evento:</label>
-    <div class="col-10">
-      <select class="custom-select" name="evento" id="select-event">
-
-      </select>
-    </div>
-  </div>
+  <?php include_once ABSPATH . '/views/_includes/select_evento.php'; ?>
 
   <div class="form-group row">
     <label for="combustivel" class="col-form-label col-2">Combustível:</label>
