@@ -35,13 +35,10 @@
 
         <?php if (isset($this->logged_in) && $this->logged_in): ?>
           <span class="navbar-text mr-2">Bem-vindo, <?= $this->userdata['name']; ?></span>
-        <?php endif; ?>
-
-        <?php if (isset($_SESSION['userdata']['id'])): ?>
-            <a href="<?= HOME_URI . 'login/sair'; ?>" class="btn btn-outline-danger"><i class="fas fa-sign-in-alt"></i> Sair</a>
-          <?php else: ?>
-            <?php $_SESSION['goto_url'] = HOME_URI; ?>
-            <a href="<?= HOME_URI . 'login'; ?>" class="btn btn-outline-primary"><i class="fas fa-sign-in-alt"></i> Área restrita</a>
+          <a href="<?= HOME_URI . 'login/sair'; ?>" class="btn btn-outline-danger"><i class="fas fa-sign-in-alt"></i> Sair</a>
+        <?php else: ?>
+          <span class="navbar-text mr-2">Bem-vindo, Cidadão</span>
+          <a href="<?= HOME_URI . 'login'; ?>" class="btn btn-outline-primary"><i class="fas fa-sign-in-alt"></i> Área restrita</a>
         <?php endif; ?>
       </div>
     </nav>

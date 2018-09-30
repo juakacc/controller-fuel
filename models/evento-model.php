@@ -26,9 +26,9 @@ class EventoModel extends MainModel {
         $this->form_data['metrica_inicial'] = '';
         $this->form_msg['metrica_inicial'] = 'Quilometragem/Horário inválido';
       } else {
-        $e = EventoDao::getPorVeiculoMetrica($this->form_data['veiculo'], $this->form_data['metrica_inicial']);
-        if (count($e) > 0) { // Essa métrica já foi cadastrada pra esse veículo
-          $this->form_msg['metrica_inicial'] = 'Métrica já registrada para esse veículo';
+        $last_metrica = EventoDao::getUltimaMetrica($this->form_data['veiculo']);
+        if ($this->form_data['metrica_inicial'] < $last_metrica) {
+          $this->form_msg['metrica_inicial'] = 'A última métrica registrada foi: ' . $last_metrica;
         }
       }
 

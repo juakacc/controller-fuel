@@ -3,7 +3,10 @@
 class EditaController extends MainController {
 
   public function veiculo() {
-
+    if (! $this->logged_in) {
+      $this->logout(true);
+      return;
+    }
     $model = $this->load_model('veiculo-model');
 
     $id = check_array($this->parameters, 0);

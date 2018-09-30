@@ -33,28 +33,22 @@ class AjaxController {
     $metrica = '';
 
     if ($id) {
-      $mysqli = getConexao();
-      $sql = "SELECT tipo_metrica FROM veiculo WHERE id = ?";
-
-      if ($stmt = $mysqli->prepare($sql)) {
-        $stmt->bind_param("i", $id);
-        $stmt->execute();
-        $stmt->bind_result($c);
-
-        if ($stmt->fetch()) {
-          $metrica = $c;
-        }
-        $stmt->close();
-      }
-      $mysqli->close();
+      $v = VeiculoDao::getPorId($id);
+      $metrica = $v->getTipoMetrica();
+      
+      $last_metrica = EventoDao::getUltimaMetrica($id);
+      $last_metrica .= ' ' . $metrica;
+      $metrica = ($metrica == 'km') ? 'Quilometragem' : 'Horário';
     }
-    if ($metrica == 'km') {
-      echo 'Quilometragem';
-    } else if ($metrica == 'hr') {
-      echo 'Horário';
-    } else {
-      echo $metrica;
-    }
+
+    $m = array(
+      'tipo_metrica' => $metrica,
+      'last_metrica' => $last_metrica
+    );
+
+    header('Content-type: application/json');
+    echo json_encode($m);
+    // echo $metrica;
   }
 
   public function recuperarEventos() {

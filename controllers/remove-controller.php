@@ -3,6 +3,10 @@
 class RemoveController extends MainController {
 
   public function veiculo() {
+    if (! $this->logged_in) {
+      $this->logout(true);
+      return;
+    }
     $model = $this->load_model('veiculo-model');
 
     $id = check_array($this->parameters, 0);
@@ -20,6 +24,10 @@ class RemoveController extends MainController {
   }
 
   public function evento() {
+    if (! $this->logged_in) {
+      $this->logout(true);
+      return;
+    }
     $model = $this->load_model('evento-model');
 
     $id = check_array($this->parameters, 0);
@@ -37,6 +45,10 @@ class RemoveController extends MainController {
   }
 
   public function abastecimento() {
+    if (! $this->logged_in) {
+      $this->logout(true);
+      return;
+    }
     $model = $this->load_model('abastecimento-model');
 
     $id = check_array($this->parameters, 0);
@@ -54,6 +66,10 @@ class RemoveController extends MainController {
   }
 
   public function conserto() {
+    if (! $this->logged_in) {
+      $this->logout(true);
+      return;
+    }
     $model = $this->load_model('conserto-model');
 
     $id = check_array($this->parameters, 0);
@@ -71,6 +87,10 @@ class RemoveController extends MainController {
   }
 
   public function aquisicao() {
+    if (! $this->logged_in) {
+      $this->logout(true);
+      return;
+    }
     $model = $this->load_model('aquisicao-model');
 
     $id = check_array($this->parameters, 0);

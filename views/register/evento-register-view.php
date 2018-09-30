@@ -69,7 +69,7 @@ include_once ABSPATH . '/views/_includes/header.php'
     <label for="km_inicial" class="col-form-label col-3">Métrica inicial:</label>
     <div class="col">
       <input type="text" name="metrica_inicial" value="<?= check_array($model->form_data, 'metrica_inicial'); ?>" class="form-control" id="metrica_inicial" required placeholder="km / hr">
-      <small class="form-text text-danger">
+      <small class="form-text text-danger" id="last_metrica">
         <?= check_array($model->form_msg, 'metrica_inicial'); ?>
       </small>
     </div>

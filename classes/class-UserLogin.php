@@ -97,9 +97,8 @@ class UserLogin {
 
   protected function logout($redirect = false) {
     $_SESSION['userdata'] = array();
-    unset($_SESSION['userdata']);
-
-    if ($redirect === true) {
+    // unset($_SESSION['userdata']);
+    if ($redirect == true) {
       $this->goto_login();
     }
   }
@@ -108,7 +107,7 @@ class UserLogin {
     if (defined('HOME_URI')) {
       $login_uri = HOME_URI . 'login/';
 
-      $_SESSION['goto_url'] = urlencode($_SERVER['REQUEST_URI']);
+      $_SESSION['goto_url'] = $_SERVER['REQUEST_URI'];
       header('Location: ' . $login_uri);
       exit;
     }

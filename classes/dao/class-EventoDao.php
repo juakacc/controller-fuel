@@ -131,24 +131,23 @@ class EventoDao {
     return $eventos;
   }
 
-  public static function getPorVeiculoMetrica($veiculo_id, $metrica) {
+  public static function getUltimaMetrica($veiculo_id) {
     $mysqli = getConexao();
-    $sql = "SELECT id FROM evento WHERE veiculo_id = ? AND metrica_inicial = ?";
-    $eventos = array();
+    $sql = "SELECT metrica_inicial FROM evento WHERE veiculo_id = ? ORDER BY metrica_inicial DESC LIMIT 1";
+    $metrica = 0;
 
     if ($stmt = $mysqli->prepare($sql)) {
-      $stmt->bind_param("id", $veiculo_id, $metrica);
+      $stmt->bind_param("i", $veiculo_id);
       $stmt->execute();
-      $stmt->bind_result($id);
+      $stmt->bind_result($metrica_inicial);
 
-      while($stmt->fetch()) {
-        $e = EventoDao::getPorId($id);
-        $eventos[] = $e;
+      if ($stmt->fetch()) {
+        $metrica = $metrica_inicial;
       }
       $stmt->close();
      }
      $mysqli->close();
-     return $eventos;
+     return $metrica;
   }
 
   // public static function getComFiltro($id_filtro, $valor) {
