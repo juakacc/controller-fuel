@@ -5,7 +5,7 @@ $consertos = ConsertoDao::getConsertos();
 require_once ABSPATH . '/views/_includes/header.php';
 
 $url_adicionar = HOME_URI . 'register/conserto';
-$url_editar = HOME_URI . 'edita/conserto/';
+$url_editar = HOME_URI . 'edit/conserto/';
 $url_remover = HOME_URI . 'remove/conserto/';
 ?>
 

@@ -5,7 +5,7 @@ $veiculos = VeiculoDao::getVeiculos();
 require_once ABSPATH . '/views/_includes/header.php';
 
 $url_registrar = HOME_URI . 'register/veiculo';
-$url_editar = HOME_URI . 'edita/veiculo/';
+$url_editar = HOME_URI . 'edit/veiculo/';
 $url_remover = HOME_URI . 'remove/veiculo/';
 ?>
 
@@ -35,8 +35,8 @@ $url_remover = HOME_URI . 'remove/veiculo/';
       <td><?= mostrar_placa($v->getPlacaMostrar()); ?></td>
       <td><?= $v->getChassi(); ?></td>
       <td>
-        <a href="<?= $url_remover . $v->getId(); ?>" class="btn btn-outline-danger"><i class="fas fa-minus-circle"></i> Excluir</a>
-        <a href="<?= $url_editar . $v->getId(); ?>" class="btn btn-outline-warning"><i class="fas fa-pencil-alt"></i> Editar</a>
+        <a href="<?= $url_remover . $v->getId(); ?>" class="btn btn-outline-danger btn-sm" title="Excluir"><i class="fas fa-minus-circle"></i></a>
+        <a href="<?= $url_editar . $v->getId(); ?>" class="btn btn-outline-warning btn-sm" title="Editar"><i class="fas fa-pencil-alt"></i></a>
       </td>
     </tr>
   <?php endforeach; ?>

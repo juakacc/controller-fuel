@@ -35,15 +35,17 @@ class AjaxController {
     if ($id) {
       $v = VeiculoDao::getPorId($id);
       $metrica = $v->getTipoMetrica();
-      
+
       $last_metrica = EventoDao::getUltimaMetrica($id);
-      $last_metrica .= ' ' . $metrica;
+      // $last_metrica .= ' ' . $metrica;
+      $abv_metrica = $metrica;
       $metrica = ($metrica == 'km') ? 'Quilometragem' : 'Horário';
     }
 
     $m = array(
       'tipo_metrica' => $metrica,
-      'last_metrica' => $last_metrica
+      'last_metrica' => $last_metrica,
+      'abv_metrica'  => $abv_metrica
     );
 
     header('Content-type: application/json');

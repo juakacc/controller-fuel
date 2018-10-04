@@ -4,16 +4,36 @@ if (! defined('ABSPATH')) exit;
 $eventos = EventoDao::getPorVeiculo($veiculo->getId());
 $url_filtrar = HOME_URI . 'detail/veiculo/' . $veiculo->getId() . '/';
 
-$comp_id = check_array($this->parameters, 1);
+// $comp_id = check_array($this->parameters, 1);
 
-if ($comp_id) {
-  $abastecimentos = AbastecimentoDao::getPorCompetencia($comp_id);
-  $consertos = ConsertoDao::getPorCompetencia($comp_id);
-  $competencia = CompetenciaDao::getPorId($comp_id);
-} else {
-  $abastecimentos = array();
-  $consertos = array();
+$abastecimentos = array();
+$consertos = array();
+$aquisicoes = array();
+
+foreach ($eventos as $e) {
+  $a = AbastecimentoDao::getPorEvento($e->getId());
+  if (isset($a))
+    $abastecimentos[] = $a;
+
+  $a = ConsertoDao::getPorEvento($e->getId());
+  if (isset($a))
+    $consertos[] = $a;
+
+  $a = AquisicaoDao::getPorEvento($e->getId());
+  if (isset($a))
+    $aquisicoes[] = $a;
 }
+
+// $abastecimentos = AbastecimentoDao::get
+//
+// if ($comp_id) {
+//   $abastecimentos = AbastecimentoDao::getPorCompetencia($comp_id);
+//   $consertos = ConsertoDao::getPorCompetencia($comp_id);
+//   $competencia = CompetenciaDao::getPorId($comp_id);
+// } else {
+//   $abastecimentos = array();
+//   $consertos = array();
+// }
 
 require_once ABSPATH . '/views/_includes/header.php';
 ?>
@@ -86,6 +106,30 @@ require_once ABSPATH . '/views/_includes/header.php';
         <tr>
           <td><?= data_para_mostrar($a->getData()) ?></td>
           <td><?= $a->getServico() ?></td>
+        </tr>
+      <?php endforeach; ?>
+    </table>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col">
+    <h4>Aquisições realizadas</h4>
+    <table class="table">
+      <tr>
+        <th>Data</th>
+        <th>Peça :: QTD</th>
+      </tr>
+      <?php foreach ($aquisicoes as $a): ?>
+        <tr>
+          <td><?= data_para_mostrar($a->getData()) ?></td>
+          <td>
+            <ul class="list-unstyled">
+              <?php foreach ($a->getItens() as $_): ?>
+                <li><?= $_->getPeca(); ?> :: <?= $_->getQtd(); ?></li>
+              <?php endforeach; ?>
+            </ul>
+          </td>
         </tr>
       <?php endforeach; ?>
     </table>

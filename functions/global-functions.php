@@ -88,6 +88,7 @@ function mostrar_placa($p) {
 // recebe no formato aaaa-mm-dd
 // retorna no formato dd/mm/aaaa
 function data_para_mostrar($data) {
+  if ($data == '') return;
   $padrao_mostrar = "/^[0-9]{2}\/[0-9]{2}\/[0-9]{4}$/";
   if (preg_match($padrao_mostrar, $data)) return $data;
 
@@ -98,9 +99,18 @@ function data_para_mostrar($data) {
 // recebe no formato dd/mm/aaaa
 // retorna no formato aaaa-mm-dd
 function data_para_banco($data) {
+  if ($data == '') return;
   $padrao_banco = "/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/";
   if (preg_match($padrao_banco, $data)) return $data;
 
   $a = explode('/', $data);
   return $a[2] . '-' . $a[1] . '-' . $a[0];
+}
+
+function litros_para_banco($l) {
+  return str_replace(',', '.', $l);
+}
+
+function litros_para_mostrar($l) {
+  return str_replace('.', ',', $l);
 }

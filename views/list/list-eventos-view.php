@@ -16,12 +16,16 @@ if ($q) {
 require_once ABSPATH . '/views/_includes/header.php';
 
 $url_adicionar = HOME_URI . 'register/evento';
-$url_editar = HOME_URI . 'edita/evento/';
+$url_editar = HOME_URI . 'edit/evento/';
 $url_remover = HOME_URI . 'remove/evento/';
 
 $url_registerAbastecimento = HOME_URI . 'register/abastecimento/';
 $url_registerConserto = HOME_URI . 'register/conserto/';
 $url_registerAquisicao = HOME_URI . 'register/aquisicao/';
+
+$url_editAbastecimento = HOME_URI . 'edit/abastecimento/';
+$url_editConserto = HOME_URI . 'edit/conserto/';
+$url_editAquisicao = HOME_URI . 'edit/aquisicao/';
 ?>
 
 <div class="row">
@@ -54,6 +58,7 @@ $url_registerAquisicao = HOME_URI . 'register/aquisicao/';
     </form>
   </div>
 </div> -->
+
 <!-- <div class="table-responsive"> -->
 <table class="table mt-2">
   <tr>
@@ -92,26 +97,26 @@ $url_registerAquisicao = HOME_URI . 'register/aquisicao/';
 
     <div>
       <tr class="sub" id="div<?= $e->getId(); ?>"> <!-- Abastecimentos, consertos e aquisições da competencia -->
-        <?php $abastecimentos = AbastecimentoDao::getPorEvento($e->getId()); ?>
-        <?php $consertos = ConsertoDao::getPorEvento($e->getId()); ?>
-        <?php $aquisicoes = AquisicaoDao::getPorEvento($e->getId()); ?>
+        <?php
+          $abastecimento = AbastecimentoDao::getPorEvento($e->getId());
+          $conserto = ConsertoDao::getPorEvento($e->getId());
+          $aquisicao = AquisicaoDao::getPorEvento($e->getId());
+        ?>
         <td></td>
         <td colspan="5">
           <table class="table table-bordered">
             <tr> <!-- Combustíveis -->
               <td>Combustível</td>
               <td>
-                <ul class="list-unstyled">
-                  <?php foreach ($abastecimentos as $x): ?>
-                    <li><a href="<?= HOME_URI . 'detail/abastecimento/' . $x->getId(); ?>"><?= $x->getQtd() . ' L'; ?></a></li>
-                  <?php endforeach; ?>
-                </ul>
+                <?php if ($abastecimento): ?>
+                  <a href="<?= HOME_URI . 'detail/abastecimento/' . $abastecimento->getId(); ?>"><?= $abastecimento->getQtd() . ' L'; ?></a>
+                <?php endif; ?>
               </td>
               <td>
-                <?php if (empty($abastecimentos)): ?>
-                  <a href="<?= $url_registerAbastecimento . $e->getId(); ?>" class="btn btn-dark"><i class="fas fa-plus"></i> Abastecimento</a>
+                <?php if ($abastecimento): ?>
+                  <a href="<?= $url_editAbastecimento . $abastecimento->getId(); ?>" class="btn btn-dark"><i class="fas fa-pencil-alt"></i> Abastecimento</a>
                 <?php else: ?>
-                  <a href="" class="btn btn-dark"><i class="fas fa-pencil-alt"></i> Abastecimento</a>
+                  <a href="<?= $url_registerAbastecimento . $e->getId(); ?>" class="btn btn-dark"><i class="fas fa-plus"></i> Abastecimento</a>
                 <?php endif; ?>
               </td>
             </tr>
@@ -119,14 +124,14 @@ $url_registerAquisicao = HOME_URI . 'register/aquisicao/';
             <tr> <!-- Serviços -->
               <td>Serviços</td>
               <td>
-                <ul class="list-unstyled">
-                  <?php foreach ($consertos as $x): ?>
-                    <li><a href=""><?= $x->getServico(); ?></a></li>
-                  <?php endforeach; ?>
-                </ul>
+                <?php if ($conserto): ?>
+                  <a href=""><?= $conserto->getServico(); ?></a>
+                <?php endif; ?>
               </td>
               <td>
-                <?php if (empty($consertos)): ?>
+                <?php if ($conserto): ?>
+                  <a href="<?= $url_editConserto . $conserto->getId(); ?>" class="btn btn-dark"><i class="fas fa-pencil-alt"></i> Conserto</a>
+                <?php else: ?>
                   <a href="<?= $url_registerConserto . $e->getId(); ?>" class="btn btn-dark"><i class="fas fa-plus"></i> Conserto</a>
                 <?php endif; ?>
               </td>
@@ -135,16 +140,18 @@ $url_registerAquisicao = HOME_URI . 'register/aquisicao/';
             <tr> <!-- Aquisiçoes -->
               <td>Aquisições</td>
               <td>
-                <ul class="list-unstyled">
-                  <?php foreach ($aquisicoes as $x): ?>
-                    <?php foreach ($x->getItens() as $_): ?>
+                <?php if ($aquisicao): ?>
+                  <ul class="list-unstyled">
+                    <?php foreach ($aquisicao->getItens() as $_): ?>
                       <li><?= $_->getPeca(); ?> :: <?= $_->getQtd(); ?></li>
                     <?php endforeach; ?>
-                  <?php endforeach; ?>
-                </ul>
+                  </ul>
+                <?php endif; ?>
               </td>
               <td>
-                <?php if (empty($aquisicoes)): ?>
+                <?php if ($aquisicao): ?>
+                  <a href="<?= $url_editAquisicao . $aquisicao->getId(); ?>" class="btn btn-dark"><i class="fas fa-pencil-alt"></i> Aquisição</a>
+                <?php else: ?>
                   <a href="<?= $url_registerAquisicao . $e->getId(); ?>" class="btn btn-dark"><i class="fas fa-plus"></i> Aquisição</a>
                 <?php endif; ?>
               </td>

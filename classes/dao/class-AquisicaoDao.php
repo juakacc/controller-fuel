@@ -49,6 +49,10 @@ class AquisicaoDao {
     $mysqli->close();
   }
 
+  public static function editarAquisicao(Aquisicao $a) {
+    // Falta
+  }
+
   public static function getPorId($id) {
     $mysqli = getConexao();
     $sql = "SELECT data, evento_id FROM aquisicao WHERE id = ?";
@@ -91,38 +95,39 @@ class AquisicaoDao {
   public static function getPorEvento($evento_id) {
     $mysqli = getConexao();
     $sql = "SELECT id FROM aquisicao WHERE evento_id = ?";
-    $aquisicoes = array();
+    $aquisicao = null;
 
     if ($stmt = $mysqli->prepare($sql)) {
         $stmt->bind_param("i", $evento_id);
         $stmt->execute();
         $stmt->bind_result($id);
 
-        while ($stmt->fetch()) {
-          $a = AquisicaoDao::getPorId($id);
-          $aquisicoes[] = $a;
+        if ($stmt->fetch()) {
+          $aquisicao = AquisicaoDao::getPorId($id);
         }
         $stmt->close();
     }
     $mysqli->close();
-    return $aquisicoes;
+    return $aquisicao;
   }
 
-  public static function eventoTem($evento_id) {
-    $mysqli = getConexao();
-    $tem = false;
-    $sql = "SELECT id FROM aquisicao WHERE evento_id = ?";
+  // public static function eventoTem($evento_id) {
+  //   $mysqli = getConexao();
+  //   $tem = false;
+  //   $sql = "SELECT id FROM aquisicao WHERE evento_id = ?";
+  //
+  //   if ($stmt = $mysqli->prepare($sql)) {
+  //       $stmt->bind_param("i", $evento_id);
+  //       $stmt->execute();
+  //       $stmt->bind_result($id);
+  //
+  //       if ($stmt->fetch())
+  //         $tem = true;
+  //       $stmt->close();
+  //   }
+  //   $mysqli->close();
+  //   return $tem;
+  // }
 
-    if ($stmt = $mysqli->prepare($sql)) {
-        $stmt->bind_param("i", $evento_id);
-        $stmt->execute();
-        $stmt->bind_result($id);
 
-        if ($stmt->fetch())
-          $tem = true;
-        $stmt->close();
-    }
-    $mysqli->close();
-    return $tem;
-  }
 }

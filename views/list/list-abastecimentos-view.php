@@ -6,7 +6,7 @@ require_once ABSPATH . '/views/_includes/header.php';
 
 $url_adicionar = HOME_URI . 'register/abastecimento';
 $url_remover = HOME_URI . 'remove/abastecimento/';
-$url_editar = HOME_URI . 'edita/abastecimento/';
+$url_editar = HOME_URI . 'edit/abastecimento/';
 ?>
 
 <div class="row">
@@ -47,7 +47,7 @@ $url_editar = HOME_URI . 'edita/abastecimento/';
         <?= $a->getCombustivel(); ?>
       </td>
       <td>
-        <?= $a->getQtd() . ' L'; ?>
+        <?= litros_para_mostrar($a->getQtd()) . ' L'; ?>
       </td>
       <td>
         <a href="<?= $url_remover . $a->getId(); ?>" class="btn btn-outline-danger" title="Excluir"><i class="fas fa-minus-circle"></i></a>

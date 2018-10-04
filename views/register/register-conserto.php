@@ -20,13 +20,6 @@ include_once ABSPATH . '/views/_includes/header.php';
   <?php include_once ABSPATH . '/views/_includes/select_evento.php'; ?>
 
   <div class="form-group row">
-    <label for="data" class="col-form-label col-2">Data:</label>
-    <div class="col-10">
-      <?php include_once ABSPATH . '/views/_includes/input_data.php'; ?>
-    </div>
-  </div>
-
-  <div class="form-group row">
     <label for="servico" class="col-form-label col-2">Serviço:</label>
     <div class="col-10">
       <input type="text" name="servico" value="<?= check_array($model->form_data, 'servico'); ?>" id="servico" class="form-control" required>

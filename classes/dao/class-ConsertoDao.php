@@ -29,6 +29,20 @@ class ConsertoDao {
     $mysqli->close();
   }
 
+  public static function editarConserto(Conserto $c) {
+    $mysqli = getConexao();
+    $sql = "UPDATE conserto SET servico = ? WHERE id = ?";
+    $servico = $c->getServico();
+    $id = $c->getId();
+
+    if ($stmt = $mysqli->prepare($sql)) {
+        $stmt->bind_param("si", $servico, $id);
+        $stmt->execute();
+        $stmt->close();
+    }
+    $mysqli->close();
+  }
+
   public static function getPorId($id) {
     $mysqli = getConexao();
     $sql = "SELECT servico, data, evento_id FROM conserto WHERE id = ?";
@@ -52,21 +66,20 @@ class ConsertoDao {
   public static function getPorEvento($evento_id) {
     $mysqli = getConexao();
     $sql = "SELECT id FROM conserto WHERE evento_id = ?";
-    $servicos = array();
+    $servico = null;
 
     if ($stmt = $mysqli->prepare($sql)) {
         $stmt->bind_param("i", $evento_id);
         $stmt->execute();
         $stmt->bind_result($id);
 
-        while ($stmt->fetch()) {
-          $s = ConsertoDao::getPorId($id);
-          $servicos[] = $s;
+        if ($stmt->fetch()) {
+          $servico = ConsertoDao::getPorId($id);
         }
         $stmt->close();
     }
     $mysqli->close();
-    return $servicos;
+    return $servico;
   }
 
   public static function getConsertos() {
@@ -88,21 +101,21 @@ class ConsertoDao {
     return $consertos;
   }
 
-  public static function eventoTem($evento_id) {
-    $mysqli = getConexao();
-    $tem = false;
-    $sql = "SELECT id FROM conserto WHERE evento_id = ?";
-
-    if ($stmt = $mysqli->prepare($sql)) {
-        $stmt->bind_param("i", $evento_id);
-        $stmt->execute();
-        $stmt->bind_result($id);
-
-        if ($stmt->fetch())
-          $tem = true;
-        $stmt->close();
-    }
-    $mysqli->close();
-    return $tem;
-  }
+  // public static function eventoTem($evento_id) {
+  //   $mysqli = getConexao();
+  //   $tem = false;
+  //   $sql = "SELECT id FROM conserto WHERE evento_id = ?";
+  //
+  //   if ($stmt = $mysqli->prepare($sql)) {
+  //       $stmt->bind_param("i", $evento_id);
+  //       $stmt->execute();
+  //       $stmt->bind_result($id);
+  //
+  //       if ($stmt->fetch())
+  //         $tem = true;
+  //       $stmt->close();
+  //   }
+  //   $mysqli->close();
+  //   return $tem;
+  // }
 }

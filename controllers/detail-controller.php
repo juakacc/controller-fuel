@@ -21,13 +21,30 @@ class DetailController extends MainController {
   }
 
   public function abastecimento() {
-
     $id_abastecimento = check_array($this->parameters, 0);
 
     if (!is_numeric($id_abastecimento)) {
       header('Location: ' . HOME_URI . 'page-not-found');
       exit;
     }
-    echo 'renderizando abastecimento';
+    $abastecimento = AbastecimentoDao::getPorId($id_abastecimento);
+    if (! $abastecimento) {
+      header('Location: ' . HOME_URI . 'page-not-found');
+      exit;
+    }
+    // Verificar página
+    require_once ABSPATH . '/views/detail/detail-abastecimento-view.php';
+  }
+
+  public function conserto() {
+
+  }
+
+  public function aquisicao() {
+
+  }
+
+  public function evento() {
+    
   }
 }

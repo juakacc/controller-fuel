@@ -30,6 +30,21 @@ class AbastecimentoDao {
     $mysqli->close();
   }
 
+  public static function editarAbastecimento(Abastecimento $a) {
+    $mysqli = getConexao();
+    $sql = "UPDATE abastecimento SET combustivel=?, qtd=? WHERE id = ?";
+    $combustivel = $a->getCombustivel();
+    $qtd = $a->getQtd();
+    $id = $a->getId();
+
+    if ($stmt = $mysqli->prepare($sql)) {
+      $stmt->bind_param("sdi", $combustivel, $qtd, $id);
+      $stmt->execute();
+      $stmt->close();
+    }
+    $mysqli->close();
+  }
+
   public static function getPorId($id) {
     $mysqli = getConexao();
     $sql = "SELECT combustivel, qtd, data, evento_id FROM abastecimento WHERE id = ?";
@@ -53,21 +68,20 @@ class AbastecimentoDao {
   public static function getPorEvento($evento_id) {
     $mysqli = getConexao();
     $sql = "SELECT id FROM abastecimento WHERE evento_id = ?";
-    $abastecimentos = array();
+    $abastecimento = null;
 
     if ($stmt = $mysqli->prepare($sql)) {
         $stmt->bind_param("i", $evento_id);
         $stmt->execute();
         $stmt->bind_result($id);
 
-        while ($stmt->fetch()) {
-          $a = AbastecimentoDao::getPorId($id);
-          $abastecimentos[] = $a;
+        if ($stmt->fetch()) {
+          $abastecimento = AbastecimentoDao::getPorId($id);
         }
         $stmt->close();
     }
     $mysqli->close();
-    return $abastecimentos;
+    return $abastecimento;
   }
 
   public static function getAbastecimentos() {
@@ -89,21 +103,21 @@ class AbastecimentoDao {
     return $abastecimentos;
   }
 
-  public static function eventoTem($evento_id) {
-    $mysqli = getConexao();
-    $tem = false;
-    $sql = "SELECT id FROM abastecimento WHERE evento_id = ?";
-
-    if ($stmt = $mysqli->prepare($sql)) {
-        $stmt->bind_param("i", $evento_id);
-        $stmt->execute();
-        $stmt->bind_result($id);
-
-        if ($stmt->fetch())
-          $tem = true;
-        $stmt->close();
-    }
-    $mysqli->close();
-    return $tem;
-  }
+  // public static function eventoTem($evento_id) {
+  //   $mysqli = getConexao();
+  //   $tem = false;
+  //   $sql = "SELECT id FROM abastecimento WHERE evento_id = ?";
+  //
+  //   if ($stmt = $mysqli->prepare($sql)) {
+  //       $stmt->bind_param("i", $evento_id);
+  //       $stmt->execute();
+  //       $stmt->bind_result($id);
+  //
+  //       if ($stmt->fetch())
+  //         $tem = true;
+  //       $stmt->close();
+  //   }
+  //   $mysqli->close();
+  //   return $tem;
+  // }
 }

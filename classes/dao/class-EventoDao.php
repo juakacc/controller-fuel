@@ -85,7 +85,7 @@ class EventoDao {
     $mysqli->close();
 
     $retorno = array(
-      'total_de_paginas' => ($qtd_total / $qtd_por_pagina),
+      'total_de_paginas' => ceil($qtd_total / $qtd_por_pagina),
       'eventos' => $eventos
     );
     return $retorno;

@@ -28,13 +28,6 @@ include_once ABSPATH . '/views/_includes/header.php';
   </div>
 
   <div class="form-group row">
-    <label for="data" class="col-form-label col-2">Data:</label>
-    <div class="col-10">
-      <?php include_once ABSPATH . '/views/_includes/input_data.php'; ?>
-    </div>
-  </div>
-
-  <div class="form-group row">
     <label for="qtd" class="col-form-label col-2">Quantidade:</label>
     <div class="col-10">
       <input type="text" name="qtd" value="<?= check_array($model->form_data, 'qtd'); ?>" class="form-control" id="qtd" placeholder="Litros" required>

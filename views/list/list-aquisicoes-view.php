@@ -4,7 +4,7 @@ if (!defined('ABSPATH')) exit;
 $aquisicoes = AquisicaoDao::getAquisicoes();
 
 $url_adicionar = HOME_URI . 'register/aquisicao';
-$url_editar = HOME_URI . 'edita/aquisicao/';
+$url_editar = HOME_URI . 'edit/aquisicao/';
 $url_remover = HOME_URI . 'remove/aquisicao/';
 
 require_once ABSPATH . '/views/_includes/header.php';
