@@ -36,7 +36,7 @@ include_once ABSPATH . '/views/_includes/header.php';
   <div class="form-group row">
     <label for="qtd" class="col-form-label col-2">Quantidade:</label>
     <div class="col-10">
-      <input type="text" name="qtd" value="<?= litros_para_mostrar(check_array($model->form_data, 'qtd')); ?>" class="form-control" id="qtd" placeholder="Litros" required>
+      <input type="text" name="qtd" value="<?= metrica_para_mostrar(check_array($model->form_data, 'qtd')); ?>" class="form-control" id="qtd" placeholder="Litros" required>
       <small class="form-text text-danger">
         <?= check_array($model->form_msg, 'qtd'); ?>
       </small>

@@ -19,8 +19,7 @@ class EventoModel extends MainModel {
         $this->form_msg['data'] = 'Data inválida';
       }
 
-      $this->form_data['metrica_inicial'] = str_replace('.', '', $this->form_data['metrica_inicial']);
-      $this->form_data['metrica_inicial'] = str_replace(':', '', $this->form_data['metrica_inicial']);
+      $this->form_data['metrica_inicial'] = metrica_para_banco($this->form_data['metrica_inicial']);
 
       if (! is_numeric($this->form_data['metrica_inicial'])) {
         $this->form_data['metrica_inicial'] = '';

@@ -2,7 +2,6 @@ $(document).ready(function() {
   carregarEventos();
 });
 
-
 $("#veiculo").change(function() {
   carregarEventos();
 });
@@ -21,7 +20,7 @@ function carregarEventos() {
     }, function(result) {
       $.each(result, function(i, obj) {
         options += '<option value="'+ obj.id+'">'
-          +obj.nome+ ' :: ' + obj.data + ' :: ' + obj.metrica +
+          +obj.nome+ ' :: ' + obj.data + ' :: ' + obj.metrica + ' ' + obj.tipo_metrica +
           '</option>';
       });
       select.html(options);

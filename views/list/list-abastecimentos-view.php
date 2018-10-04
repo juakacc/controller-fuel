@@ -47,7 +47,7 @@ $url_editar = HOME_URI . 'edit/abastecimento/';
         <?= $a->getCombustivel(); ?>
       </td>
       <td>
-        <?= litros_para_mostrar($a->getQtd()) . ' L'; ?>
+        <?= metrica_para_mostrar($a->getQtd()) . ' L'; ?>
       </td>
       <td>
         <a href="<?= $url_remover . $a->getId(); ?>" class="btn btn-outline-danger" title="Excluir"><i class="fas fa-minus-circle"></i></a>

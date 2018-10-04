@@ -4,24 +4,19 @@ if (! defined('ABSPATH')) exit;
 $eventos = EventoDao::getPorVeiculo($veiculo->getId());
 $url_filtrar = HOME_URI . 'detail/veiculo/' . $veiculo->getId() . '/';
 
-// $comp_id = check_array($this->parameters, 1);
-
 $abastecimentos = array();
 $consertos = array();
 $aquisicoes = array();
 
 foreach ($eventos as $e) {
   $a = AbastecimentoDao::getPorEvento($e->getId());
-  if (isset($a))
-    $abastecimentos[] = $a;
+  if (isset($a)) $abastecimentos[] = $a;
 
   $a = ConsertoDao::getPorEvento($e->getId());
-  if (isset($a))
-    $consertos[] = $a;
+  if (isset($a)) $consertos[] = $a;
 
   $a = AquisicaoDao::getPorEvento($e->getId());
-  if (isset($a))
-    $aquisicoes[] = $a;
+  if (isset($a)) $aquisicoes[] = $a;
 }
 
 // $abastecimentos = AbastecimentoDao::get

@@ -67,7 +67,7 @@ class AbastecimentoModel extends MainModel {
         $this->form_data[$key] = $value;
       }
 
-      $this->form_data['qtd'] = litros_para_banco($this->form_data['qtd']);
+      $this->form_data['qtd'] = metrica_para_banco($this->form_data['qtd']);
 
       if (! is_numeric($this->form_data['qtd'])) {
         $this->form_data['qtd'] = '';

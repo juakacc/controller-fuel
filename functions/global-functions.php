@@ -107,10 +107,11 @@ function data_para_banco($data) {
   return $a[2] . '-' . $a[1] . '-' . $a[0];
 }
 
-function litros_para_banco($l) {
+function metrica_para_banco($l) {
+  $l = str_replace('.', '', $l);
   return str_replace(',', '.', $l);
 }
 
-function litros_para_mostrar($l) {
+function metrica_para_mostrar($l) {
   return str_replace('.', ',', $l);
 }

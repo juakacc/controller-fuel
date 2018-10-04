@@ -68,12 +68,28 @@ class AjaxController {
         $stmt->execute();
         $stmt->bind_result($id, $nome, $data, $metrica_inicial);
 
+        $sql2 = "SELECT tipo_metrica FROM veiculo WHERE id = ?";
+        $tipo_metrica = 'km';
+        $mysqli2 = getConexao();
+
+        if ($stmt2 = $mysqli2->prepare($sql2)) {
+          $stmt2->bind_param("i", $veiculo_id);
+          $stmt2->execute();
+          $stmt2->bind_result($t);
+
+          if ($stmt2->fetch())
+            $tipo_metrica = $t;
+          $stmt2->close();
+        }
+        $mysqli2->close();
+
         while ($stmt->fetch()) {
           $eventos[] = array(
             'id' => $id,
             'nome' => $nome,
             'data' => data_para_mostrar($data),
-            'metrica' => $metrica_inicial
+            'metrica' => $metrica_inicial,
+            'tipo_metrica' => $tipo_metrica
           );
         }
         $stmt->close();
