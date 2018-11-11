@@ -26,14 +26,14 @@ class EventoModel extends MainModel {
         $this->form_msg['metrica_inicial'] = 'Quilometragem/Horário inválido';
       } else {
         $last_metrica = EventoDao::getUltimaMetrica($this->form_data['veiculo']);
-        if ($this->form_data['metrica_inicial'] < $last_metrica) {
+        if ($this->form_data['metrica_inicial'] <= $last_metrica) {
           $this->form_msg['metrica_inicial'] = 'A última métrica registrada foi: ' . $last_metrica;
         }
       }
 
       if (empty($this->form_msg)) {
         $evento = new Evento($this->form_data['veiculo'], $this->form_data['nome'],
-          $this->form_data['data'], $this->form_data['metrica_inicial']);
+          $this->form_data['data'], $this->form_data['metrica_inicial'], $this->form_data['secretaria']);
         EventoDao::adicionarEvento($evento);
         $_SESSION['messages'][] = 'Evento cadastrado com sucesso';
         header('Location: ' . HOME_URI . 'list/eventos');

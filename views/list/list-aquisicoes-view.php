@@ -27,18 +27,22 @@ require_once ABSPATH . '/views/_includes/header.php';
 
 <table class="table mt-2">
   <tr>
-    <th>ID</th><th>Veículo</th><th>Data</th><th>Peça :: QTD</th><th>Opções</th>
+    <th>Veículo</th><th>Secretaria</th><th>Data</th><th>Peça :: QTD</th><th>Opções</th>
   </tr>
   <?php foreach ($aquisicoes as $c): ?>
     <tr>
-      <td>#<?= $c->getId(); ?></td>
-
       <td>
         <?php
           $evento = EventoDao::getPorId($c->getEventoId());
           $veiculo = VeiculoDao::getPorId($evento->getIdVeiculo());
         ?>
         <?= $veiculo->getNome(); ?>
+      </td>
+      <td>
+        <?php
+          $secretaria = SecretariaDao::getPorId($evento->getSecretaria());
+        ?>
+        <?= $secretaria->getNome(); ?>
       </td>
       <td>
         <?= data_para_mostrar($c->getData()) ?>

@@ -26,19 +26,22 @@ $url_editar = HOME_URI . 'edit/abastecimento/';
 
 <table class="table mt-2">
   <tr>
-    <th>ID</th><th>Carro</th><th>Data</th><th>Combustível</th><th>Quantidade</th><th>Opções</th>
+    <th>Carro</th><th>Secretaria</th><th>Data</th><th>Combustível</th><th>Quantidade</th><th>Opções</th>
   </tr>
   <?php foreach ($abastecimentos as $a): ?>
     <tr>
-      <td>
-        #<?= $a->getId(); ?>
-      </td>
       <td>
         <?php
           $evento = EventoDao::getPorId($a->getEventoId());
           $veiculo = VeiculoDao::getPorId($evento->getIdVeiculo());
         ?>
         <?= $veiculo->getNome(); ?>
+      </td>
+      <td>
+        <?php
+          $secretaria = SecretariaDao::getPorId($evento->getSecretaria());
+        ?>
+        <?= $secretaria->getNome(); ?>
       </td>
       <td>
         <?= data_para_mostrar($a->getData()); ?>

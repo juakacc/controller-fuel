@@ -37,7 +37,9 @@ class VeiculoModel extends MainModel {
         $veiculo = new Veiculo($this->form_data['nome'], $this->form_data['chassi'],
           $this->form_data['placa'], $uf_placa, $this->form_data['tipo_metrica'],
           $this->form_data['combustivel']);
+        $veiculo->setSecretariaPadrao($this->form_data['secretaria']);
         VeiculoDao::adicionarVeiculo($veiculo);
+        
         $_SESSION['messages'][] = 'Veículo adicionado com sucesso';
         header('Location: ' . HOME_URI . 'list/veiculos');
         exit;

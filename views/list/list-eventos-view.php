@@ -6,6 +6,8 @@ $r = EventoDao::getEventosPaginate($page);
 $eventos = $r['eventos'];
 $total_de_pages = $r['total_de_paginas'];
 
+$veiculos = VeiculoDao::getVeiculos();
+
 $q = check_array($_GET, 'q');
 if ($q) {
   // $eompetencias = CompetenciaDao::getComFiltro(check_array($_GET, 'tipo_filtro'), $q);
@@ -43,10 +45,23 @@ $url_editAquisicao = HOME_URI . 'edit/aquisicao/';
   </div>
 </div>
 
-<!-- <div class="row mt-2">
+<div class="row mt-2">
   <div class="col">
     <form class="form-inline">
-      <label class="my-1 mr-2" for="tipo-filtro">Filtrar por</label>
+      <label for="" class="mr-2">Veículo:</label>
+      <select class="custom-select mr-2" name="v">
+        <?php foreach ($veiculos as $v): ?>
+          <option value="<?= $v->getId(); ?>"><?= $v->getNome(); ?></option>
+        <?php endforeach; ?>
+      </select>
+
+      E/OU
+
+      <label for="" class="mr-2 ml-2">Mês</label>
+      <input type="text" name="c" value="" class="form-control" placeholder="mm/aaaa">
+      <button type="submit" class="btn btn-primary ml-2 my-1"><i class="fas fa-search"></i></button>
+
+      <!-- <label class="my-1 mr-2" for="tipo-filtro">Filtrar por</label>
       <select class="custom-select my-1 mr-sm-2" id="tipo-filtro" name="tipo_filtro" onchange="alterarFiltro()">
         <option value="1" <?php if (check_array($_GET, 'tipo_filtro') == 1): ?>selected<?php endif; ?>>Veículo</option>
         <option value="2" <?php if (check_array($_GET, 'tipo_filtro') == 2): ?>selected<?php endif; ?>>Competência</option>
@@ -54,10 +69,10 @@ $url_editAquisicao = HOME_URI . 'edit/aquisicao/';
       </select>
       <input type="text" name="q" id="q" placeholder="" class="form-control my-1 mr-sm-2" value="<?= check_array($_GET, 'q') ?>">
       <button type="submit" class="btn btn-primary my-1"><i class="fas fa-search"></i></button>
-      <a href="<?= HOME_URI ?>list/competencias" class="btn btn-primary ml-2">Mostrar tudo</a>
+      <a href="<?= HOME_URI ?>list/competencias" class="btn btn-primary ml-2">Mostrar tudo</a> -->
     </form>
   </div>
-</div> -->
+</div>
 
 <!-- <div class="table-responsive"> -->
 <table class="table mt-2">

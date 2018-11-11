@@ -9,6 +9,7 @@ class Veiculo {
   private $uf_placa;
   private $combustivel_padrao;
   private $tipo_metrica;
+  private $secretaria_padrao;
 
   public function __construct($nome, $chassi, $placa, $uf_placa, $tipo_metrica, $combustivel_padrao) {
     $this->nome = $nome;
@@ -60,5 +61,13 @@ class Veiculo {
 
   public function getCombustivelPadrao() {
     return $this->combustivel_padrao;
+  }
+
+  public function getSecretariaPadrao() {
+    return $this->secretaria_padrao;
+  }
+
+  public function setSecretariaPadrao($s) {
+    $this->secretaria_padrao = $s;
   }
 }

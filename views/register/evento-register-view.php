@@ -3,6 +3,7 @@ if (! defined('ABSPATH')) exit;
 
 $model->validar_form_adicionar();
 $veiculos = VeiculoDao::getVeiculos();
+$secretarias = SecretariaDao::getSecretarias();
 
 if (! check_array($model->form_data, 'mes'))
   $model->form_data['mes'] = date('m');
@@ -74,6 +75,23 @@ include_once ABSPATH . '/views/_includes/header.php'
       </small>
     </div>
   </div>
+
+  <div class="form-group row">
+    <label for="secretaria" class="col-form-label col-3">Secretaria:</label>
+    <div class="col">
+      <select class="custom-select" name="secretaria" id="secretaria">
+        <?php foreach ($secretarias as $s): ?>
+          <option value="<?= $s->getId(); ?>" <?php if ($s->getId() == check_array($model->form_data, 'secretaria')): ?>selected<?php endif; ?> >
+            <?= $s->getNome(); ?>
+          </option>
+        <?php endforeach; ?>
+      </select>
+      <small class="form-text text-danger">
+        <?= check_array($model->form_msg, 'secretaria'); ?>
+      </small>
+    </div>
+  </div>
+
   <?php include_once ABSPATH . '/views/_includes/btn_forms.php'; ?>
 </form>
 

@@ -4,7 +4,7 @@ class VeiculoDao {
 
   public static function adicionarVeiculo(Veiculo $v) {
     $mysqli = getConexao();
-    $sql = "INSERT INTO veiculo (nome, chassi, sem_placa, placa, uf_placa, combustivel_padrao, tipo_metrica) VALUES (?,?,?,?,?,?,?)";
+    $sql = "INSERT INTO veiculo (nome, chassi, sem_placa, placa, uf_placa, combustivel_padrao, tipo_metrica, secretaria_padrao) VALUES (?,?,?,?,?,?,?,?)";
 
     $sem_placa = $v->getPlaca() == "";
     $nome = $v->getNome();
@@ -13,9 +13,10 @@ class VeiculoDao {
     $uf_placa = $v->getUFPlaca();
     $combustivel_padrao = $v->getCombustivelPadrao();
     $tipo_metrica = $v->getTipoMetrica();
+    $secretaria_padrao = $v->getSecretariaPadrao();
 
     if ($stmt = $mysqli->prepare($sql)) {
-        $stmt->bind_param("ssissss", $nome, $chassi, $sem_placa, $placa, $uf_placa, $combustivel_padrao, $tipo_metrica);
+        $stmt->bind_param("ssissssi", $nome, $chassi, $sem_placa, $placa, $uf_placa, $combustivel_padrao, $tipo_metrica, $secretaria_padrao);
         $stmt->execute();
         $stmt->close();
     }
@@ -74,16 +75,17 @@ class VeiculoDao {
 
   public static function getPorId($id) {
     $mysqli = getConexao();
-    $sql = "SELECT nome, chassi, placa, uf_placa, combustivel_padrao, tipo_metrica FROM veiculo WHERE id = ?";
+    $sql = "SELECT nome, chassi, placa, uf_placa, combustivel_padrao, tipo_metrica, secretaria_padrao FROM veiculo WHERE id = ?";
     $veiculo = null;
 
     if ($stmt = $mysqli->prepare($sql)) {
         $stmt->bind_param("i", $id);
         $stmt->execute();
-        $stmt->bind_result($nome, $chassi, $placa, $uf_placa, $combustivel_padrao, $tipo_metrica);
+        $stmt->bind_result($nome, $chassi, $placa, $uf_placa, $combustivel_padrao, $tipo_metrica, $secretaria_padrao);
 
         if ($stmt->fetch()) {
           $veiculo = new Veiculo($nome, $chassi, $placa, $uf_placa, $tipo_metrica, $combustivel_padrao);
+          $veiculo->setSecretariaPadrao($secretaria_padrao);
           $veiculo->setId($id);
         }
         $stmt->close();

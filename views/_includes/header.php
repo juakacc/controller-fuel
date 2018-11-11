@@ -59,7 +59,7 @@
     </nav> -->
 
     <div class="row justify-content-center">
-      <div class="col-8">
+      <div class="col-10">
         <div> <!-- mensagens -->
           <?php if (isset($_SESSION['messages']) && !empty($_SESSION['messages'])): ?>
             <?php foreach ($_SESSION['messages'] as $msg): ?>

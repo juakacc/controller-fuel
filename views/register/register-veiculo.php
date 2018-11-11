@@ -2,6 +2,10 @@
 if (!defined('ABSPATH')) exit;
 
 $model->validar_form_adicionar();
+if (!isset($model->form_data['uf-placa']))
+  $model->form_data['uf-placa'] = 'PB';
+$secretarias = SecretariaDao::getSecretarias();
+
 include_once ABSPATH . '/views/_includes/header.php';
 ?>
 
@@ -73,6 +77,22 @@ include_once ABSPATH . '/views/_includes/header.php';
           <small class="form-text text-success">Selecione a caixa, caso não tenha placa.</small>
         </div>
       </div>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label for="secretaria" class="col-form-label col-3">Secretaria padrão:</label>
+    <div class="col">
+      <select class="custom-select" name="secretaria" id="secretaria">
+        <?php foreach ($secretarias as $s): ?>
+          <option value="<?= $s->getId(); ?>" <?php if ($s->getId() == check_array($model->form_data, 'secretaria')): ?>selected<?php endif; ?> >
+            <?= $s->getNome(); ?>
+          </option>
+        <?php endforeach; ?>
+      </select>
+      <small class="form-text text-danger">
+        <?= check_array($model->form_msg, 'secretaria'); ?>
+      </small>
     </div>
   </div>
 

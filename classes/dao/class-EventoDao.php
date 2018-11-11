@@ -4,14 +4,15 @@ class EventoDao {
 
   public static function adicionarEvento(Evento $e) {
     $mysqli = getConexao();
-    $sql = "INSERT INTO evento (veiculo_id, nome, data, metrica_inicial) VALUES (?,?,?,?)";
+    $sql = "INSERT INTO evento (veiculo_id, nome, data, metrica_inicial, secretaria_id) VALUES (?,?,?,?,?)";
     $veiculo_id = $e->getIdVeiculo();
     $data = $e->getData();
     $nome = $e->getNome();
     $metrica_inicial = $e->getMetricaInicial();
+    $secretaria = $e->getSecretaria();
 
     if ($stmt = $mysqli->prepare($sql)) {
-        $stmt->bind_param("issd", $veiculo_id, $nome, $data, $metrica_inicial);
+        $stmt->bind_param("issdi", $veiculo_id, $nome, $data, $metrica_inicial, $secretaria);
         $stmt->execute();
         echo $stmt->error;
         $stmt->close();
@@ -57,7 +58,7 @@ class EventoDao {
     /* Verifica o número total de eventos */
     if ($stmt = $mysqli->prepare($sql)) {
       $stmt->execute();
-      echo $stmt->error;
+      // echo $stmt->error;
       $stmt->bind_result($qtd_total);
 
       if ($stmt->fetch()) {
@@ -93,16 +94,16 @@ class EventoDao {
 
   public static function getPorId($id) {
     $mysqli = getConexao();
-    $sql = "SELECT nome, data, veiculo_id, metrica_inicial FROM evento WHERE id = ?";
+    $sql = "SELECT nome, data, veiculo_id, metrica_inicial, secretaria_id FROM evento WHERE id = ?";
     $evento = null;
 
     if ($stmt = $mysqli->prepare($sql)) {
       $stmt->bind_param("i", $id);
       $stmt->execute();
-      $stmt->bind_result($nome, $data, $veiculo_id, $metrica_inicial);
+      $stmt->bind_result($nome, $data, $veiculo_id, $metrica_inicial, $secretaria_id);
 
       if ($stmt->fetch()) {
-        $evento = new Evento($veiculo_id, $nome, $data, $metrica_inicial);
+        $evento = new Evento($veiculo_id, $nome, $data, $metrica_inicial, $secretaria_id);
         $evento->setId($id);
       }
       $stmt->close();

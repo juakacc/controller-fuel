@@ -35,6 +35,7 @@ class AjaxController {
     if ($id) {
       $v = VeiculoDao::getPorId($id);
       $metrica = $v->getTipoMetrica();
+      $secretaria = $v->getSecretariaPadrao();
 
       $last_metrica = EventoDao::getUltimaMetrica($id);
       // $last_metrica .= ' ' . $metrica;
@@ -45,7 +46,8 @@ class AjaxController {
     $m = array(
       'tipo_metrica' => $metrica,
       'last_metrica' => $last_metrica,
-      'abv_metrica'  => $abv_metrica
+      'abv_metrica'  => $abv_metrica,
+      'secretaria'   => $secretaria
     );
 
     header('Content-type: application/json');
